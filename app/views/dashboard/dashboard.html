@@ -1,0 +1,26 @@
+<div ng-controller="DashboardCtrl">
+  <div class="col-lg-2 hidden-xs"  >
+      <div class="sidebar">
+      <div class="profile-info">
+        <div class="metadata">
+          <a ui-sref="dashboard.perfil" href="#/perfil"><img src="images/default-profile-photo.jpg" class="img-circle thumb-photo"></a>
+          <span>{{$root.user.full_name}}</span>     
+        </div>
+      </div>
+          <div class="nav-items">
+            <ul class="menu-list text-right">
+              <li class="menu-item fw text-center" style="border: 1px solid #F7F7F7;
+        border-left: 2px solid #FF5E1B"><a ui-sref=".productos" href="#/productos" style="font-size:16px;" class="smooth strong text-dark">Productos</a></li>
+              <li class="menu-item fw text-center" style="border: 1px solid #F7F7F7;
+        border-left: 2px solid #FF5E1B"><a ui-sref=".categorias" href="#/categorias" style="font-size:16px;" class="smooth strong text-dark">Categorias</a></li>
+              <li class="menu-item fw text-center"><a ui-sref=".pedidos" href="#/pedidos" style="font-size:16px;" class="smooth strong text-dark">Pedidos</a></li>
+              <li class="menu-item fw text-center"><a ui-sref=".change-password" href="#/change-password" style="font-size:16px;" class="smooth strong text-dark">Cambiar Clave</a></li>
+              <li class="menu-item"></li>
+            </ul>
+          </div>
+      </div>  
+  </div>
+  <div class="col-lg-10">
+    <div ui-view></div>
+  </div>
+</div>

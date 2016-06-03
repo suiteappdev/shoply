@@ -1,0 +1,52 @@
+<div class="row" ng-controller="HeaderCtrl">
+<nav class="col-lg-12 dark nav-container">
+    <div class="">
+      <div class="row">
+        <div class="col-lg-4">
+            <div class="col-lg-4" style="left:20px;">
+              <div class="row">
+
+                <h3 style="padding:5px;" class="text-white no-margin no-padding text-center"><i class="glyphicon glyphicon-align-justify"></i> Shoply</h3>
+              </div>
+            </div>  
+            <div class="col-lg-4">
+              
+            </div>
+            <div class="col-lg-4">
+              
+            </div>          
+        </div>
+        <div class="col-lg-4">
+          <div class="nav-container-fluid">
+              <div class="nav-items animated bounce">
+                <ul class="menu-list ">
+                  <li class="menu-item"><a sref="home" href="#/" class="smooth strong text-white">Inicio</a></li>
+                  <li class="menu-item"><a sref="login" href="#/login" class="smooth strong text-white">Ingresar</a></li>
+                  <li class="menu-item"><a sref="register" href="#/" class="smooth strong text-white">Registrate</a></li>
+                  <li ng-show="isLogged" class="menu-item"><a href="#/dashboard" class="smooth strong text-white">Administración</a></li>
+                </ul>        
+              </div>
+          </div>        
+        </div>
+        <div class="col-lg-4 text-right">
+          <div style="padding:5px; padding-right: 20px;" ng-show="isLogged" >
+              <span uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
+                <a href="" id="userOption" uib-dropdown-toggle="" class="dropdown-toggle text-white" aria-haspopup="true" aria-expanded="false">
+                 {{$root.user.full_name}}
+                </a>
+                <ul class="dropdown-menu pull-right" uib-dropdown-menu="" aria-labelledby="userOption">
+                  <li>
+                    <a ui-sref="dashboard.perfil" href="#/perfil">Perfil</a>
+                    <a ui-sref="dashboard.change-password" href="#/change-password" >Cambiar Contraseña</a>
+                    <a href="#" ng-click="logout()">Salir</a>
+                  </li>
+                </ul>
+              </span> 
+              <a href="#!profile" ui-sref="dashboard.perfil"><img src="images/default-profile-photo.jpg" class="img-circle thumb-photo"></a>
+              
+          </div>         
+        </div>
+      </div>
+    </div>
+  </nav> 
+</div>

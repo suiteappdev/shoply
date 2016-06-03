@@ -1,0 +1,69 @@
+<div ng-controller="ProductdetailCtrl" ng-init="load()">
+	<div class="row">
+		<h3>Detalle del producto</h3>
+		<div class="panel panel-default animated bounceIn" style="padding:0px!important;">
+		  <div class="panel-body">
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="email">Producto:</label>
+					<p>{{record.data.producto}}</p>
+				</div>
+				<div class="form-group">
+					<label for="email">Descripcion:</label>
+					<p>{{record.data.descripcion}}</p>
+				</div>
+				<div class="form-group">
+					<label for="email">Estado:</label>
+					<p>{{record.data.estado}}</p>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="email">Categoria:</label>
+					<p><span class="label label-custom">{{record._category.text}}</span></p>
+				</div>
+				<div class="form-group">
+					<label for="email">Iva:</label>
+					<p>{{record.data.iva + '%'}}</p>
+				</div>
+				<div class="form-group">
+					<label for="email">% Utilidad:</label>
+					<p>{{record.data.utilidad + '%'}}</p>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="email">Precio base:</label>
+					<p>{{record.data.precio | currency:"$ "}}</p>
+				</div>
+				<div class="form-group">
+					<label for="pwd">Precio de venta:</label>
+					<p>{{record.data.precio_venta | currency:"$ "}}</p>
+				</div>
+				<div class="form-group">
+					<label for="pwd">Valor utilidad:</label>
+					<p>{{record.data.valor_utilidad | currency:"$ "}}</p>
+				</div>
+			</div>
+		  </div>
+		  <div class="panel-footer">{{record.updatedAt}}</div>
+
+		  </div>
+		<h3>Album</h3>
+		<div class="panel panel-default" style="padding:0px;">
+		  <div class="panel-body">
+		  <div class="col-lg-3" ng-repeat="record in record.data.album"><div class="text-center" style="padding: 6px;background: #F3F3F3;"><img style="width:100%; max-width:250px;" ng-src="{{$root.base + record.file.filename}}" >
+		  <div class="form-group" style="margin-top:5px;">
+				<div class="btn-group text-center">
+				  <button type="button" class="custom-btn custom-btn-primary">Ocultar</button>
+				  <button type="button" class="custom-btn custom-btn-primary">Borrar</button>
+		  		  <input type="file" id="files" file class="hidden">
+	      		  <label for="files" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Cambiar</label>
+				</div>
+		  </div>
+		  </div></div>
+		   </div>
+		  <div class="panel-footer">Imagenes del Producto</div>
+		</div>
+	</div>
+</div>

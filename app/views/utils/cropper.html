@@ -1,0 +1,14 @@
+<div class="inmodal" ng-init="load()">
+    <div class="modal-header text-center custom-modal-header">
+        <h4 class="modal-title">Editar Fotografia</h4>
+    </div>
+  	<div class="modal-body custom-modal-body">
+      <div>
+          <img ng-cloak id="toCrop" style="height:350px;" ng-model="$root.user.metadata.picture.detail" crop-area ng-src="{{$root.base_resource + 'image/'  + $parent.ngModel._id}}">
+      </div>
+  	</div>
+    <div class="modal-footer custom-modal-footer">
+        <button type="button" class="custom-btn custom-btn-default" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="custom-btn custom-btn-primary" ng-click="doCrop()">Listo</button>
+    </div>
+</div>

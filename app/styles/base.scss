@@ -1,0 +1,136 @@
+@import "variables.scss";
+//
+// Base styles
+// --------------------------------------------------
+* {
+  -webkit-user-drag: text;
+  -webkit-user-select: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden!important;
+}
+
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: $font-family-default;
+  font-size: $font-size-default;
+  line-height: $line-height-default;
+  background-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+hr {
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid gray;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+h1 { font-size: 36px; }
+h2 { font-size: 30px; }
+h3 { font-size: 24px; }
+h4 { font-size: 18px; }
+h5 { font-size: 14px; }
+h6 { font-size: 12px; }
+
+// Basic app structure
+@import "variables.scss";
+.window {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+	display: flex;
+  flex-direction: column;
+  background-color: $chrome-color;
+}
+
+.window-content {
+  position: relative;
+  overflow-y: auto;
+	display: flex;
+  flex: 1;
+}
+.sidebar{
+  height: 100vh;
+  background-color: #FFFFFF;
+  border-right: 1px solid #E0E0E0;
+}
+
+.footer{
+    height: 200px;
+    background-color: #333;
+}
+
+.icon-set{
+    width: 150px;
+    height: 150px;
+    font-size: 100px;
+    text-align: center;
+    display: inline;
+    padding: 5px;
+    border: 2px solid #808080;
+    border-radius: 3px;  
+}
+
+.selected {
+  border: 1px solid orange!important;
+}
+
+.right-align-text{
+  text-align:right;
+} 
+
+.label-custom{
+  background-color:#230C00;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    color: #FFF;
+    text-decoration: none;
+    background-color: #230C00;
+}
+
+img {
+  max-width: 100%; /* This rule is very important, please do not ignore this! */
+}
+
+.custom-modal-header{
+    border: none;
+    background-color: #383737;
+    color: #FFF;
+}
+
+.custom-modal-body{
+  padding:0px; 
+}
+
+.custom-modal-footer{
+    border: none;
+    background-color: #383737;
+    color: #FFF;
+}
+
+.intl-tel-input{
+  width:100%;
+}

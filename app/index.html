@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css" />
+    <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css" />
+    <link rel="stylesheet" href="bower_components/jstree/dist/themes/default/style.css" />
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+    <link rel="stylesheet" href="bower_components/cropperjs/dist/cropper.css" />
+    <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="shoplyApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ng-include="'views/home/header.html'"></div>
+    <div ui-view class="row" style="background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/photography.png);"></div>  
+    <div ng-include="'views/home/footer.html'" styl="position: relative;float: left;
+    width: 100%;"></div>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="bower_components/bootstrap-css/js/bootstrap.min.js"></script>
+    <script src="bower_components/sifter/sifter.js"></script>
+    <script src="bower_components/microplugin/src/microplugin.js"></script>
+    <script src="bower_components/selectize/dist/js/selectize.js"></script>
+    <script src="bower_components/angular-selectize2/dist/angular-selectize.js"></script>
+    <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/jsTree-directive/jsTree.directive.js"></script>
+    <script src="bower_components/jstree/dist/jstree.js"></script>
+    <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+    <script src="bower_components/toastr/toastr.js"></script>
+    <script src="bower_components/cropperjs/dist/cropper.js"></script>
+    <script src="bower_components/intl-tel-input/build/js/intlTelInput.min.js"></script>
+    <script src="bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
+    <script src="bower_components/international-phone-number/releases/international-phone-number.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/user.js"></script>
+        <script src="scripts/controllers/registration.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
+        <script src="scripts/services/account.js"></script>
+        <script src="scripts/controllers/request.js"></script>
+        <script src="scripts/services/api.js"></script>
+        <script src="scripts/services/constants.js"></script>
+        <script src="scripts/services/storage.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/requestdetail.js"></script>
+        <script src="scripts/controllers/productos.js"></script>
+        <script src="scripts/services/modal.js"></script>
+        <script src="scripts/directives/estadoproducto.js"></script>
+        <script src="scripts/directives/iva.js"></script>
+        <script src="scripts/directives/cropper.js"></script>
+        <script src="scripts/directives/estadopedido.js"></script>
+        <script src="scripts/controllers/productdetail.js"></script>
+        <script src="scripts/directives/file.js"></script>
+        <script src="scripts/directives/uploader.js"></script>
+        <script src="scripts/controllers/categoria.js"></script>
+        <script src="scripts/directives/categoria.js"></script>
+        <script src="scripts/controllers/categorydetail.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/controllers/header.js"></script>
+        <script src="scripts/controllers/changepassword.js"></script>
+        <script src="scripts/services/sweetalert.js"></script>
+        <script src="scripts/controllers/transportador.js"></script>
+        <script src="scripts/directives/iconpicker.js"></script>
+        <!-- endbuild -->
+        <script src="http://192.168.1.1:8080/socket.io/socket.io.js"></script>
+</body>
+</html>
