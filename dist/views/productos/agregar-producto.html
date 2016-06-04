@@ -1,0 +1,111 @@
+<div class="inmodal">
+    <div class="modal-header text-center">
+        <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
+        <h4 class="modal-title">Agregar Producto</h4>
+    </div>
+  	<div class="modal-body" ng-init="selected ='basic'">
+  	<div class="row">
+  		<div class="col-lg-6">
+  			<div class="form-group">
+  				<button ng-class="selected=='basic' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='basic'" class="custom-btn btn-block">información Basica</button>	
+  			</div>
+  		</div>
+  		<div class="col-lg-6">
+  		<div class="form-group">
+  			<button ng-class="selected=='album' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='album';" class="custom-btn btn-block">Album</button>
+  		</div>	
+  		</div>
+  	</div>
+  	<div class="row" ng-show="selected == 'album'">
+		  <div class="col-lg-6"><div class="text-center" style="padding: 6px;background: #F3F3F3;">
+		  <div><p ng-hide="form.data.album[0].file">Imagen no disponible</p></div><img ng-show="form.data.album[0].file" style="width:100%; max-width:250px; height:250px;" ng-src="{{$root.base + form.data.album[0].file.filename}}" alt="" >
+		  <div class="form-group" style="margin-top:5px;">
+				<div class="btn-group text-center">
+				  <button type="button" class="custom-btn custom-btn-primary">Quitar</button>
+		  		  <input type="file" ng-model="form.data.album[0]" id="photo1" uploader class="hidden">
+	      		  <label for="photo1" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Subir</label>
+				</div>
+		  </div>
+		  </div></div>
+		  <div class="col-lg-6"><div class="text-center" style="padding: 6px;background: #F3F3F3;">
+		  <div><p ng-hide="form.data.album[1].file">Imagen no disponible</p></div><img ng-show="form.data.album[1].file" style="width:100%; max-width:250px; height:250px;" ng-src="{{$root.base + form.data.album[1].file.filename}}" alt="" >
+		  <div class="form-group" style="margin-top:5px;">
+				<div class="btn-group text-center">
+				  <button type="button" class="custom-btn custom-btn-primary">Quitar</button>
+		  		  <input type="file" ng-model="form.data.album[1]" id="photo2" uploader class="hidden">
+	      		  <label for="photo2" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Subir</label>
+				</div>
+		  </div>
+		  </div></div>
+  	</div>
+  	<div ng-show="selected=='basic'">
+	  	<form name="formProducto" novalidate ng-init="$parent.form = null">
+			  <div class="form-group">
+			    <label>Producto:</label>
+			    <input type="text" required placeholder="Producto" class="form-control" ng-model="$parent.form.data.producto">
+			  </div>
+			  <div class="form-group">
+			    <label>Descripcion:</label>
+			    <input type="text" placeholder="Descripción" required class="form-control" ng-model="$parent.form.data.descripcion">
+			  </div>
+				<label>Categoria:</label>
+		      	<categoria key="_id" label="text" ng-model="form._category"></categoria>
+			  <div class="row">
+			  	<div class="col-lg-12">
+					  <div class="form-group">
+					    <label>Precio base:</label>
+					    <input type="number" placeholder="Precio base" required class="form-control" ng-model="$parent.form.data.precio">
+					  </div>			  		
+			  	</div>
+			  </div>
+			  <div class="row">
+			  	<div class="col-lg-6">
+				  <div class="form-group">
+				    <label>Iva:</label>
+				    <iva ng-model="$parent.form.data.iva"></iva>
+				  </div>
+			  	</div>
+			  	<div class="col-lg-6">
+				  <div class="form-group">
+				    <label>Valor Iva:</label>
+					    <input type="number" disabled placeholder="Valor iva" required class="form-control" ng-model="$parent.form.data.valor_iva">
+				  </div>
+			  	</div>
+			  </div>
+			  <div class="row">
+			  	<div class="col-lg-6">
+					 <div class="form-group">
+					    <label>% Utilidad:</label>
+					    <input type="number" placeholder="Utilidad" required class="form-control" ng-model="$parent.form.data.utilidad">
+					</div>			  		
+			  	</div>
+			  	<div class="col-lg-6">
+				  <div class="form-group">
+				    	<label>Valor utilidad:</label>
+					    <input type="number" disabled placeholder="Valor utilidad" required class="form-control" ng-model="$parent.form.data.valor_utilidad">
+				  </div>
+			  	</div>
+			  	<div class="col-lg-12">
+					<div class="form-group">
+					    <label>Estado:</label>
+					    <estado-producto ng-init="$parent.form.data.estado = 'Habilitado'" required ng-model="$parent.form.data.estado"></estado-producto>
+				  	</div>			  		
+			  	</div>
+			  </div>
+	  	</form>
+ 	  <div class="row" style="background-color: #e15305;">
+		  <div class="col-lg-6 text-left">
+		  	<h4 class="text-white">Precio de Venta :</h4>	
+		  </div>
+		  <div class="col-lg-6 text-right" ng-init="$parent.form.data.precio_venta = 0;">
+		  	<h4 class="text-white">{{$parent.form.data.precio_venta | currency:"COP$ "}}</h4>
+		  </div>	  	
+	  </div>
+  	</div>
+
+  	</div>
+    <div class="modal-footer">
+        <button type="button" class="custom-btn custom-btn-default" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Agregar</button>
+    </div>
+</div>
