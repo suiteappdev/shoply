@@ -19,7 +19,7 @@ angular.module('shoplyApp')
         console.log(data);
   		};
 
-  		account.register(angular.extend($scope.form.data, {username : $scope.form.data.email})).then(_success, _error);
+  		account.usuario().register(angular.extend($scope.formRegister.data, {username : $scope.formRegister.data.email})).then(_success, _error);
   	};
 
     $scope.login = function(){
