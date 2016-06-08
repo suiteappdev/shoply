@@ -1,5 +1,17 @@
 <div ng-controller="ProductosCtrl" ng-init="load()">
-	<div class="row">
+  <div class="content" ng-show="records.length == 0">
+    <div ng-class="records.length == 0 ? 'table_wrap table_height' : ''">
+      <div ng-class="records.length == 0 ? 'row table-responsive table_inner' : 'row'">
+          <div class="controls" ng-show="records.length == 0 && Records">
+            <h4 >No hay registros para mostrar <a ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
+          </div>
+          <p class="text-center" ng-show="!Records">
+           <img style="width:50px;" src="images/loading.gif">
+          </p>
+      </div>
+    </div>  
+  </div>
+	<div class="row" ng-show="records.length > 0">
 	<h3>Productos</h3>
 	<div class="panel panel-default" style="padding:0px;">
 	  <div class="panel-body">
@@ -43,9 +55,9 @@
 					<td>{{record.data.precio_venta}}</td>
 					<td><span class="label label-custom">{{record._category.text}}</span></td>
 					<td>{{record.data.estado}}</td>
-					<td class="text-right"><a ui-sref="dashboard.detalle_producto({producto: record._id})" class="custom-btn custom-btn-primary" href="#/detalle-producto/{{record._id}}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
-					<td class="text-right"><a  class="custom-btn btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i></a></td>
-					<td class="text-right"><a ng-click="borrar()" class="custom-btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td>
+					<td class="text-right"><a ui-sref="dashboard.detalle_producto({producto: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-producto/{{record._id}}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+					<td class="text-right"><a  class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i></a></td>
+					<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td>
 				</tr>
 			</tbody>
 		</table>	  	
@@ -60,7 +72,4 @@
 	</div>
 
 	</div>
-
-		 
-	
 </div>

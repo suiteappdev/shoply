@@ -1,9 +1,9 @@
 <div ng-controller="DashboardCtrl">
-  <div class="col-lg-2 hidden-xs"  >
+  <div class="col-lg-2"  >
       <div class="sidebar">
       <div class="profile-info">
         <div class="metadata">
-          <a ui-sref="dashboard.perfil" href="#/perfil"><img src="images/default-profile-photo.jpg" class="img-circle thumb-photo"></a>
+          <a ui-sref="dashboard.perfil" href="#/perfil"><img  ng-src="{{$root.user.metadata.picture  || 'images/no-user-image.gif'}}" class="img-circle thumb-photo"></a>
           <span>{{$root.user.full_name}}</span>     
         </div>
       </div>

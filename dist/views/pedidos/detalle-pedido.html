@@ -17,12 +17,12 @@
 							</td>
 							<td style="width:50%" class="right-align-text">
 								<address class="no-margin">
-									<h4><strong>Your Company</strong></h4>
-									<strong>Your Address</strong> <br>
+									<h4><strong>{{$root.company.company_name}}</strong></h4>
+									<strong>{{$root.company.company_address}}</strong> <br>
 									<abbr title="email">E-mail:</abbr>
-									<a href="mailto:#" data-original-title="" title="">admin@office.com</a><br> 
-									<abbr title="Phone">Phone:</abbr> (000) 333-444-555<br>
-									<abbr title="Fax">Fax:</abbr> (000) 333-444-555
+									<a href="mailto:#" data-original-title="" title="">{{$root.company.company_email}}</a><br> 
+									<abbr title="Phone">Phone:</abbr> {{$root.company.company_phone || ''}}<br>
+									<abbr title="Fax">Fax:</abbr> {{$root.company.company_fax || ''}}
 								</address>
 							</td>
 						</tr>
@@ -76,7 +76,12 @@
 						</tr>
 						<tr class="warning">
 							<td class="total text-warning" colspan="6">
-								<button style="padding:10px;" class="custom-btn custom-btn-primary btn-block" ng-click="process()">Despachar</button>
+								<button style="padding:10px;" class="custom-btn btn-success btn-block" ng-click="process()">DESPACHAR</button>
+							</td>
+						</tr>
+						<tr class="warning">
+							<td class="total text-warning" colspan="6">
+								<button style="padding:10px;" class="custom-btn btn-danger btn-block" ng-click="pending()">PENDIENTE</button>
 							</td>
 						</tr>
 					</tbody>
