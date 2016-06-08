@@ -9,11 +9,14 @@
  */
 angular.module('shoplyApp')
   .controller('CategoriaCtrl', function ($scope, modal, api) {
-  	$scope.load = function(){
-  		api.categoria().get().success(function(res){
-  			$scope.records = res;
-  		});
-  	};
+    $scope.Records = false; 
+    
+    $scope.load = function(){
+      api.categoria().get().success(function(res){
+        $scope.records = res;
+        $scope.Records = true;
+      });
+    };
 
     $scope.addIcon = function(){
        modal.show({templateUrl : 'views/categorias/agregar-icono.html', size :'md', scope: $scope}, function($scope){
@@ -25,7 +28,7 @@ angular.module('shoplyApp')
       console.log(this);
     }
 
-  	$scope.agregar = function(){
+    $scope.agregar = function(){
        modal.show({templateUrl : 'views/categorias/agregar-categoria.html', size :'md', scope: $scope}, function($scope){
             if($scope.formCategoria.$invalid){
                  modal.incompleteForm();
@@ -40,7 +43,7 @@ angular.module('shoplyApp')
                 }
             });
         });
-  	}
+    }
 
     $scope.borrar = function(){
         var _record = this.record;

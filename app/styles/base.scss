@@ -60,7 +60,7 @@ h6 { font-size: 12px; }
   right: 0;
   bottom: 0;
   left: 0;
-	display: flex;
+  display: flex;
   flex-direction: column;
   background-color: $chrome-color;
 }
@@ -68,7 +68,7 @@ h6 { font-size: 12px; }
 .window-content {
   position: relative;
   overflow-y: auto;
-	display: flex;
+  display: flex;
   flex: 1;
 }
 .sidebar{
@@ -133,4 +133,42 @@ img {
 
 .intl-tel-input{
   width:100%;
+}
+
+.iti-flag{
+  width:16px;
+  height:11px;
+  background:url("../images/flags.png");
+  }
+
+  .table_wrap{
+  margin:0;
+  padding:0;
+  width:100%;
+  height: 100%;
+  display: table
+}
+.mediumheader{
+  min-width: 320px;
+    padding: 10px 10px 0px 10px;
+}
+
+.table_height{
+  height : 500px;
+}
+
+.table_inner{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle
+}
+
+.cropArea {
+      background: #E4E4E4;
+      overflow: hidden;
+      width:500px;
+      height:350px;
+      position: relative;
+      float: left;
+      width: 100%;
 }

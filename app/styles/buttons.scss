@@ -34,6 +34,30 @@ button[disabled=disabled], button:disabled {
   }
 }
 
+.custom-btn-tiny {
+  padding: 2px 8px;
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: default;
+  background-image: none;
+  border : 0px;
+  cursor: pointer;
+
+  &:active{
+
+  }
+
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
 .custom-btn.tiny-rounded{
   border-radius: 5px;
 }

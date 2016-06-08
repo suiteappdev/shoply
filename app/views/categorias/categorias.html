@@ -1,48 +1,55 @@
 <div ng-controller="CategoriaCtrl" ng-init="load()">
-	<div class="row">
-	<js-tree tree-data="scope" tree-model="tree"></js-tree>
-
-	<h3>Categorias</h3>
-	<div class="panel panel-default" style="padding:0px;">
-	  <div class="panel-body">
-	  <div class="col-lg-12">
-		  <div class="form-group pull-right">
-		  	<button  class="custom-btn custom-btn-primary large-rounded" ng-click="agregar()">Agregar</button>
+  <div class="content" ng-show="records.length == 0">
+    <div ng-class="records.length == 0 ? 'table_wrap table_height' : ''">
+      <div ng-class="records.length == 0 ? 'row table-responsive table_inner' : 'row'">
+          <div class="controls" ng-show="records.length == 0 && Records">
+            <h4 >No hay registros para mostrar <a ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
+          </div>
+          <p class="text-center" ng-show="!Records">
+           <img style="width:50px;" src="images/loading.gif">
+          </p>
+      </div>
+    </div>  
+  </div>
+	<div class="row" ng-show="records.length > 0">
+		<h3>Categorias</h3>
+		<div class="panel panel-default" style="padding:0px;">
+		  <div class="panel-body">
+		  <div class="col-lg-12">
+			  <div class="form-group pull-right">
+			  	<button  class="custom-btn custom-btn-primary large-rounded" ng-click="agregar()">Agregar</button>
+			  </div>
 		  </div>
-	  </div>
-	  <div class="row">
-			<div class="col-lg-6">
-				<div class="input-group">
-				      <input type="text" class="form-control" placeholder="Buscar">
-				      <span class="input-group-btn">
-				        <button class="btn custom-btn-primary" type="button">Buscar</button>
-				      </span>
-		    	</div>
-			</div>	  	
-	  </div>
-			 <table class="table table-hover">
-				<thead>
-					<th>Categoria</th>
-					<th>Descripción</th>
-					<th></th>
-					<th></th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="record in records">
-						<td>{{record.text }}</td>
-						<td>{{record.data.descripcion || 'no definido'}}</td>
-						<td class="text-right"><a ui-sref="dashboard.detalle_categoria({categoria: record._id})" class="custom-btn custom-btn-primary" href="#/detalle-categoria/{{record._id}}">Detalle</a></td>
-						<td class="text-right"><a class="custom-btn btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
-						<td class="text-right"><a ng-click="borrar()" class="custom-btn btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
-					</tr>
-				</tbody>
-			</table>
-	  </div>
-	  <div class="panel-footer">Listado de Categorias</div>
-	</div>
+		  <div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+					      <input type="text" class="form-control" placeholder="Buscar">
+					      <span class="input-group-btn">
+					        <button class="btn custom-btn-primary" type="button">Buscar</button>
+					      </span>
+			    	</div>
+				</div>	  	
+		  </div>
+				 <table class="table table-hover">
+					<thead>
+						<th>Categoria</th>
+						<th>Descripción</th>
+						<th></th>
+						<th></th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="record in records">
+							<td>{{record.text }}</td>
+							<td>{{record.data.descripcion || 'no definido'}}</td>
+							<td class="text-right"><a ui-sref="dashboard.detalle_categoria({categoria: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-categoria/{{record._id}}">Detalle</a></td>
+							<td class="text-right"><a class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
+							<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
+						</tr>
+					</tbody>
+				</table>
+		  </div>
+		  <div class="panel-footer">Listado de Categorias</div>
+		</div>
 
 	</div>
-
-		 
-	
 </div>

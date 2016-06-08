@@ -22,7 +22,8 @@ angular
     'ui.bootstrap',
     'jsTree.directive',
     'angularUtils.directives.dirPagination',
-    'internationalPhoneNumber'
+    'internationalPhoneNumber',
+    'ngImgCrop'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'

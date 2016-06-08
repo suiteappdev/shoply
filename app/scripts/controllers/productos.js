@@ -9,10 +9,12 @@
  */
 angular.module('shoplyApp')
   .controller('ProductosCtrl',["$scope", "modal", "api", "constants",function ($scope, modal, api, constants) {
-    
+    $scope.Records = false; 
+
     $scope.load = function(){
       api.producto().get().success(function(res){
         $scope.records = res || [];
+        $scope.Records = true;
       });
     }
 
