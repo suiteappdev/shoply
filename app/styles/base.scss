@@ -173,15 +173,22 @@ img {
       width: 100%;
 }
 
+.home-page{
+      background-image: url(../images/background-1.jpg);
+    min-height: 600px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .login-page{
-    background-image: url(/images/background-2.jpg);
+    background-image: url(../images/background-2.jpg);
     min-height: 600px;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .forgot-page{
-    background-image: url(http://lh6.ggpht.com/Y371a7x_yRu1eMzZCW5gLbdnJVrNbRwxtgNHN-ihiQkJqbAQVzH6IuVbuXc7jvUjPD4jFvUZ_tLyllmLMA=s620);
+    background-image: url(../images/background-3.jpg);
     min-height: 600px;
     background-size: cover;
     background-repeat: no-repeat;
