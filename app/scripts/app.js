@@ -96,6 +96,14 @@ angular
               url: '/',
               templateUrl: 'views/home/content.html'
           })
+          .state('about', {
+              url: '/about',
+              templateUrl: 'views/aboutus/aboutus.html'
+          })
+          .state('faq', {
+              url: '/faq',
+              templateUrl: 'views/faq/faq.html'
+          })
           .state('login', {
               url: '/login',
               templateUrl: 'views/login/login.html',

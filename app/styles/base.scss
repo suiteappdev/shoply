@@ -174,7 +174,7 @@ img {
 }
 
 .home-page{
-      background-image: url(../images/background-1.jpg);
+    background-image: url(../images/background-1.jpg);
     min-height: 600px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -190,6 +190,29 @@ img {
 .forgot-page{
     background-image: url(../images/background-3.jpg);
     min-height: 600px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.page-about{
+    background-image: url(../images/background-3.jpg);
+    min-height: 700px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+}
+
+.page-login{
+    background-image: url(../images/background-2.jpg);
+    min-height: 600px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.page-faq{
+    background-image: url(../images/background-2.jpg);
+    min-height: 700px;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
