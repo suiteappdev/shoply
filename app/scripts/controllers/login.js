@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('LoginCtrl', function ($scope, constants, $state, storage, account, $rootScope) {
+  .controller('LoginCtrl', function ($scope, sweetAlert, constants, $state, storage, account, $rootScope) {
   	$scope.load = function(){
 
   	}
@@ -23,7 +23,7 @@ angular.module('shoplyApp')
 	  	};
 
 	  	var _error = function(res){
-	  		console.log(data);
+        	sweetAlert.swal("Formulario incorrecto.", "Las credenciales ingresadas son incorrectas.", "error");
 	  	};
 
 	  	account.usuario().ingresar($scope.form.data).then(_success, _error);  		

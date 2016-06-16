@@ -1,0 +1,20 @@
+<!-- form-payment.html -->
+<div class="text-center">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="col-lg-12" style="margin-bottom:10px;">
+				 <a ng-click="upload()"><img style="width:150px;height:150px;"  ng-src="{{form.data.logo  || 'images/no-user-image.gif'}}"class="img-circle thumb-photo"></a>
+			</div>				
+			
+		</div>
+		<div class="col-lg-6">
+			<h4 class="text-white">{{form.data.empresa}}</h4>
+			<p class="text-white">{{form.data.descripcion}}</p>
+			<p class="text-white">{{form.data.departamento}}, {{form.data.ciudad}}</p>
+			<p class="text-white">{{form.data.telefono}}</p>
+		</div>
+		<div class="col-lg-12">
+			<a ng-click="create()" class="btn btn-block btn-info">Guardar <span class="glyphicon glyphicon-send"></span></a>
+		</div>	
+	</div>
+</div>
