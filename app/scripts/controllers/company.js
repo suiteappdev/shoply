@@ -23,7 +23,7 @@ angular.module('shoplyApp')
   	}
 
   	$scope.upload = function(){
-	      modal.show({templateUrl : 'views/company/form-upload/logo-upload.html', size :'md', scope: $scope}, function($scope){
+	      modal.show({templateUrl : 'views/company/logo-upload.html', size :'md', scope: $scope}, function($scope){
 	          $scope.$close();
 	      });
   	}
