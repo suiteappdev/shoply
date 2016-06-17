@@ -17,25 +17,22 @@
   		</div>
   	</div>
   	<div class="row" ng-show="selected == 'album'">
-		  <div class="col-lg-6"><div class="text-center" style="padding: 6px;background: #F3F3F3;">
-		  <div><p ng-hide="form.data.album[0].file">Imagen no disponible</p></div><img ng-show="form.data.album[0].file" style="width:100%; max-width:250px; height:250px;" ng-src="{{$root.base + form.data.album[0].file.filename}}" alt="" >
-		  <div class="form-group" style="margin-top:5px;">
-				<div class="btn-group text-center">
-				  <button type="button" class="custom-btn custom-btn-primary">Quitar</button>
-		  		  <input type="file" ng-model="form.data.album[0]" id="photo1" uploader class="hidden">
-	      		  <label for="photo1" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Subir</label>
-				</div>
+		  <div class="col-lg-6">
+		  	<div class="text-center left" style="padding: 6px;background: #F3F3F3;width:100%;">
+				  <div class="form-group" style="margin-top:5px;">
+		      		<cropper ng-model="form.data.image1" upload-id="image1"></cropper>
+					<img ng-show="form.data.image1" style="width:100%; max-width:250px; height:250px;" ng-src="{{form.data.image1}}" alt="" > 
+				  </div>
+		  	</div>
 		  </div>
-		  </div></div>
-		  <div class="col-lg-6"><div class="text-center" style="padding: 6px;background: #F3F3F3;">
-		  <div><p ng-hide="form.data.album[1].file">Imagen no disponible</p></div><img ng-show="form.data.album[1].file" style="width:100%; max-width:250px; height:250px;" ng-src="{{$root.base + form.data.album[1].file.filename}}" alt="" >
-		  <div class="form-group" style="margin-top:5px;">
-				<div class="btn-group text-center">
-				  <button type="button" class="custom-btn custom-btn-primary">Quitar</button>
-		  		  <input type="file" ng-model="form.data.album[1]" id="photo2" uploader class="hidden">
-	      		  <label for="photo2" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Subir</label>
-				</div>
-		  </div>
+		  <div class="col-lg-6">
+		  	<div class="text-center left" style="padding: 6px;background: #F3F3F3; width:100%;">
+				  <div class="form-group" style="margin-top:5px;">
+					  <div class="form-group" style="margin-top:5px;">
+			      		<cropper ng-model="form.data.image2" upload-id="image2"></cropper>
+						<img ng-show="form.data.image2" style="width:100%; max-width:250px; height:250px;" ng-src="{{form.data.image2}}" alt="" > 
+					  </div>
+				  </div>
 		  </div></div>
   	</div>
   	<div ng-show="selected=='basic'">

@@ -36,8 +36,9 @@ angular.module('shoplyApp')
 			  		scope.loading = true;
 
 			  		api.upload().post(_formData, { transformRequest: angular.identity, headers: {'Content-Type': undefined}}).success(function(res){
-			  			scope.ngModel = res;
+			  			scope.ngModel = res.location;
 			  			scope.loading = false;
+
 				  			if(scope.crop){
 							      modal.show({templateUrl : 'views/utils/cropper.html', size :'md', scope: scope}, function($scope){
 

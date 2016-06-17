@@ -2,10 +2,10 @@
 <div class="text-center">
 	<div class="row">
 		<div class="col-lg-6">
-			<div class="col-lg-12" style="margin-bottom:10px;">
-				 <a ng-click="upload()"><img style="width:150px;height:150px;"  ng-src="{{form.data.logo  || 'images/no-user-image.gif'}}"class="img-circle thumb-photo"></a>
+			<div ng-hide="$parent.$parent.form.data.logo" class="col-lg-12 left" style="margin-bottom:10px;">
+				<cropper ng-model="$parent.$parent.form.data.logo" upload-id="logo"></cropper>
 			</div>				
-			
+			<img style="max-width:300px;margin-bottom:10px;" ng-show="$parent.$parent.form.data.logo" ng-src="{{$parent.$parent.form.data.logo}}">
 		</div>
 		<div class="col-lg-6">
 			<h4 class="text-white">{{form.data.empresa}}</h4>
@@ -14,7 +14,9 @@
 			<p class="text-white">{{form.data.telefono}}</p>
 		</div>
 		<div class="col-lg-12">
-			<a ng-click="create()" class="btn btn-block btn-info">Guardar <span class="glyphicon glyphicon-send"></span></a>
+		<div class="form-group">	
+				<a ng-click="create()" class="btn btn-block btn-info">Guardar <span class="glyphicon glyphicon-send"></span></a>
+		</div>
 		</div>	
 	</div>
 </div>

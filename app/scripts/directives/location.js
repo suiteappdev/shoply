@@ -20,7 +20,6 @@ angular.module('shoplyApp')
           angular.forEach($scope.records, function(v){
               if(v.name == value){
                   $rootScope.$emit("departamentoField::changed", v.code);
-                  alert(1);
                   $scope.$apply();
                   return;
               }
