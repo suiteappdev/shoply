@@ -15,6 +15,7 @@ angular.module('shoplyApp')
   		  valueField: 'name',
   		  labelField: 'name',
   		  placeholder: 'Departamento',
+        searchField: ['name'],
   		  maxItems: 1, 
         onChange : function(value){
           angular.forEach($scope.records, function(v){
@@ -57,6 +58,7 @@ angular.module('shoplyApp')
       $scope.myConfig = {
         valueField: 'name',
         labelField: 'name',
+        searchField: ['name'],
         placeholder: 'Ciudad',
         maxItems: 1
       };

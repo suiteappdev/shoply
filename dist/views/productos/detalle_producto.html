@@ -20,11 +20,11 @@
 			<div class="col-lg-4">
 				<div class="form-group">
 					<label for="email">Categoria:</label>
-					<p><span class="label label-custom">{{record._category.text}}</span></p>
+					<p><span class="label label-custom">{{record._category.text || 'sin categoria'}}</span></p>
 				</div>
 				<div class="form-group">
 					<label for="email">Iva:</label>
-					<p>{{record.data.iva + '%'}}</p>
+					<p>{{record.data.iva || 0}}</p>
 				</div>
 				<div class="form-group">
 					<label for="email">% Utilidad:</label>
@@ -52,17 +52,11 @@
 		<h3>Album</h3>
 		<div class="panel panel-default" style="padding:0px;">
 		  <div class="panel-body">
-		  <div class="col-lg-3" ng-repeat="record in record.data.album"><div class="text-center" style="padding: 6px;background: #F3F3F3;"><img style="width:100%; max-width:250px;" ng-src="{{$root.base + record.file.filename}}" >
-		  <div class="form-group" style="margin-top:5px;">
-				<div class="btn-group text-center">
-				  <button type="button" class="custom-btn custom-btn-primary">Ocultar</button>
-				  <button type="button" class="custom-btn custom-btn-primary">Borrar</button>
-		  		  <input type="file" id="files" file class="hidden">
-	      		  <label for="files" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Cambiar</label>
-				</div>
+  				<image-uploader 
+  					ng-model="record.data.gallery"
+  					>
+				<image-uploader>
 		  </div>
-		  </div></div>
-		   </div>
 		  <div class="panel-footer">Imagenes del Producto</div>
 		</div>
 	</div>

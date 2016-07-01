@@ -4,11 +4,11 @@
     </div>
     <div class="modal-body custom-modal-body" style="height:350px;">
     <div class="cropArea">
-      <img-crop image="myImage" area-type="square" result-image="$parent.ngModel"></img-crop>
+      <img-crop image="$parent.editImage.preview" area-type="{{$parent.area}}" result-image="$parent.image_final"></img-crop>
     </div>
     </div>
     <div class="modal-footer custom-modal-footer">
-        <button type="button" class="custom-btn custom-btn-default" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
         <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Listo</button>
     </div>
 </div>

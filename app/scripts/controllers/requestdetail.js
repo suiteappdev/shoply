@@ -17,7 +17,9 @@ angular.module('shoplyApp')
   	}
 
   	$scope.process = function (){
-  		$scope.record.data.estado = "Despachado";
+      $scope.record._seller = $scope.record._seller._id;
+      $scope.record._client = $scope.record._client ? $scope.record._client._id : undefined;
+  		$scope.record.metadata.estado = "Despachado";
 
   		api.pedido($stateParams.pedido).put($scope.record).success(function(res){
             sweetAlert("Excelente!!", "Este pedido va en camino..", "success");

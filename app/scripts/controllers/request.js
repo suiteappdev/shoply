@@ -8,26 +8,18 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('RequestCtrl', function ($scope, constants, api, $state, modal) {
+  .controller('RequestCtrl', function ($scope, $window,$timeout, constants, api, $state, modal, $rootScope) {
     $scope.request_status = constants.request_status;
     $scope.Records = false;
+    
+    $rootScope.$on("incoming_request", function(event, data){
+      $scope.records.push(data);
+    });
 
     $scope.load = function(){
-      window.socket.on('request', function(data){
-        
-        toastr.options.onclick = function(){
-          $state.go('dashboard.detalle_pedido', {pedido:data._id});
-        };
-
-      toastr.success('ha llegado un nuevo pedido', {timeOut: 10000});
-          api.pedido(data._id).get().success(function(res){
-            $scope.records.push(res);
-          });
-      });
-
       api.pedido().get().success(function(res){
-        $scope.records = res || [];
-        $scope.Records = true;
+          $scope.records = res || [];
+          $scope.Records = true;          
       });
     }
 

@@ -1,5 +1,5 @@
 <div class="inmodal">
-    <div class="modal-header text-center">
+    <div class="modal-header text-center custom-modal-header">
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Editar Producto</h4>
     </div>
@@ -17,26 +17,7 @@
   		</div>
   	</div>
   	<div class="row" ng-show="selected == 'album'">
-		  <div class="col-lg-6"><div class="text-center" style="padding: 6px;background: #F3F3F3;">
-		  <div><p ng-hide="formEdit.data.album[0].file">Imagen no disponible</p></div><img ng-show="formEdit.data.album[0].file" style="width:100%; max-width:250px;" ng-src="{{$root.base + formEdit.data.album[0].file.filename}}" alt="" >
-		  <div class="form-group" style="margin-top:5px;">
-				<div class="btn-group text-center">
-				  <button type="button" class="custom-btn custom-btn-primary">Quitar</button>
-		  		  <input type="file" ng-model="formEdit.data.album[0]" id="photo1" uploader class="hidden">
-	      		  <label for="photo1" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Subir</label>
-				</div>
-		  </div>
-		  </div></div>
-		  <div class="col-lg-6"><div class="text-center" style="padding: 6px;background: #F3F3F3;">
-		  <div><p ng-hide="formEdit.data.album[1].file">Imagen no disponible</p></div><img ng-show="formEdit.data.album[1].file" style="width:100%; max-width:250px;" ng-src="{{$root.base + formEdit.data.album[1].file.filename}}" alt="" >
-		  <div class="form-group" style="margin-top:5px;">
-				<div class="btn-group text-center">
-				  <button type="button" class="custom-btn custom-btn-primary">Quitar</button>
-		  		  <input type="file" ng-model="formEdit.data.album[1]" id="photo2" uploader class="hidden">
-	      		  <label for="photo2" class="text-center custom-btn custom-btn-primary"><i class="icon icon-cloud-upload"></i> Subir</label>
-				</div>
-		  </div>
-		  </div></div>
+		<image-uploader area="square" title="Galeria del producto" button-text="Cargar imagenes" ng-model="$parent.formEdit.data.gallery"><image-uploader>
   	</div>
   	<div ng-show="selected=='basic'">
 	  	<form name="formProducto" novalidate ng-init="$parent.form = null">
@@ -104,8 +85,8 @@
   	</div>
 
   	</div>
-    <div class="modal-footer">
-        <button type="button" class="custom-btn custom-btn-default" ng-click="cancel()">Cancelar</button>
+    <div class="modal-footer custom-modal-footer">
+        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
         <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Aceptar</button>
     </div>
 </div>

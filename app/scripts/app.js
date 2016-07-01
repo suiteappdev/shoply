@@ -23,7 +23,8 @@ angular
     'jsTree.directive',
     'angularUtils.directives.dirPagination',
     'internationalPhoneNumber',
-    'ngImgCrop'
+    'ngImgCrop',
+    'jkuri.datepicker'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'
@@ -36,10 +37,17 @@ angular
             'request': function(config) {
                 
                 $httpProvider.defaults.withCredentials = false;
-                if(window.localStorage.token)
-                $httpProvider.defaults.headers.common['x-soply-auth'] =  window.localStorage.token ; // common
-                $httpProvider.defaults.headers.common['x-soply-user'] =  angular.fromJson(window.localStorage.user) ?  angular.fromJson(window.localStorage.user)._id : null  ; // common
+                
+                if(window.localStorage.token){
+                   $httpProvider.defaults.headers.common['x-soply-auth'] =  window.localStorage.token ; // common
+                   $httpProvider.defaults.headers.common['x-soply-user'] =  angular.fromJson(window.localStorage.user) ?  angular.fromJson(window.localStorage.user)._id : null  ; // common
+                   
+                   if(angular.fromJson(window.localStorage.user)._company){
+                      $httpProvider.defaults.headers.common['x-soply-company']  =  angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company;
+                   }
 
+                }
+                 
                 console.log(config, 'request')
 
                 for (var x in config.data) {
@@ -198,6 +206,54 @@ angular
                   pageTitle: 'Productos'
                 }
           })
+          .state('dashboard.vendedores', {
+                url: '/vendedores',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/vendedores/vendedores.html',
+                data: {
+                  pageTitle: 'Vendedores'
+                }
+          })
+          .state('dashboard.clientes', {
+                url: '/clientes',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/clientes/clientes.html',
+                data: {
+                  pageTitle: 'Clientes'
+                }
+          })
+          .state('dashboard.arqueos', {
+                url: '/arqueos',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/arqueos/arqueos.html',
+                data: {
+                  pageTitle: 'arqueos'
+                }
+          })
+          .state('dashboard.crear-arqueo', {
+                url: '/crear-arqueo',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/arqueos/crear-arqueo.html',
+                data: {
+                  pageTitle: 'Crear Arqueo'
+                }
+          })
+          .state('dashboard.detalle_cliente', {
+                url: '/detalle-cliente/:cliente',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/clientes/detalle-cliente.html',
+                data: {
+                  pageTitle: 'Detalle del clientes'
+                }
+          })
+          .state('dashboard.rutas', {
+                url: '/rutas',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/rutas/rutas.html',
+                data: {
+                  pageTitle: 'Rutas'
+                }
+          })
           .state('dashboard.categorias', {
                 url: '/categorias',
                 access: { requiredAuthentication: true },
@@ -251,18 +307,34 @@ angular
                   pageTitle: 'Detalle pedido'
                 }
           });
-  }).run(["$rootScope", "constants", "storage", "$state", function($rootScope, constants, storage, $state){
+  }).run(["$rootScope", "constants", "storage", "$state","sounds", "api",  function($rootScope, constants, storage, $state, sounds, api){
         $rootScope.currency = constants.currency;
         $rootScope.base = constants.uploadFilesUrl;
         $rootScope.base_resource = constants.base_resource;
         $rootScope.isLogged = storage.get('user');
         $rootScope.user = storage.get('user');
 
+        window.socket = new io(constants.socket);
 
-      window.socket = new io(constants.socket);
         window.socket.on("connect", function(){
-         console.log("Socket Status: OK")
-      })
+           console.log("Socket Status: OK")
+        })
+
+        window.socket.on('request', function(data){
+          if(window.location.hash.match("dashboard")){
+              toastr.options.onclick = function(){
+                $state.go('dashboard.detalle_pedido', {pedido:data._id});
+              };
+
+              toastr.success('ha llegado un nuevo pedido', {timeOut: 10000});
+
+              sounds.onRequest();
+
+              api.pedido(data._id).get().success(function(res){
+                  $rootScope.$emit("incoming_request", res);
+              });            
+          }
+        });
 
       $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
             if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !storage.get('token')) {

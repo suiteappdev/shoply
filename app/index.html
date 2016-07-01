@@ -29,7 +29,7 @@
 
     <!-- Add your site or application content here -->
     <div ng-include="'views/home/header.html'"></div>
-    <div ui-view class="row" style="background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/photography.png);"></div>  
+    <div ui-view class="row" style="background-image: url(images/pattern.png);"></div>  
     <div ng-include="'views/home/footer.html'" styl="position: relative;float: left;
     width: 100%;"></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -72,6 +72,8 @@
     <script src="bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
     <script src="bower_components/international-phone-number/releases/international-phone-number.js"></script>
     <script src="bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/ngDatepicker/src/js/ngDatepicker.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -82,11 +84,15 @@
         <script src="scripts/controllers/user.js"></script>
         <script src="scripts/controllers/registration.js"></script>
         <script src="scripts/controllers/profile.js"></script>
+        <script src="scripts/controllers/seller.js"></script>
+        <script src="scripts/controllers/client.js"></script>
+        <script src="scripts/controllers/routes.js"></script>
         <script src="scripts/services/account.js"></script>
         <script src="scripts/controllers/request.js"></script>
         <script src="scripts/services/api.js"></script>
         <script src="scripts/services/constants.js"></script>
         <script src="scripts/services/storage.js"></script>
+        <script src="scripts/services/sound.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/requestdetail.js"></script>
         <script src="scripts/controllers/productos.js"></script>
@@ -99,7 +105,9 @@
         <script src="scripts/directives/file.js"></script>
         <script src="scripts/directives/uploader.js"></script>
         <script src="scripts/directives/location.js"></script>
+        <script src="scripts/directives/routes.js"></script>
         <script src="scripts/directives/system.js"></script>
+        <script src="scripts/directives/vendedor.js"></script>
         <script src="scripts/statics/departamentos.js"></script>
         <script src="scripts/statics/municipios.js"></script>
         <script src="scripts/controllers/categoria.js"></script>
@@ -109,10 +117,11 @@
         <script src="scripts/controllers/header.js"></script>
         <script src="scripts/controllers/changepassword.js"></script>
         <script src="scripts/controllers/company.js"></script>
+        <script src="scripts/controllers/arqueo.js"></script>
         <script src="scripts/services/sweetalert.js"></script>
         <script src="scripts/controllers/transportador.js"></script>
         <script src="scripts/directives/iconpicker.js"></script>
         <!-- endbuild -->
-        <script src="http://ec2-52-25-34-211.us-west-2.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>
+        <script src="http://www.shoply.com.co:8080/socket.io/socket.io.js"></script>
 </body>
 </html>

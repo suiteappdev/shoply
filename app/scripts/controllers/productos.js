@@ -20,7 +20,7 @@ angular.module('shoplyApp')
 
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
-      $scope.formEdit._category = this.record._category._id;
+      $scope.formEdit._category = this.record._category ? this.record._category._id : null;
       
       modal.show({templateUrl : 'views/productos/editar_producto.html', size :'md', scope: $scope}, function($scope){
             if($scope.formProducto.$invalid){

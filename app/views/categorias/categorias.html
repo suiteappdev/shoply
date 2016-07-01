@@ -1,7 +1,7 @@
 <div ng-controller="CategoriaCtrl" ng-init="load()">
-  <div class="content" ng-show="records.length == 0">
-    <div ng-class="records.length == 0 ? 'table_wrap table_height' : ''">
-      <div ng-class="records.length == 0 ? 'row table-responsive table_inner' : 'row'">
+  <div class="content" ng-show="!records || records.length == 0">
+    <div class="table_wrap table_height">
+      <div class="row table-responsive table_inner">
           <div class="controls" ng-show="records.length == 0 && Records">
             <h4 >No hay registros para mostrar <a ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
           </div>

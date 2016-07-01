@@ -1,7 +1,7 @@
 <div ng-controller="RequestCtrl" ng-init="load()">
-  <div class="content" ng-show="records.length == 0">
-    <div ng-class="records.length == 0 ? 'table_wrap table_height' : ''">
-      <div ng-class="records.length == 0 ? 'row table-responsive table_inner' : 'row'">
+  <div class="content" ng-show="!records || records.length == 0">
+    <div class="table_wrap table_height">
+      <div class="row table-responsive table_inner">
           <div class="controls" ng-show="records.length == 0 && Records">
             <h4 >No hay registros para mostrar</h4>
           </div>
@@ -30,8 +30,8 @@
 			  </div>
 				 <table class="table table-hover">
 					<thead>
-						<th>Cliente</th>
-						<th>Email</th>
+						<th>Usuario</th>
+						<th>Nombre</th>
 						<th>Barrio</th>
 						<th>Ciudad</th>
 						<th>Dirección</th>
@@ -42,14 +42,22 @@
 						<th></th>
 					</thead>
 					<tbody>
-						<tr dir-paginate="record in records | orderBy: '-createdAt' | itemsPerPage: 5 | filter:search | filter:{data:{ estado : estado}}"  >
-							<td>{{record._user.full_name}}</td>
-							<td>{{record._user.email}}</td>
-							<td>{{record.data.barrio}}</td>
-							<td>{{record.data.ciudad}}</td>
-							<td>{{record.data.direccion}}</td>
+						<tr dir-paginate="record in records | orderBy: '-createdAt' | itemsPerPage: 5 | filter:search | filter:{metadata:{ estado : estado}}"  >
+							<td><span class="label label-info" ng-show="record._seller">Vendedor</span><span class="label label-warning" ng-show="record._client &&!record._seller">Cliente</span></td>
+							<td>{{record._seller.full_name || (record._client.name +" " + record._client.last_name)}}</td>
+							<td>{{record.metadata.barrio}}</td>
+							<td>{{record.metadata.ciudad}}</td>
+							<td>{{record.metadata.direccion}}</td>
 							<td>{{record.createdAt | date:'yyyy-MM-dd hh:mm a'}}</td>
-							<td><span class="label" ng-class="record.data.estado == 'Pendiente' ? 'label-danger' : 'label-success'" >{{record.data.estado}}</span></td>
+							<td>
+							
+							<span class="label label-darkblue" ng-show="record.metadata.estado == 'Facturado'">{{record.metadata.estado}}</span>
+
+							<span class="label label-default" ng-show="record.metadata.estado == 'Pendiente'">{{record.metadata.estado}}</span>
+
+							<span class="label label-success" ng-show="record.metadata.estado == 'Despachado'">{{record.metadata.estado}}</span>
+
+							</td>
 							<td>{{record.metadata.total | currency:"$ "}}</td>
 							<td><a href="#/detalle-pedido/{{record._id}}" ui-sref="dashboard.detalle_pedido({pedido: record._id})" class="custom-btn-tiny custom-btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a></td>
 							<td><button class="custom-btn-tiny btn-danger" ng-click="delete()"><i class="glyphicon glyphicon-trash"></i></button></td>

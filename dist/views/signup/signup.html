@@ -3,7 +3,7 @@
     <div class="onepcssgrid-1200">
       <div class="onerow">
         <div class="col12" style="position:relative;top:50px;">
-        <div class="col6" style="border-right:1px solid #EAE8E8;">
+        <div class="col6" style="border-right:1px solid #EAE8E8;" ng-controller="RegistrationCtrl">
             <h1 class="text-dark text-center">Registrarse.</h1>
             <p class="text-center no-margin" style="color:#9A9A9A;font-size:18px;">con</p>
             <div class="col6" style="position:relative;top:10px;">
@@ -20,37 +20,38 @@
               <p class="text-center no-margin" style="color:#9A9A9A;font-size:18px;">O</p>
             </div>
             <div class="col12">
-              <form name="formRegister" novalidate>
-                <div class="col6" style="position:relative;top:15px;">
-                  <div class="panel">
-                      <div class="form-group">
-                        <input type="text" required name="firstname" ng-model="form.data.name"  class="form-control" placeholder="Nombres">
-                      </div>
-                      <div class="form-group">
-                        <input type="text" required name="lastname" ng-model="form.data.last_name"  class="form-control" placeholder="Apellidos">
-                      </div>
-                      <div class="form-group">
-                        <input type="email" required name="email" ng-model="form.data.email"  class="form-control" placeholder="Correo electronico">
-                      </div>
-                  </div>
-                </div>
-                <div class="col6 last" style="position:relative;top:15px;">
-                  <div class="panel">
-                    <div class="form-group">
-                      <input type="password" required name="password" ng-model="form.data.password"  class="form-control" placeholder="Clave">
+                <form name="signUp">
+                  <div class="col6" style="position:relative;top:15px;">
+                    <div class="panel">
+                        <div class="form-group">
+                          <input type="text" required name="firstname" ng-model="form.data.name"  class="form-control" placeholder="Nombres">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" required name="lastname" ng-model="form.data.last_name"  class="form-control" placeholder="Apellidos">
+                        </div>
+                        <div class="form-group">
+                          <input type="email" required name="email" ng-model="form.data.email"  class="form-control" placeholder="Correo electronico">
+                        </div>
                     </div>
-                    <div class="form-group">
-                      <input type="password" required name="confirmPassowrd" ng-model="form.data.confirm"  class="form-control" placeholder="Confirmar clave">
-                    </div>              
                   </div>
-                </div>
+                  <div class="col6 last" style="position:relative;top:15px;">
+                    <div class="panel">
+                      <div class="form-group">
+                        <input type="password" required name="password" ng-model="form.data.password"  class="form-control" placeholder="Clave">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" required name="confirmPassowrd" ng-model="form.data.confirm"  class="form-control" placeholder="Confirmar clave">
+                      </div>              
+                    </div>
+                  </div>                  
+                </form>
                 <div class="col12 text-center">
                     <div class="form-group">
                       <input type="checkbox" required id="c1" name="cb">
                       <label for="c1">Acepto todos los terminos y condiciones.</label>
                     </div>                 
-                </div>                
-              </form>
+                </div> 
+
             </div>
             <div class="col12" style="position:relative;">
               <div class="form-group">
@@ -100,7 +101,6 @@
                 <a href="" class="text-dark">No soy mienbro aun?</a>
               </div>              
             </div>
-
         </div>
         </div>
       </div>

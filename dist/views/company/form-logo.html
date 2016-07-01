@@ -1,22 +1,13 @@
 <!-- form-payment.html -->
 <div class="text-center">
 	<div class="row">
-		<div class="col-lg-6">
-			<div ng-hide="$parent.$parent.form.data.logo" class="col-lg-12 left" style="margin-bottom:10px;">
-				<cropper ng-model="$parent.$parent.form.data.logo" upload-id="logo"></cropper>
-			</div>				
-			<img style="max-width:300px;margin-bottom:10px;" ng-show="$parent.$parent.form.data.logo" ng-src="{{$parent.$parent.form.data.logo}}">
-		</div>
-		<div class="col-lg-6">
-			<h4 class="text-white">{{form.data.empresa}}</h4>
-			<p class="text-white">{{form.data.descripcion}}</p>
-			<p class="text-white">{{form.data.departamento}}, {{form.data.ciudad}}</p>
-			<p class="text-white">{{form.data.telefono}}</p>
+		<div class="row">
+  		<image-uploader area="circle" title="Sube tu imagen corporativa" button-text="Cargar Imagen" items="1" label="text-white" ng-model="form.data.gallery"><image-uploader>
 		</div>
 		<div class="col-lg-12">
-		<div class="form-group">	
+			<div class="form-group">	
 				<a ng-click="create()" class="btn btn-block btn-info">Guardar <span class="glyphicon glyphicon-send"></span></a>
-		</div>
+			</div>
 		</div>	
 	</div>
 </div>

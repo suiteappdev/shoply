@@ -20,7 +20,7 @@ angular.module('shoplyApp')
                     
                   })
                 .error(function(data, status, headers, config) {
-                    async.reject(status);
+                    async.reject(data);
                   });
 
               return async.promise;

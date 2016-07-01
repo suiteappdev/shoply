@@ -9,20 +9,22 @@
       </div>
           <div class="nav-items">
             <ul class="menu-list text-right">
-              <li class="menu-item fw text-center" style="border: 1px solid #F7F7F7;
-        border-left: 2px solid #FF5E1B"><a ui-sref="dashboard.empresa.information" href="#/information" style="font-size:16px;" class="smooth strong text-dark">Empresa</a></li>
-              <li class="menu-item fw text-center" style="border: 1px solid #F7F7F7;
-        border-left: 2px solid #FF5E1B"><a ui-sref=".productos" href="#/productos" style="font-size:16px;" class="smooth strong text-dark">Productos</a></li>
-              <li class="menu-item fw text-center" style="border: 1px solid #F7F7F7;
-        border-left: 2px solid #FF5E1B"><a ui-sref=".categorias" href="#/categorias" style="font-size:16px;" class="smooth strong text-dark">Categorias</a></li>
-              <li class="menu-item fw text-center"><a ui-sref=".pedidos" href="#/pedidos" style="font-size:16px;" class="smooth strong text-dark">Pedidos</a></li>
-              <li class="menu-item fw text-center"><a ui-sref=".change-password" href="#/change-password" style="font-size:16px;" class="smooth strong text-dark">Cambiar Clave</a></li>
+  
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref="dashboard.empresa.information" href="#/information" style="font-size:16px;" class="smooth strong text-dark">Empresa</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;       "><a ui-sref=".clientes" href="#/clientes" style="font-size:16px;" class="smooth strong text-dark">Clientes</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".productos" href="#/productos" style="font-size:16px;" class="smooth strong text-dark">Productos</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".rutas" href="#/rutas" style="font-size:16px;" class="smooth strong text-dark">Rutas</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".vendedores" href="#/vendedores" style="font-size:16px;" class="smooth strong text-dark">Vendedores</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".categorias" href="#/categorias" style="font-size:16px;" class="smooth strong text-dark">Categorias</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active"><a ui-sref=".pedidos" href="#/pedidos" style="font-size:16px;" class="smooth strong text-dark">Pedidos</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active"><a ui-sref=".arqueos" href="#/arqueos" style="font-size:16px;" class="smooth strong text-dark">Arqueos</a></li>
+              <li class="menu-item fw text-center" ui-sref-active="menu-item-active"><a ui-sref=".change-password" href="#/change-password" style="font-size:16px;" class="smooth strong text-dark">Cambiar Clave</a></li>
               <li class="menu-item"></li>
             </ul>
           </div>
       </div>  
   </div>
-  <div class="col-lg-10">
-    <div ui-view></div>
+  <div class="col-lg-10 row">
+    <div ui-view class="container"></div>
   </div>
 </div>

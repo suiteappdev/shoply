@@ -1,0 +1,12 @@
+<div class="inmodal" ng-init="load()">
+    <div class="modal-header text-center custom-modal-header">
+        <h4 class="modal-title">Vista Previa</h4>
+    </div>
+    <div class="modal-body custom-modal-body text-center">
+    <img ng-src="{{file}}">
+    </div>
+    <div class="modal-footer custom-modal-footer">
+        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Listo</button>
+    </div>
+</div>

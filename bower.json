@@ -23,11 +23,16 @@
     "toastr": "^2.1.2",
     "cropperjs": "^0.7.1",
     "international-phone-number": "^0.0.16",
-    "ng-img-crop": "^0.3.2"
+    "ng-img-crop": "^0.3.2",
+    "moment": "^2.13.0",
+    "ngDatepicker": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
   },
   "appPath": "app",
-  "moduleName": "shoplyApp"
+  "moduleName": "shoplyApp",
+  "resolutions": {
+    "angular": "~1.4.0"
+  }
 }

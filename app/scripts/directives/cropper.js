@@ -6,11 +6,7 @@ angular.module("shoplyApp").directive("cropper", function($rootScope, $timeout ,
 		          $scope.$close();
 		      });
 		}
-
-		$scope.load = function (){
-			$scope.ngModel = null;
-		}
-	}
+	} 
 
 	function link($scope, $element, $attr){
         var handleFileSelect = function(evt) {
@@ -36,13 +32,12 @@ angular.module("shoplyApp").directive("cropper", function($rootScope, $timeout ,
 
 	return {
 		restrict : "EA",
-		template:'<div ng-init="load()"><div ng-show="!isLoaded" ><input type="file" id="{{uploadId}}" class="hidden"><label style="width: 100%;float: left;position: relative;height: 350px;line-height: 7; font-size: 50px;" for="{{uploadId}}" class="text-center custom-btn custom-btn-primary"><i class="icon icon-picture"></i>Subir</label></div></div>',
+		template:'<div><div ng-show="!isLoaded" ><input type="file" id="{{uploadId}}" class="hidden"><label style="width: 100%;float: left;position: relative;height: 350px;line-height: 7; font-size: 50px;" for="{{uploadId}}" class="text-center custom-btn custom-btn-primary"><i class="icon icon-picture"></i>Subir</label></div></div>',
 		scope : {
 			ngModel : "=",
 			uploadId : "@"
 		},
 		controller : ctrl,
-		replace : true,
 		link : link
 	}
 });

@@ -1,7 +1,7 @@
 <div ng-controller="ProductosCtrl" ng-init="load()">
-  <div class="content" ng-show="records.length == 0">
-    <div ng-class="records.length == 0 ? 'table_wrap table_height' : ''">
-      <div ng-class="records.length == 0 ? 'row table-responsive table_inner' : 'row'">
+  <div class="content" ng-show="!records || records.length == 0">
+    <div class="table_wrap table_height">
+      <div class="row table-responsive table_inner">
           <div class="controls" ng-show="records.length == 0 && Records">
             <h4 >No hay registros para mostrar <a ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
           </div>
@@ -47,17 +47,18 @@
 				<th></th>
 			</thead>
 			<tbody>
-				<tr dir-paginate="record in records | itemsPerPage: 5 | filter:search">
+				<tr dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
 					<td class="hidden">{{record._id}}</td>
 					<td>{{record.data.producto}}</td>
 					<td>{{record.data.descripcion || 'no definido'}}</td>
 					<td>{{record.data.precio | currency:"$ "}}</td>
-					<td>{{record.data.precio_venta}}</td>
-					<td><span class="label label-custom">{{record._category.text}}</span></td>
+					<td>{{record.data.precio_venta | currency:"$ "}}</td>
+					<td><span class="label label-custom">{{record._category.text || 'sin categoria'}}</span></td>
 					<td>{{record.data.estado}}</td>
-					<td class="text-right"><a ui-sref="dashboard.detalle_producto({producto: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-producto/{{record._id}}"><i class="glyphicon glyphicon-eye-open"></i></a></td>
-					<td class="text-right"><a  class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i></a></td>
-					<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash"></i></a></td>
+					<td></td>
+					<td class="text-right"><a ui-sref="dashboard.detalle_producto({producto: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-producto/{{record._id}}"><i class="glyphicon glyphicon-eye-open"></i>Detalle</a></td>
+					<td class="text-right"><a  class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>Editar</a></td>
+					<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash"></i>Eliminar</a></td> 
 				</tr>
 			</tbody>
 		</table>	  	

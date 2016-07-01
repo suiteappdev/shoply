@@ -1,5 +1,5 @@
 <div class="inmodal">
-    <div class="modal-header text-center">
+    <div class="modal-header text-center custom-modal-header">
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Agregar Producto</h4>
     </div>
@@ -17,23 +17,7 @@
   		</div>
   	</div>
   	<div class="row" ng-show="selected == 'album'">
-		  <div class="col-lg-6">
-		  	<div class="text-center left" style="padding: 6px;background: #F3F3F3;width:100%;">
-				  <div class="form-group" style="margin-top:5px;">
-		      		<cropper ng-model="form.data.image1" upload-id="image1"></cropper>
-					<img ng-show="form.data.image1" style="width:100%; max-width:250px; height:250px;" ng-src="{{form.data.image1}}" alt="" > 
-				  </div>
-		  	</div>
-		  </div>
-		  <div class="col-lg-6">
-		  	<div class="text-center left" style="padding: 6px;background: #F3F3F3; width:100%;">
-				  <div class="form-group" style="margin-top:5px;">
-					  <div class="form-group" style="margin-top:5px;">
-			      		<cropper ng-model="form.data.image2" upload-id="image2"></cropper>
-						<img ng-show="form.data.image2" style="width:100%; max-width:250px; height:250px;" ng-src="{{form.data.image2}}" alt="" > 
-					  </div>
-				  </div>
-		  </div></div>
+  		<image-uploader area="square" title="Galeria del producto" button-text="Cargar imagenes" ng-model="form.data.gallery"><image-uploader>
   	</div>
   	<div ng-show="selected=='basic'">
 	  	<form name="formProducto" novalidate ng-init="$parent.form = null">
@@ -88,6 +72,12 @@
 					    <estado-producto ng-init="$parent.form.data.estado = 'Habilitado'" required ng-model="$parent.form.data.estado"></estado-producto>
 				  	</div>			  		
 			  	</div>
+			  	<div class="col-lg-12">
+					<div class="form-group">
+					    <label>Etiquetas:</label>
+			  			<selectize config="{plugins: ['remove_button'], create:true, maxItems:10, placeholder:'Escribe la etiqueta  y presiona ENTER'}" options='[]' ng-model="$parent.form.data.tags"></selectize>
+				  	</div>			  		
+			  	</div>
 			  </div>
 	  	</form>
  	  <div class="row" style="background-color: #e15305;">
@@ -101,8 +91,8 @@
   	</div>
 
   	</div>
-    <div class="modal-footer">
-        <button type="button" class="custom-btn custom-btn-default" ng-click="cancel()">Cancelar</button>
+    <div class="modal-footer custom-modal-footer">
+        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
         <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Agregar</button>
     </div>
 </div>

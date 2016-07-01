@@ -8,21 +8,24 @@
 						<tr>
 							<td style="width:50%">
 								<address class="no-margin">
-									<h4><strong>{{record._user.full_name}},</strong></h4>
+									<h4 style="margin:0px;"><strong>{{record._seller.name + " " + record._seller.last_name}},</strong> 		</h4>
 									<strong>{{record.data.direccion}}</strong> <br>
 									<abbr title="email">E-mail:</abbr>
-									<a href="mailto:#" data-original-title="" title="">{{record._user.email}}</a><br> 
-									<abbr title="Phone">Contacto:</abbr> (+57) {{record.data.telefono}}<br>
+									<a href="mailto:#" data-original-title="" title="">{{record._seller.email}}</a><br> 
+									<abbr title="Phone">Celular:</abbr> (+57) {{record._seller.metadata.phone}}<br>
+									<abbr title="Fijo">Fijo:</abbr> (+57) {{record._seller.metadata.fijo}}<br>
 								</address>
+								<span class="label label-info" ng-show="record._seller">Vendedor</span><span class="label label-warning" ng-show="record._client &&!record._seller">Cliente</span>
 							</td>
 							<td style="width:50%" class="right-align-text">
 								<address class="no-margin">
-									<h4><strong>{{$root.company.company_name}}</strong></h4>
-									<strong>{{$root.company.company_address}}</strong> <br>
+									<h4><strong>{{record._company.data.empresa}}</strong></h4>
+									<strong>{{record._company.data.direccion}}</strong> <br>
 									<abbr title="email">E-mail:</abbr>
-									<a href="mailto:#" data-original-title="" title="">{{$root.company.company_email}}</a><br> 
-									<abbr title="Phone">Phone:</abbr> {{$root.company.company_phone || ''}}<br>
-									<abbr title="Fax">Fax:</abbr> {{$root.company.company_fax || ''}}
+									<a href="mailto:#" data-original-title="" title="">{{record._company.data.email}}</a><br> 
+									<abbr title="Phone">Telefono:</abbr> {{record._company.data.telefono}}<br>
+									<abbr title="Phone">Celular:</abbr> {{record._company.data.celular}}<br>
+									<abbr title="Fax">Fax:</abbr> {{record._company.data.fax}}
 								</address>
 							</td>
 						</tr>
@@ -67,19 +70,19 @@
 							<td class="total" colspan="5">Descuento</td>
 							<td>$ 0.00</td>
 						</tr>
-						<tr class="success">
+						<tr class="">
 							<td colspan="6" class=""><h5>{{record.data.nota || "sin nota.."}}</h5></td>
 						</tr>
-						<tr class="warning">
+						<tr class="">
 							<td class="total text-warning" colspan="5"><h5>Total</h5></td>
 							<td class="hidden-phone text-info"><h4>{{record.metadata.total | currency: "$ "}}</h4></td>
 						</tr>
-						<tr class="warning">
+						<tr class="">
 							<td class="total text-warning" colspan="6">
 								<button style="padding:10px;" class="custom-btn btn-success btn-block" ng-click="process()">DESPACHAR</button>
 							</td>
 						</tr>
-						<tr class="warning">
+						<tr class="">
 							<td class="total text-warning" colspan="6">
 								<button style="padding:10px;" class="custom-btn btn-danger btn-block" ng-click="pending()">PENDIENTE</button>
 							</td>

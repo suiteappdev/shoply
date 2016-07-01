@@ -15,6 +15,10 @@ html {
   overflow-x: hidden!important;
 }
 
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
 body {
   height: 100%;
   padding: 0;
@@ -218,6 +222,83 @@ img {
     background-attachment: fixed;
 }
 
+.selectize-control.multi .selectize-input > div {
+    cursor: pointer;
+    margin: 0 3px 3px 0;
+    padding: 2px 6px;
+    color: #303030;
+    border: 0 solid #d0d0d0;
+    background-color:#FF5E1B;
+    color:white;
+}
+
+.image-file-container{
+    height: 269px;
+    background-color: #f7f7f7;
+    padding: 5px;
+}
+
+.file-item{
+    height: auto;
+    width: 100%;
+    float: left;
+    padding: 5px;
+    background-color: white;
+}
+.file-option-link{
+    margin-right: 10px;
+    top: -12px;
+    position: relative;
+}
+
+.image-file{
+    position: relative;
+    top: 5px;
+}
+
+.menu-item-active{
+  border-left: 2px solid #FF5E1B!important;
+}
+
+.tiny-text{
+  font-size: 10px;
+}
+
+.empty{
+  width:100%;
+  height:100%;
+}
+
+.label-darkblue {
+    background-color: #001c24;
+}
+
+.upload_success{
+  border-left: 3px solid #8ff98f;
+}
+
+.upload_warning{
+  border-left: 3px solid #ffe800;
+}
+
+.ng-datepicker-input{
+    border: 1px solid #d0d0d0;
+    padding: 8px 8px;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
 /* BASIC STYLINGS
 ============================================================================= */
 pre                             { margin-bottom:20px; }
@@ -225,7 +306,7 @@ pre                             { margin-bottom:20px; }
 /* form styling */
 #form-container                { background:#2f2f2f; margin-bottom:20px;
     border-radius:5px; }
-#form-container .page-header   { background:#230c00; margin:0; padding:30px; 
+#form-container .page-header   { background:#0e0e0e; margin:0; padding:30px; 
     border-top-left-radius:5px; border-top-right-radius:5px; }
 
 /* numbered buttons */

@@ -8,12 +8,16 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('LoginCtrl', function ($scope, sweetAlert, constants, $state, storage, account, $rootScope) {
+  .controller('LoginCtrl', function ($scope, sweetAlert, modal, constants, $state, storage, account, $rootScope) {
   	$scope.load = function(){
 
   	}
 
   	$scope.login = function(){
+  		if($scope.loginForm.$invalid){
+            modal.incompleteForm();
+  		}
+
 	  	var _success = function(res){
  				storage.save('token', res.token);
                 storage.save('user', res.user);

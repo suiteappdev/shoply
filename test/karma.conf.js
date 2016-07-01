@@ -47,6 +47,8 @@ module.exports = function(config) {
       'bower_components/intl-tel-input/lib/libphonenumber/build/utils.js',
       'bower_components/international-phone-number/releases/international-phone-number.js',
       'bower_components/ng-img-crop/compile/minified/ng-img-crop.js',
+      'bower_components/moment/moment.js',
+      'bower_components/ngDatepicker/src/js/ngDatepicker.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

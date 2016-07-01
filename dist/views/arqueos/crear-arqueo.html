@@ -1,0 +1,83 @@
+<div ng-controller="ArqueoCtrl" ng-init="load()">
+	<div class="row">
+		<h3>Crear Arqueo</h3>
+		<div class="panel panel-default" style="padding:0px;">
+		  <div class="panel-body">
+		  <div class="row">
+				<div class="col-lg-3">
+					<label>Vendedor *:</label>
+					<vendedor-field ng-model="vendedor" key="_id" label="name"><vendedor-field>
+				</div>
+				<div class="col-lg-3">
+					<label>Fecha Inicial *:</label>
+				    <ng-datepicker ng-model="ini" placeholder="Fecha inicial"locale="ES" format="YYYY-MM-DD" view-format="YYYY-MM-DD">
+				</div>
+				<div class="col-lg-3">
+					<label>Fecha Final *:</label>
+				    <ng-datepicker ng-model="end" placeholder="Fecha final"locale="ES" format="YYYY-MM-DD" view-format="YYYY-MM-DD">
+				</div>
+				<div class="col-lg-3">
+					<label>Buscar:</label>
+					<div class="input-group">
+					      <input type="text" ng-model="search" class="form-control" placeholder="Buscar">
+					      <span class="input-group-btn">
+					        <button class="btn custom-btn-primary" type="button" ng-click="get()">Buscar</button>
+					      </span>
+			    	</div>
+				</div>			
+		  </div>
+		  <div class="table-responsive">
+			 <table class="table table-hover">
+				<thead>
+					<th>Fecha</th>
+					<th>Vendedor.</th>
+					<th>Cliente</th>
+					<th>Pedido</th>
+					<th></th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr>
+						<td ng-hide="loading" ng-show="arqueos.length <= 0 || !arqueos || loading" class="text-center" colspan="10"><p><i class="glyphicon glyphicon-info-sign"></i>no hay registros para mostrar.</p></td>
+					</tr>
+					<tr>
+						<td ng-show="loading" class="text-center" colspan="10"><img style="height:20px;" src="images/loading.gif"></td>
+					</tr>
+					<tr dir-paginate="record in arqueos |filter:search |itemsPerPage: 5 ">
+						<td>{{record.createdAt}}</td>
+						<td class="text-right"><a ui-sref="dashboard.detalle_vendedor({vendedor: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-vendedor/{{record._id}}">Detalle</a></td>
+						<td class="text-right"><a class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
+						<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
+					</tr>
+				</tbody>
+			</table>	
+			<div class="row col-lg-12">
+					<div class="col-lg-3">
+						<label>Total Sistema:</label>
+						<input type="text" ng-model="total_sistema" class="form-control" placeholder="Total Sistema">
+					</div>	
+					<div class="col-lg-3">
+						<label>Total Efectivo:</label>
+						<input type="text" ng-model="total_efectivo" class="form-control" placeholder="Total Efectivo">
+					</div>
+					<div class="col-lg-3">
+						<label>Faltante:</label>
+						<input type="text" ng-model="faltante" class="form-control" placeholder="Faltante">
+					</div>
+					<div class="col-lg-3">
+						<label>Sobrante:</label>
+						<input type="text" ng-model="sobrante" class="form-control" placeholder="Sobrante">
+					</div>
+			</div>	  	
+		  </div>
+			<div class="row">
+				<div class="col-lg-12">
+					<dir-pagination-controls class="pull-right"></dir-pagination-controls>
+				</div>
+			</div>
+		  </div>
+		  <div class="panel-footer">Listado de Pedidos</div>
+		</div>
+
+	</div>
+</div>
