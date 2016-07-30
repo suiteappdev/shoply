@@ -24,10 +24,14 @@ angular.module('shoplyApp')
     this.producto = function(producto){if(producto) this.url = constants.base_url + "producto/" + producto; else this.url = constants.base_url + "producto/"; return this;};
     this.pedido = function(pedido){if(pedido) this.url = constants.base_url + "pedido/" + pedido; else this.url = constants.base_url + "pedido/"; return this;};
     this.rutas = function(ruta){if(ruta) this.url = constants.base_url + "rutas/" + ruta; else this.url = constants.base_url + "rutas/"; return this;};
+    this.ivas = function(iva){if(iva) this.url = constants.base_url + "ivas/" + iva; else this.url = constants.base_url + "ivas/"; return this;};
+    this.referencias = function(referencia){if(referencia) this.url = constants.base_url + "referencias/" + referencia; else this.url = constants.base_url + "referencias/"; return this;};
+    this.contadores = function(contador){if(contador) this.url = constants.base_url + "contadores/" + contador; else this.url = constants.base_url + "contadores/"; return this;};
     this.transportador = function(transportador){if(transportador) this.url = constants.base_url + "transportador/" + transportador; else this.url = constants.base_url + "transportador/"; return this;};
     this.categoria = function(categoria){if(categoria) this.url = constants.base_url + "categoria/" + categoria; else this.url = constants.base_url + "categoria/"; return this;};
     this.empresa = function(empresa){if(empresa) this.url = constants.base_url + "empresa/" + empresa; else this.url = constants.base_url + "empresa/"; return this;};
     this.arqueos = function(arqueo){if(arqueo) this.url = constants.base_url + "arqueos/" + arqueo; else this.url = constants.base_url + "arqueos/"; return this;};
+    this.apps = function(app){if(app) this.url = constants.base_url + "apps/" + app; else this.url = constants.base_url + "apps/"; return this;};
     this.upload = function(){ this.url = constants.uploadURL; return this};
     this.s3 = function(){ this.url = constants.base_url + "upload-amazon/"; return this};
     

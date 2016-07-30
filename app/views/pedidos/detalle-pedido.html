@@ -1,97 +1,102 @@
-<div ng-controller="RequestdetailCtrl" ng-init="load()">
-	<div class="container">
-		<div class="panel panel-default" style="padding:0px;">
-		  <div class="panel-body">
-			<div class="table-responsive">
-				<table class="table">
-					<tbody>
-						<tr>
-							<td style="width:50%">
-								<address class="no-margin">
-									<h4 style="margin:0px;"><strong>{{record._seller.name + " " + record._seller.last_name}},</strong> 		</h4>
-									<strong>{{record.data.direccion}}</strong> <br>
-									<abbr title="email">E-mail:</abbr>
-									<a href="mailto:#" data-original-title="" title="">{{record._seller.email}}</a><br> 
-									<abbr title="Phone">Celular:</abbr> (+57) {{record._seller.metadata.phone}}<br>
-									<abbr title="Fijo">Fijo:</abbr> (+57) {{record._seller.metadata.fijo}}<br>
-								</address>
-								<span class="label label-info" ng-show="record._seller">Vendedor</span><span class="label label-warning" ng-show="record._client &&!record._seller">Cliente</span>
-							</td>
-							<td style="width:50%" class="right-align-text">
-								<address class="no-margin">
-									<h4><strong>{{record._company.data.empresa}}</strong></h4>
-									<strong>{{record._company.data.direccion}}</strong> <br>
-									<abbr title="email">E-mail:</abbr>
-									<a href="mailto:#" data-original-title="" title="">{{record._company.data.email}}</a><br> 
-									<abbr title="Phone">Telefono:</abbr> {{record._company.data.telefono}}<br>
-									<abbr title="Phone">Celular:</abbr> {{record._company.data.celular}}<br>
-									<abbr title="Fax">Fax:</abbr> {{record._company.data.fax}}
-								</address>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+<div class="container" ng-controller="RequestdetailCtrl" ng-init="load()">
+    <div class="row">
+        <div class="col-xs-12">
+    		<div class="invoice-title">
+    			<h2>Detalle del pedido</h2><h3 class="pull-right">Orden # {{record.id}}</h3>
+    		</div>
+            <small>{{record._company.data.empresa}}, LCC</small><br />
+            <small>{{record._company.data.descripcion}}</small>
+    		<hr>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    				<strong>Facturado a:</strong><br>
+    					{{record._seller.name +" "+ record._seller.last_name}}<br>
+    					{{record._seller.metadata.departamento}}, {{record._seller.metadata.ciudad}}<br>
+    				</address>
+    			</div>
+    			<div class="col-xs-6 text-right">
+    				<address>
+        			<strong>Enviar a:</strong><br>
+    					{{(record._client.name +" "+ record._client.last_name)}}<br>
+    					{{record.metadata.direccion}}.<br>
+    					{{record.metadata.ciudad}}, {{record.metadata.barrio}}
+    				</address>
+    			</div>
+    		</div>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    					<strong>Tipo de Cliente:</strong><br>
+						<span class="label label-info" ng-show="record._seller">Vendedor</span><span class="label label-warning" ng-show="record._client &&!record._seller">Cliente</span><br>
+    					{{record._seller.email}}
+    				</address>
+    			</div>
+    			<div class="col-xs-6 text-right">
+    				<address>
+    					<strong>fecha de la Orden:</strong><br>
+    					{{record.createdAt | date:"yyyy-MM-dd hh:mm:ss a"}}<br><br>
+    				</address>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Resumen de la Orden</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Producto</strong></td>
+        							<td class="text-center"><strong>Precio</strong></td>
+        							<td class="text-center"><strong>Cantidad</strong></td>
+        							<td class="text-right"><strong>Total</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							<tr ng-repeat="record in record.shoppingCart">
+    								<td>{{record.data.producto}}</td>
+    								<td class="text-center">{{record.data.precio_venta | currency :"$ "}}</td>
+    								<td class="text-center">{{record.data.unidades}}</td>
+    								<td class="text-right"></td>
+    							</tr>
+    							<tr>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
+    								<td class="thick-line text-right">{{record.metadata.subtotal | currency: "$ "}}</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Iva 10%</strong></td>
+    								<td class="no-line text-right">{{record.metadata.total_iva_10 | currency: "$ "}}</td>
+    							</tr> 
+    							<tr>
 
-			</div>
-			<div class="table-responsive">
-				<table class="table table-striped table-bordered table-hover no-margin">
-					<thead>
-						<tr>
-							<th style="width:20%">Producto</th>
-							<th style="width:40%">Descripcion</th>
-							<th style="width:10%">Cantidad</th>
-							<th style="width:10%">IVA</th>
-							<th style="width:10%">Precio</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="record in record.shoppingCart">
-							<td>{{record.data.producto}}</td>
-							<td>
-								<span class="text-info">{{record.data.descripcion}}</span>
-							</td>
-							<td><span class="label label-info">{{record.data.unidades}}</span></td>
-							<td>{{record.data.valor_iva | currency: "$ "}}</td>
-							<td>{{record.data.precio_venta | currency: "$ " }}</td>
-						</tr>
-						<tr>
-							<td class="total" colspan="5">Subtotal</td>
-							<td>{{record.metadata.subtotal | currency: "$ "}}</td>
-						</tr>
-						<tr>
-							<td class="total" colspan="5">IVA 5%</td>
-							<td>{{record.metadata.total_iva_5 | currency: "$ "}}</td>
-						</tr>
-						<tr>
-							<td class="total" colspan="5">IVA 10%</td>
-							<td>{{record.metadata.total_iva_10 | currency: "$ "}}</td>
-						</tr>
-						<tr>
-							<td class="total" colspan="5">Descuento</td>
-							<td>$ 0.00</td>
-						</tr>
-						<tr class="">
-							<td colspan="6" class=""><h5>{{record.data.nota || "sin nota.."}}</h5></td>
-						</tr>
-						<tr class="">
-							<td class="total text-warning" colspan="5"><h5>Total</h5></td>
-							<td class="hidden-phone text-info"><h4>{{record.metadata.total | currency: "$ "}}</h4></td>
-						</tr>
-						<tr class="">
-							<td class="total text-warning" colspan="6">
-								<button style="padding:10px;" class="custom-btn btn-success btn-block" ng-click="process()">DESPACHAR</button>
-							</td>
-						</tr>
-						<tr class="">
-							<td class="total text-warning" colspan="6">
-								<button style="padding:10px;" class="custom-btn btn-danger btn-block" ng-click="pending()">PENDIENTE</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		  </div>
-		  <div class="panel-footer">Listado de productos pedidos</div>
-		</div>
-	</div>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Iva 5%</strong></td>
+    								<td class="no-line text-right">{{record.metadata.total_iva_5 | currency: "$ "}}</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Total</strong></td>
+    								<td class="no-line text-right">{{record.metadata.total | currency: "$ "}}</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
 </div>

@@ -5,6 +5,7 @@
     <title page-title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="favicon.ico" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="bower_components/cropperjs/dist/cropper.css" />
     <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css" />
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -28,10 +30,10 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ng-include="'views/home/header.html'"></div>
+    <div ng-include="'views/home/header.html'" ng-hide="$root.state.includes('public')"></div>
     <div ui-view class="row" style="background-image: url(images/pattern.png);"></div>  
     <div ng-include="'views/home/footer.html'" styl="position: relative;float: left;
-    width: 100%;"></div>
+    width: 100%;" ng-hide="$root.state.includes('public')" ></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
@@ -74,9 +76,15 @@
     <script src="bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/ngDatepicker/src/js/ngDatepicker.js"></script>
+    <script src="bower_components/js-xls/dist/xls.js"></script>
+    <script src="bower_components/js-xlsx/dist/xlsx.js"></script>
+    <script src="bower_components/es6-promise/promise.js"></script>
+    <script src="bower_components/alasql/dist/alasql.min.js"></script>
+    <script src="bower_components/iCheck/icheck.min.js"></script>
+    <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.full.min.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
@@ -87,12 +95,16 @@
         <script src="scripts/controllers/seller.js"></script>
         <script src="scripts/controllers/client.js"></script>
         <script src="scripts/controllers/routes.js"></script>
+        <script src="scripts/controllers/contadores.js"></script>
         <script src="scripts/services/account.js"></script>
         <script src="scripts/controllers/request.js"></script>
+        <script src="scripts/controllers/employe.js"></script>
+        <script src="scripts/controllers/apps.js"></script>
         <script src="scripts/services/api.js"></script>
         <script src="scripts/services/constants.js"></script>
         <script src="scripts/services/storage.js"></script>
         <script src="scripts/services/sound.js"></script>
+        <script src="scripts/services/shoppingcart.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/requestdetail.js"></script>
         <script src="scripts/controllers/productos.js"></script>
@@ -101,9 +113,13 @@
         <script src="scripts/directives/iva.js"></script>
         <script src="scripts/directives/cropper.js"></script>
         <script src="scripts/directives/estadopedido.js"></script>
+        <script src="scripts/directives/company.js"></script>
+        <script src="scripts/directives/entidades.js"></script>
+        <script src="scripts/directives/references.js"></script>
         <script src="scripts/controllers/productdetail.js"></script>
-        <script src="scripts/directives/file.js"></script>
+        <script src="scripts/controllers/ivas.js"></script>
         <script src="scripts/directives/uploader.js"></script>
+        <script src="scripts/directives/uploader-drop.js"></script>
         <script src="scripts/directives/location.js"></script>
         <script src="scripts/directives/routes.js"></script>
         <script src="scripts/directives/system.js"></script>
@@ -112,11 +128,13 @@
         <script src="scripts/statics/municipios.js"></script>
         <script src="scripts/controllers/categoria.js"></script>
         <script src="scripts/directives/categoria.js"></script>
+        <script src="scripts/directives/producto.js"></script>
         <script src="scripts/controllers/categorydetail.js"></script>
         <script src="scripts/controllers/dashboard.js"></script>
         <script src="scripts/controllers/header.js"></script>
         <script src="scripts/controllers/changepassword.js"></script>
         <script src="scripts/controllers/company.js"></script>
+        <script src="scripts/controllers/facturacion.js"></script>
         <script src="scripts/controllers/arqueo.js"></script>
         <script src="scripts/services/sweetalert.js"></script>
         <script src="scripts/controllers/transportador.js"></script>

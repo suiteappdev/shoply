@@ -20,6 +20,7 @@ angular.module('shoplyApp')
 
 		        window.modal = $uibModal.open({
 		            templateUrl: params.templateUrl,
+		            backdrop : params.backdrop,
 		            size: params.size || 'md',
 		            scope : params.scope,
 		            controller :["$scope", function($scope){

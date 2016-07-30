@@ -1,0 +1,75 @@
+<div ng-controller="FacturacionCtrl" ng-init="load()">
+	<div class="row">
+	<h3>Facturación</h3>
+	<div class="panel panel-default" style="padding:0px;">
+	  <div class="panel-body">
+	  <div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					 <producto-field 
+					  	key="_id" 
+					  	label="producto"
+					  	set-object="_productObj"
+					  	ng-model="_product">
+				  	<producto-field>
+		    	</div>
+			</div>
+	  </div>
+	  <div class="table-responsive">
+		 <table class="table table-hover">
+			<thead>
+				<th class="hidden">Codigo</th>
+				<th>Producto</th>
+				<th>Descripción</th>
+				<th>Precio venta</th>
+				<th>Unidades</th>
+				<th>Total</th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
+					<td class="hidden">{{record._id}}</td>
+					<td>{{record.producto}}</td>
+					<td>{{record.descripcion || 'no definido'}}</td>
+					<td>{{record.precio_venta | currency:"$ "}}</td>
+					<td><span ng-click="agregarCantidad()" class="label label-primary">{{record.cantidad}}</span></td>
+					<td>{{(record.cantidad * record.precio_venta) | currency:"$ "}}</td>
+					<td></td>
+					<td class="text-right"><a ng-click="quitar()" class="custom-btn-tiny btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i>Quitar</a></td> 
+				</tr>
+			</tbody>
+		</table>	  	
+	  </div>
+			<div class="row">
+				<div class="col-lg-12">
+					<dir-pagination-controls class="pull-right"></dir-pagination-controls>
+				</div>
+			</div>
+			<div ng-show="records.length > 0" class="row" style="background-color:#080808;">
+				<div class="col-lg-12">
+					<div class="col-lg-3">
+						<label class="text-white">Total IVA</label>
+						<h4 class="no-margin" style="color:#009ddc;!important;top: -9px;position: relative;">{{TotalIva | currency:"$ "}}</h4>
+					</div>
+					<div class="col-lg-3">
+						<label class="text-white">Subtotal</label>
+						<h4 class="text-white no-margin" style="color: orange!important;top: -9px;position: relative;">{{subTotal | currency:"$ "}}</h4>
+					</div>
+					<div class="col-lg-3">
+						<label class="text-white">Total</label>
+						<h4 class="no-margin" style="top: -9px;position: relative;color:#a8ffa8!important;">{{total | currency:"$ "}}</h4>
+					</div>
+					<div class="col-lg-3">
+						<div class="row">
+							<button style="line-height:40px;" ng-click="facturar()" class="custom-btn custom-btn-primary btn-block"><i class="glyphicon glyphicon-plus"></i>&nbsp;Facturar</button>						
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+	  <div class="panel-footer">Listado de productos en facturación</div>
+	</div>
+
+	</div>
+</div>

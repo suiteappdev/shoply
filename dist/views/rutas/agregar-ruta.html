@@ -22,15 +22,15 @@
                   </div>
                   <div class="form-group">
                   <label>Barrios:</label>
-                  <selectize config="{plugins: ['remove_button'], create:true, maxItems:10, placeholder:'Escribe el barrio  y presiona ENTER'}" options='[]' ng-model="form.data.barrios"></selectize>
+                  <selectize config="{plugins: ['remove_button'], delimiter: '|', create:true, maxItems:10, placeholder:'Escribe el barrio  y presiona ENTER'}" options='[]' ng-model="form.data.barrios"></selectize>
                   </div>            
               </div>        
           </div>
   	  	</form>
     	</div>
   	</div>
-    <div class="modal-footer  custom-modal-footer">
-        <button type="button" class="custom-btn custom-btn-default" ng-click="cancel()">Cancelar</button>
+    <div class="modal-footer custom-modal-footer">
+        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
         <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Agregar</button>
     </div>
 </div>

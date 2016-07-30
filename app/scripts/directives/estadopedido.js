@@ -13,6 +13,7 @@ angular.module('shoplyApp')
 		
   		$scope.myConfig = {
   		  valueField: 'status',
+        allowEmptyOption : true,
   		  labelField: 'status',
   		  placeholder: 'Estado',
   		  maxItems: 1

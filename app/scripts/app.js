@@ -24,13 +24,14 @@ angular
     'angularUtils.directives.dirPagination',
     'internationalPhoneNumber',
     'ngImgCrop',
-    'jkuri.datepicker'
+    'jkuri.datepicker',
+    'colorpicker.module'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'
         ipnConfig.preferredCountries = ['pl', 'de', 'fr', 'uk', 'es'];
 
-     $httpProvider.interceptors.push(function($injector, $q) {
+     $httpProvider.interceptors.push(function($injector, $q, sweetAlert) {
         var rootScope = $injector.get('$rootScope');
 
         return {
@@ -39,11 +40,11 @@ angular
                 $httpProvider.defaults.withCredentials = false;
                 
                 if(window.localStorage.token){
-                   $httpProvider.defaults.headers.common['x-soply-auth'] =  window.localStorage.token ; // common
-                   $httpProvider.defaults.headers.common['x-soply-user'] =  angular.fromJson(window.localStorage.user) ?  angular.fromJson(window.localStorage.user)._id : null  ; // common
+                   $httpProvider.defaults.headers.common['x-shoply-auth'] =  window.localStorage.token ; // common
+                   $httpProvider.defaults.headers.common['x-shoply-user'] =  angular.fromJson(window.localStorage.user) ?  angular.fromJson(window.localStorage.user)._id : null  ; // common
                    
                    if(angular.fromJson(window.localStorage.user)._company){
-                      $httpProvider.defaults.headers.common['x-soply-company']  =  angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company;
+                      $httpProvider.defaults.headers.common['x-shoply-company']  =  angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company;
                    }
 
                 }
@@ -66,6 +67,11 @@ angular
                  switch(rejection.status){
 
                     case 401:
+
+                    storage.delete('token');
+                    storage.delete('user');
+                    delete rootScope.isLogged;
+                    
                     if(!window.location.hash.match("login")){
                          sweetAlert.swal({
                                 title: "La sesión ha expirado",
@@ -131,13 +137,30 @@ angular
           })
           .state('dashboard.empresa', {
               url: '/empresa',
-              templateUrl: 'views/company/form.html',
+              access: { requiredAuthentication: true },
+              templateUrl: 'views/company/empresas.html',
               data: {
                 pageTitle: 'Empresa'
               }
           })
+          .state('dashboard.apps', {
+              url: '/apps',
+              access: { requiredAuthentication: true },
+              templateUrl: 'views/apps/apps.html',
+              data: {
+                pageTitle: 'Apps'
+              }
+          })
+          .state('public', {
+              url: '/public/:app',
+              templateUrl: 'views/apps/public/app.html',
+              data: {
+                pageTitle: 'Descargar Aplicación'
+              }
+          })
           .state('dashboard.empresa.information', {
               url: '/information',
+              access: { requiredAuthentication: true },
               templateUrl: 'views/company/form-information.html',
               data: {
                 pageTitle: 'Información Corporativa'
@@ -146,6 +169,7 @@ angular
           // url will be /form/interests
           .state('dashboard.empresa.location', {
               url: '/location',
+              access: { requiredAuthentication: true },
               templateUrl: 'views/company/form-location.html',
               data: {
                 pageTitle: 'Ubicación'
@@ -154,6 +178,7 @@ angular
           // url will be /form/payment
           .state('dashboard.empresa.logo', {
               url: '/logo',
+              access: { requiredAuthentication: true },
               templateUrl: 'views/company/form-logo.html',
               data: {
                 pageTitle: 'Imagen corporativa'
@@ -206,12 +231,28 @@ angular
                   pageTitle: 'Productos'
                 }
           })
+          .state('dashboard.facturacion', {
+                url: '/facturacion',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/facturacion/facturaciones.html',
+                data: {
+                  pageTitle: 'Facturar'
+                }
+          })
           .state('dashboard.vendedores', {
                 url: '/vendedores',
                 access: { requiredAuthentication: true },
                 templateUrl: 'views/vendedores/vendedores.html',
                 data: {
                   pageTitle: 'Vendedores'
+                }
+          })
+          .state('dashboard.empleados', {
+                url: '/empleados',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/empleado/empleados.html',
+                data: {
+                  pageTitle: 'empleados'
                 }
           })
           .state('dashboard.clientes', {
@@ -254,6 +295,7 @@ angular
                   pageTitle: 'Rutas'
                 }
           })
+          
           .state('dashboard.categorias', {
                 url: '/categorias',
                 access: { requiredAuthentication: true },
@@ -307,18 +349,34 @@ angular
                   pageTitle: 'Detalle pedido'
                 }
           });
-  }).run(["$rootScope", "constants", "storage", "$state","sounds", "api",  function($rootScope, constants, storage, $state, sounds, api){
+  }).run(["$rootScope", "constants", "storage", "$state","sounds", "api","$window",  function($rootScope, constants, storage, $state, sounds, api, $window){
         $rootScope.currency = constants.currency;
         $rootScope.base = constants.uploadFilesUrl;
-        $rootScope.base_resource = constants.base_resource;
         $rootScope.isLogged = storage.get('user');
         $rootScope.user = storage.get('user');
+        $rootScope.state = $state;
+        $rootScope.online = navigator.onLine;
+        
+        $window.addEventListener("offline", function() {
+          $rootScope.$apply(function() {
+            $rootScope.online = false;
+          });
+        }, false);
+
+        $window.addEventListener("online", function() {
+          $rootScope.$apply(function() {
+            $rootScope.online = true;
+          });
+        }, false);
+
 
         window.socket = new io(constants.socket);
 
         window.socket.on("connect", function(){
-           console.log("Socket Status: OK")
-        })
+            if($rootScope.user && $rootScope.user._company){
+                window.socket.emit("_company", $rootScope.user._company._id);
+            }
+        });
 
         window.socket.on('request', function(data){
           if(window.location.hash.match("dashboard")){

@@ -3,34 +3,46 @@
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Agregar Categoria</h4>
     </div>
-  	<div class="modal-body">
-  	<div>
-	  	<form name="formCategoria" novalidate ng-init="$parent.form = null">
-			  <div class="form-group">
-			    <label>Categoria:</label>
-			    <input type="text" required placeholder="Categoria" class="form-control" ng-model="form.text">
-			  </div>
-			  <div class="form-group">
-			    <label>Descripcion:</label>
-			    <input type="text" placeholder="Descripción" required class="form-control" ng-model="form.data.descripcion">
-			  </div>
-			  <div class="row">
-			  	<div class="col-lg-12">
-					<label>Categoria padre:</label>
-			      	<categoria key="id" label="text" ng-model="form.parent"></categoria>
-			  	</div>
-			  </div>
-			  <div class="row text-center">
-			  	<div class="col-lg-12 text-center" ng-show="form.data.icon">
-			  		<div class="fi icon-set {{form.data.icon}}"></div>
-			  	</div>
-			  	<icon-picker ng-model="form.data.icon"></icon-picker>	
-			  </div>
-	  	</form>
+  	<div class="modal-body"  ng-init="selected ='basic'">
+	  	<div class="row">
+	  		<div class="col-lg-3">
+	  			<div class="form-group">
+	  				<button ng-class="selected=='basic' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='basic'" class="custom-btn btn-block">información Basica</button>	
+	  			</div>
+	  		</div>
+	  		<div class="col-lg-3">
+		  		<div class="form-group">
+		  			<button ng-class="selected=='icon' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='icon';" class="custom-btn btn-block">Icono</button>
+		  		</div>	
+	  		</div>
+	  	</div>
+  	<div class="row">
+	  	<div class="col-lg-12" ng-show="selected == 'basic'">
+		  	<form name="formCategoria" novalidate ng-init="$parent.form = null">
+				  <div class="form-group">
+				    <label>Categoria:</label>
+				    <input type="text" required placeholder="Categoria" class="form-control" ng-model="form.text">
+				  </div>
+				  <div class="form-group">
+				    <label>Descripcion:</label>
+				    <input type="text" placeholder="Descripción" required class="form-control" ng-model="form.data.descripcion">
+				  </div>
+				  <div class="row">
+				  	<div class="col-lg-12">
+						<label>Categoria padre:</label>
+				      	<categoria key="id" label="text" ng-model="form.parent"></categoria>
+				  	</div>
+				  </div>
+		  	</form>  		
+	  	</div>
+	  	<div ng-show="selected == 'icon'">
+			<image-uploader area="circle" title="Icono Categoria" button-text="Cargar imagenes" ng-model="form.data.gallery"><image-uploader>
+	  	</div>  		
   	</div>
+
   	</div>
     <div class="modal-footer custom-modal-footer">
-        <button type="button" class="custom-btn custom-btn-default" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
         <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Agregar</button>
     </div>
 </div>

@@ -32,15 +32,24 @@ angular.module('shoplyApp')
 
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
-      delete $scope.formEdit.password;
       
-      modal.show({templateUrl : 'views/vendedores/editar_vendedor.html', size :'md', scope: $scope}, function($scope){
-            if($scope.vendedorForm.$invalid){
+      if($scope.formEdit.data.barrios){
+        $scope.barrios = $scope.formEdit.data.barrios.map(function(o){
+            var _obj = new Object();
+            _obj.text = o;
+            _obj.value = o;
+
+            return _obj;
+        });        
+      }
+
+      modal.show({templateUrl : 'views/rutas/editar-ruta.html', size :'md', scope: $scope}, function($scope){
+            if($scope.rutaEditForm.$invalid){
                  modal.incompleteForm();
                 return;
             }
 
-            api.user($scope.formEdit._id).put($scope.formEdit).success(function(res){
+            api.rutas($scope.formEdit._id).put($scope.formEdit).success(function(res){
                 if(res){
                     sweetAlert.swal("Registro Modificado", "Registro modificado correctamente.", "success");
                     $scope.load();

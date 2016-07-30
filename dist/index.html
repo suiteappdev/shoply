@@ -1,10 +1,10 @@
-<!doctype html> <html ng-app="shoplyApp"> <head> <meta charset="utf-8"> <title page-title></title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.70902510.css"> <link rel="stylesheet" href="styles/main.9f6ad77a.css"> </head> <body> <!--[if lte IE 8]>
+<!doctype html> <html ng-app="shoplyApp"> <head> <meta charset="utf-8"> <title page-title></title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <link rel="icon" href="favicon.ico"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.b8908a93.css"> <link rel="stylesheet" href="styles/main.e83cfd7d.css"> </head> <body> <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]--> <!-- Add your site or application content here --> <div ng-include="'views/home/header.html'"></div> <div ui-view class="row" style="background-image: url(images/pattern.7014c63c.png)"></div> <div ng-include="'views/home/footer.html'" styl="position: relative;float: left;
-    width: 100%;"></div> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+    <![endif]--> <!-- Add your site or application content here --> <div ng-include="'views/home/header.html'" ng-hide="$root.state.includes('public')"></div> <div ui-view class="row" style="background-image: url(images/pattern.7014c63c.png)"></div> <div ng-include="'views/home/footer.html'" styl="position: relative;float: left;
+    width: 100%;" ng-hide="$root.state.includes('public')"></div> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');</script> <script src="scripts/vendor.1280959c.js"></script> <script src="scripts/scripts.9b7bed1c.js"></script> <script src="http://www.shoply.com.co:8080/socket.io/socket.io.js"></script> </body> </html>
+       ga('send', 'pageview');</script> <script src="scripts/vendor.33c6fd60.js"></script> <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.full.min.js"></script> <script src="scripts/scripts.131b4e48.js"></script> <script src="http://www.shoply.com.co:8080/socket.io/socket.io.js"></script> </body> </html>

@@ -32,48 +32,76 @@
 					<th>Fecha</th>
 					<th>Vendedor.</th>
 					<th>Cliente</th>
-					<th>Pedido</th>
+					<th>Estado</th>
+					<th>Total</th>
 					<th></th>
 					<th></th>
 				</thead>
 				<tbody>
 					<tr>
-						<td ng-hide="loading" ng-show="arqueos.length <= 0 || !arqueos || loading" class="text-center" colspan="10"><p><i class="glyphicon glyphicon-info-sign"></i>no hay registros para mostrar.</p></td>
-					</tr>
-					<tr>
+						<td ng-show="form._request.length <= 0 || !form._request" class="text-center" colspan="10"><p><i class="glyphicon glyphicon-info-sign"></i>  &nbsp;no hay registros para mostrar.</p></td>
+					
 						<td ng-show="loading" class="text-center" colspan="10"><img style="height:20px;" src="images/loading.gif"></td>
 					</tr>
-					<tr dir-paginate="record in arqueos |filter:search |itemsPerPage: 5 ">
-						<td>{{record.createdAt}}</td>
-						<td class="text-right"><a ui-sref="dashboard.detalle_vendedor({vendedor: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-vendedor/{{record._id}}">Detalle</a></td>
+					<tr dir-paginate="record in form._request |filter:search |itemsPerPage: 5 ">
+						<td>{{record.createdAt | date:'yyyy-MM-dd'}}</td>
+						<td>{{(record._seller.name +" "+ record._seller.last_name)}}</td>
+						<td>{{(record._client.name +" "+ record._client.last_name)}}</td>
+						<td><a href=""></a></td>
+						<td>
+							<span class="label label-darkblue" ng-show="record.metadata.estado == 'Facturado'">{{record.metadata.estado}}</span>
+
+							<span class="label label-default" ng-show="record.metadata.estado == 'Pendiente'">{{record.metadata.estado}}</span>
+
+							<span class="label label-success" ng-show="record.metadata.estado == 'Despachado'">{{record.metadata.estado}}</span>
+						</td>
+						<td>{{record.metadata.total | currency:"$ "}}</td>
+						<td class="text-right"><a ui-sref="dashboard.detalle_pedido({pedido: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-pedido/{{record._id}}">Detalle</a></td>
 						<td class="text-right"><a class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
 						<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
 					</tr>
 				</tbody>
 			</table>	
-			<div class="row col-lg-12">
-					<div class="col-lg-3">
-						<label>Total Sistema:</label>
-						<input type="text" ng-model="total_sistema" class="form-control" placeholder="Total Sistema">
-					</div>	
-					<div class="col-lg-3">
-						<label>Total Efectivo:</label>
-						<input type="text" ng-model="total_efectivo" class="form-control" placeholder="Total Efectivo">
-					</div>
-					<div class="col-lg-3">
-						<label>Faltante:</label>
-						<input type="text" ng-model="faltante" class="form-control" placeholder="Faltante">
-					</div>
-					<div class="col-lg-3">
-						<label>Sobrante:</label>
-						<input type="text" ng-model="sobrante" class="form-control" placeholder="Sobrante">
-					</div>
-			</div>	  	
-		  </div>
+	  	  	</div>
 			<div class="row">
 				<div class="col-lg-12">
 					<dir-pagination-controls class="pull-right"></dir-pagination-controls>
 				</div>
+			</div>
+			<div class="row">
+					<div class="col-lg-3">
+						<label>Total Sistema:</label>
+						<input readonly  type="number" ng-model="form.metadata.total_sistema" class="form-control" placeholder="Total Sistema">
+					</div>	
+					<div class="col-lg-3">
+						<label>Total Efectivo:</label>
+						<input type="number" ng-model="form.metadata.total_efectivo" class="form-control" placeholder="Total Efectivo">
+					</div>
+					<div class="col-lg-3">
+						<label>Faltante:</label>
+						<input readonly type="number" ng-model="form.metadata.faltante" class="form-control" placeholder="Faltante">
+					</div>
+					<div class="col-lg-3">
+						<label>Sobrante:</label>
+						<input readonly type="text" ng-model="form.metadata.sobrante" class="form-control" placeholder="Sobrante">
+					</div>
+					<div class="col-lg-12">
+						<div class="form-group"></div>
+						<div class="form-group">
+							<!-- Split button -->
+							<div class="btn-group">
+							  <button type="button" class="btn custom-btn-primary" ng-click="guardar()">Guardar</button>
+							  <button type="button" class="btn custom-btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    <span class="caret"></span>
+							    <span class="sr-only">Toggle Dropdown</span>
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li><a  ng-click="" ><i class="glyphicon glyphicon-envelope"></i> &nbsp;Email</a></li>
+							    <li><a ng-click="download()"><i class="glyphicon glyphicon-download"></i> &nbsp;Descargar</a></li>
+							  </ul>
+							</div>
+						</div>
+					</div>
 			</div>
 		  </div>
 		  <div class="panel-footer">Listado de Pedidos</div>

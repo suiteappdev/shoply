@@ -22,6 +22,30 @@ angular.module('shoplyApp')
       $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._category = this.record._category ? this.record._category._id : null;
       
+      $scope.ivaValue = this.record._iva.data.valor;
+
+      $scope.formEdit._iva = this.record._iva ? this.record._iva._id : null;
+      
+      if($scope.formEdit.data.tags){
+        $scope.tags = $scope.formEdit.data.tags.map(function(o){
+            var _obj = new Object();
+            _obj.text = o;
+            _obj.value = o;
+
+            return _obj;
+        });        
+      }
+
+      if($scope.formEdit._reference.reference){
+          $scope.reference = $scope.formEdit._reference.reference.map(function(o){
+              var _obj = new Object();
+              _obj.text = o;
+              _obj.value = o;
+
+              return _obj;
+          });
+      } 
+
       modal.show({templateUrl : 'views/productos/editar_producto.html', size :'md', scope: $scope}, function($scope){
             if($scope.formProducto.$invalid){
                  modal.incompleteForm();
@@ -41,7 +65,7 @@ angular.module('shoplyApp')
 
     $scope.$watch('form.data.precio', function(n, o){
       try{
-        var _valor_iva = ((parseInt($scope.form.data.iva || 0 ) / 100) * $scope.form.data.precio  || 0); 
+        var _valor_iva = ((parseInt($scope.iva ? $scope.iva.valor : 0) / 100) * $scope.form.data.precio  || 0); 
         var _valor_utilidad = ((($scope.form.data.utilidad || 0)  / 100) * $scope.form.data.precio  || 0);
 
         $scope.form.data.valor_utilidad = _valor_utilidad;
@@ -52,7 +76,8 @@ angular.module('shoplyApp')
 
     });
 
-    $scope.$watch('form.data.iva', function(n, o){
+
+    $scope.$watch('iva.valor', function(n, o){
       try{
         $scope.form.data.valor_iva = ($scope.form.data.precio * (parseInt(n) / 100));
         $scope.form.data.precio_venta = (
@@ -75,41 +100,52 @@ angular.module('shoplyApp')
 
     });
 
-    $scope.$watch('formEdit.data.precio', function(n, o){
-      try{
-        var _valor_iva = ((parseInt($scope.formEdit.data.iva || 0 ) / 100) * $scope.formEdit.data.precio  || 0); 
-        var _valor_utilidad = ((($scope.formEdit.data.utilidad || 0)  / 100) * $scope.formEdit.data.precio  || 0);
+    $scope.editLoad = function(){
+      $scope.$watch('formEdit.data.precio', function(n, o){
+        try{
+          var _valor_iva = ((parseInt($scope.editIva ? $scope.editIva.valor  : 0 ) / 100) * $scope.formEdit.data.precio  || 0); 
+          
+          var _valor_utilidad = ((($scope.formEdit.data.utilidad || 0)  / 100) * $scope.formEdit.data.precio  || 0);
 
-        $scope.formEdit.data.valor_utilidad = _valor_utilidad;
-        $scope.formEdit.data.valor_iva = _valor_iva;
+          $scope.formEdit.data.valor_utilidad = _valor_utilidad;
+          $scope.formEdit.data.valor_iva = _valor_iva;
 
-        $scope.formEdit.data.precio_venta = (_valor_iva + _valor_utilidad + $scope.formEdit.data.precio);        
-      }catch(e){}
+          $scope.formEdit.data.precio_venta = (_valor_iva + _valor_utilidad + $scope.formEdit.data.precio);    
 
-    });
+        }catch(e){
+              console.log("error", e);
+        }
 
-    $scope.$watch('formEdit.data.iva', function(n, o){
-      try{
-        $scope.formEdit.data.valor_iva = ($scope.formEditformEdit.data.precio * (parseInt(n) / 100));
-        $scope.formEdit.data.precio_venta = (
-                                        $scope.formEditformEdit.data.valor_iva + ($scope.formEditformEdit.data.precio) 
-                                        + ($scope.formEditformEdit.data.valor_utilidad )
-                                      )        
-      }catch(e){}
+      });
 
-    });
+      $scope.$watch('editIva.valor', function(n, o){
+          try{
+            $scope.formEdit.data.valor_iva = ($scope.formEdit.data.precio * (parseInt(n || $scope.ivaValue) / 100));
+            $scope.formEdit.data.precio_venta = (
+                                            $scope.formEdit.data.valor_iva + ($scope.formEdit.data.precio) 
+                                            + ($scope.formEdit.data.valor_utilidad )
+                                          )        
+          }catch(e){
+              console.log("error", e);
+          }        
+      });
 
-    $scope.$watch('formEdit.data.utilidad', function(n, o){
-      try{
-        $scope.formEdit.data.valor_utilidad = ($scope.formEdit.data.precio * ($scope.formEdit.data.utilidad / 100)); 
-        $scope.formEdit.data.precio_venta = (
-                                $scope.formEdit.data.valor_iva + 
-                                $scope.formEdit.data.valor_utilidad  + 
-                                $scope.formEdit.data.precio
-                                );        
-      }catch(e){}
+      $scope.$watch('formEdit.data.utilidad', function(n, o){
+        try{
+          $scope.formEdit.data.valor_utilidad = ($scope.formEdit.data.precio * ($scope.formEdit.data.utilidad / 100)); 
+          $scope.formEdit.data.precio_venta = (
+                                  $scope.formEdit.data.valor_iva + 
+                                  $scope.formEdit.data.valor_utilidad  + 
+                                  $scope.formEdit.data.precio
+                                  );        
+        }catch(e){
+          console.log("error", e);
+        }
 
-    });  
+      });          
+    }
+
+
 
     $scope.agregar = function(){
        modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope}, function($scope){
@@ -124,6 +160,10 @@ angular.module('shoplyApp')
                     $scope.$close();
                     delete $scope.form.data;
                 }
+            }).error(function(data, status){
+              if(status == 409){
+                sweetAlert("Referencia duplicada", "La referencia: "+ data.reference+" ya existe", "warning");
+              }
             });
         });
     }

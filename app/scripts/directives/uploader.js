@@ -12,13 +12,13 @@ angular.module('shoplyApp')
 
   		$scope.image_final = '';
   		$scope.ghost = [];
-
+		
 		$scope.load = function(){
 
 		};
 
 		$scope.show = function(){
-			$scope.file = this.file.preview;
+			$scope.file = this.file.preview || this.file.URL;
 
 		    modal.show({templateUrl : 'views/utils/preview.html', size :'md', scope: $scope}, function($scope){
 		        $scope.$close();
@@ -26,7 +26,11 @@ angular.module('shoplyApp')
 		}
 
 		$scope.remove = function(){
-			$scope.ngModel.splice($scope.ngModel.indexOf(this.file));
+			$scope.ngModel.splice($scope.ngModel.indexOf(this.file), 1);
+			
+			if($scope.ngModel.length <= $scope.items){
+				$scope.showAlert = false;
+			}
 		};
 
 		$scope.edit = function(){
@@ -40,8 +44,7 @@ angular.module('shoplyApp')
 		  				$scope.editImage.loading = false;
 		  				$scope.udate = new Date();
 		  				$scope.editImage.URL = res.data.url;
-		  				
-		  				$scope.$apply();
+		  				delete $scope.editImage.preview;
 		  			}
 		  		}, function(error){
 
@@ -71,6 +74,10 @@ angular.module('shoplyApp')
 			scope.$apply(function(){
 					scope.files = evt.currentTarget.files;
 
+					if(scope.files.length > scope.items){
+						scope.showAlert = true;
+					}
+
 					angular.forEach(scope.files, function(f){
 	          			var reader = new FileReader();
 
@@ -79,14 +86,18 @@ angular.module('shoplyApp')
 				           f.udate = new Date();
 				           f.aname = f.name; 
 	          			   scope.ghost.push(f);
-				    
-				           scope.$apply();
+	          			   scope.$apply();
 				        };
 
           				reader.readAsDataURL(f);
+          				if(!scope.ngModel){
+          					scope.ngModel = [];
+							scope.ngModel.push(f);
+          				}else{
+							scope.ngModel.push(f);
+          				}
 					});
 
-					scope.ngModel = scope.ghost;
 				});
 			});
 		}

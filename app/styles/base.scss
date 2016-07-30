@@ -97,9 +97,6 @@ h6 { font-size: 12px; }
     border-radius: 3px;  
 }
 
-.selected {
-  border: 1px solid orange!important;
-}
 
 .right-align-text{
   text-align:right;
@@ -178,10 +175,13 @@ img {
 }
 
 .home-page{
-    background-image: url(../images/background-1.jpg);
     min-height: 600px;
     background-size: cover;
     background-repeat: no-repeat;
+background-image: url(http://2.bp.blogspot.com/-gic3mg0TG9Q/ThFhmc8KyAI/AAAAAAAAUtA/1HiBQgFxJt0/w1200-h630-p-nu/Icewind_Dale_1920x1200.jpg);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .login-page{
@@ -226,10 +226,8 @@ img {
     cursor: pointer;
     margin: 0 3px 3px 0;
     padding: 2px 6px;
-    color: #303030;
+    color: black!important;
     border: 0 solid #d0d0d0;
-    background-color:#FF5E1B;
-    color:white;
 }
 
 .image-file-container{
@@ -299,6 +297,148 @@ img {
     border-radius: 3px;
 }
 
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+
+.ng-datepicker {
+  position: absolute;
+  z-index: 9999;
+  width: 250px;
+  background: #fff; 
+  font-size: 12px; 
+  color: #565a5c; 
+  display: inline-block; 
+  border: 1px solid #c4c4c4;
+  border-radius: 2px;
+  margin: 0;
+  padding: 0;
+}
+
+.ng-datepicker > .controls {
+  width: 250px;
+  display: inline-block;
+  padding: 5px 0 0 0;
+}
+
+.ng-datepicker > .controls i {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.ng-datepicker > .controls > .left {
+  width: 35px;
+  display: inline-block;
+  float: left;
+  margin: 5px 0 0 3px;
+}
+
+.ng-datepicker > .controls > .left > i.prev-year-btn {
+  float: left;
+  display: block;
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+.ng-datepicker > .controls > .left > i.prev-month-btn {
+  float: left;
+  margin: -5px 0 0 9px;
+  display: block;
+}
+
+.ng-datepicker > .controls > span.date {
+  width: 170px;
+  text-align: center;
+  font-size: 14px;
+  color: #565a5c;
+  font-weight: bold;
+  float: left; 
+  padding: 3px 0 0 0;
+}
+
+.ng-datepicker > .controls > .right {
+  width: 35px;
+  display: inline-block;
+  float: right;
+  margin: 5px 0 0 0;
+}
+
+.ng-datepicker > .controls > .right > i.next-year-btn {
+  float: left;
+  display: block;
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+.ng-datepicker > .controls > .right > i.next-month-btn {
+  float: left;
+  margin: -6px 9px 0 0;
+}
+
+.ng-datepicker > .day-names {
+  width: 250px;
+  border-bottom: 1px solid #c4c4c4;
+  display: inline-block;
+}
+
+.ng-datepicker > .day-names > span {
+  width: 35.7px;
+  text-align: center;
+  color: #82888a;
+  float: left;
+  display: block;
+}
+
+.ng-datepicker > .calendar {
+  width: 255px;
+  display: inline-block;
+  margin: -3px 0 -4px -1px;
+  padding: 0;
+}
+
+.ng-datepicker > .calendar > span > span.day {
+  width: 35px;
+  height: 35px;
+  border-left: 1px solid #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+  float: left;
+  display: block;
+  color: #565a5c;
+  text-align: center;
+  font-weight: bold;
+  line-height: 35px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.ng-datepicker > .calendar > span:last-child > span.day {
+  border-right: 1px solid #c4c4c4;
+}
+
+.ng-datepicker > .calendar > span > span.day.disabled {
+  border-left: 1px solid transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+.ng-datepicker > .calendar > span > span.day:hover {
+  background: #ff5c5b;
+  color: #fff;
+}
 /* BASIC STYLINGS
 ============================================================================= */
 pre                             { margin-bottom:20px; }
@@ -306,14 +446,14 @@ pre                             { margin-bottom:20px; }
 /* form styling */
 #form-container                { background:#2f2f2f; margin-bottom:20px;
     border-radius:5px; }
-#form-container .page-header   { background:#0e0e0e; margin:0; padding:30px; 
+#form-container .page-header   { background:#383737; margin:0; padding:30px; 
     border-top-left-radius:5px; border-top-right-radius:5px; }
 
 /* numbered buttons */
 #status-buttons                 {  }
 #status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
 #status-buttons a:hover         { text-decoration:none; }
-#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
+#status-buttons span            { background:#e15305; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
     border-radius:50%; }
 
 /* active buttons */
@@ -322,4 +462,84 @@ pre                             { margin-bottom:20px; }
 /* ANIMATION STYLINGS
 ============================================================================= */
 #signup-form            { position:relative; min-height:300px;padding:30px; background-color:#001C24;}
+
+/* iCheck plugin Square skin, green
+----------------------------------- */
+.icheckbox_square-green,
+.iradio_square-green {
+    display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    background: url(../images/green.png) no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+.icheckbox_square-green {
+    background-position: 0 0;
+}
+    .icheckbox_square-green.hover {
+        background-position: -24px 0;
+    }
+    .icheckbox_square-green.checked {
+        background-position: -48px 0;
+    }
+    .icheckbox_square-green.disabled {
+        background-position: -72px 0;
+        cursor: default;
+    }
+    .icheckbox_square-green.checked.disabled {
+        background-position: -96px 0;
+    }
+
+.iradio_square-green {
+    background-position: -120px 0;
+}
+    .iradio_square-green.hover {
+        background-position: -144px 0;
+    }
+    .iradio_square-green.checked {
+        background-position: -168px 0;
+    }
+    .iradio_square-green.disabled {
+        background-position: -192px 0;
+        cursor: default;
+    }
+    .iradio_square-green.checked.disabled {
+        background-position: -216px 0;
+    }
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    .icheckbox_square-green,
+    .iradio_square-green {
+        background-image: url(../images/green@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
+}
+
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 100%;
+    text-align: center;
+    padding: 50px 10px;
+}
+
+.success{
+    background: #ffffff;
+    border: 5px dashed #f95c07!important;
+    width: 100%;
+    text-align: center;
+    padding: 50px 10px;
+}
+
+.sweet-alert.show-input input{
+  text-align:center;
+}
 

@@ -59,14 +59,16 @@ angular.module('shoplyApp')
   	}
 
     $scope.edit = function(){
-      $scope.selected = this.record.data.persona;
 
       switch(this.record.data.persona) {
           case "natural":
             $scope.formEditPersonaNatural = angular.copy(this.record);
-
+            $scope.selected = this.record.data.persona;
+              break;
           case "juridica":
             $scope.formEditPersonaJuridica = angular.copy(this.record);
+            $scope.selected = this.record.data.persona;
+
               break;
           default:
               modal.incompleteForm();

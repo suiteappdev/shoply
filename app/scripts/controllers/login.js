@@ -16,14 +16,18 @@ angular.module('shoplyApp')
   	$scope.login = function(){
   		if($scope.loginForm.$invalid){
             modal.incompleteForm();
-  		}
+  	}
 
 	  	var _success = function(res){
- 				storage.save('token', res.token);
-                storage.save('user', res.user);
-				$rootScope.isLogged = res.user;
-				$rootScope.user = res.user;
-                $state.go(constants.login_state_sucess);
+        if(res.user.type == "EMPLOYE" || res.user.type == "ADMINISTRATOR" || res.user.type == "OWNER"){
+            storage.save('token', res.token);
+            storage.save('user', res.user);
+            $rootScope.isLogged = res.user;
+            $rootScope.user = res.user;
+            $state.go(constants.login_state_sucess);          
+        }else{
+          sweetAlert.swal("Inhabilitado.", "Privilegios son insuficientes.", "error");
+        }
 	  	};
 
 	  	var _error = function(res){
