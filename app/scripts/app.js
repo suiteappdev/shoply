@@ -31,7 +31,7 @@ angular
         ipnConfig.defaultCountry = 'co'
         ipnConfig.preferredCountries = ['pl', 'de', 'fr', 'uk', 'es'];
 
-     $httpProvider.interceptors.push(function($injector, $q, sweetAlert) {
+     $httpProvider.interceptors.push(function($injector, $q, sweetAlert, storage) {
         var rootScope = $injector.get('$rootScope');
 
         return {
