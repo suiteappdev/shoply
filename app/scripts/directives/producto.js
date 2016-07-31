@@ -9,6 +9,8 @@ angular.module('shoplyApp')
               _obj = o.data;
               _obj._reference = o._reference;
               _obj._id = o._id;
+              _obj.idcomposed = o.idcomposed;
+              _obj.refMixed = o._reference.reference.join("");
 
               return _obj; 
         }) || [];
@@ -16,17 +18,22 @@ angular.module('shoplyApp')
   		});
       
   		$scope.myConfig = {
+        create:true,
+        createFilter : function(input){
+
+        },
   		  valueField: $scope.key,
   		  labelField: $scope.label,
   		  placeholder: 'Producto',
         maxItems: 1,
-
-          render: {
+        searchField : [$scope.searchBy, "producto", "refMixed"],
+        maxOptions : 1,
+        render: {
               option: function(item, escape) {
                   return '<div><img style="border:2px solid #efefef;width:50px;height:50px;margin-right:5px;" src="'+item.gallery[0].URL+'" />' +
                          '<span>'+escape(item.producto)+'</span></div>'
               }
-          },
+        },
 
         onItemAdd : function(value, $item){
           angular.forEach($scope.records, function(v, k){
@@ -48,7 +55,8 @@ angular.module('shoplyApp')
       	ngModel : "=",
         setObject:"=",
         key : "@",
-        label : "@"
+        label : "@",
+        searchBy:"@"
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {
