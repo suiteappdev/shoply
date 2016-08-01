@@ -41,7 +41,9 @@
 
     <!-- Add your site or application content here -->
     <div ng-include="'views/home/header.html'" ng-hide="$root.state.includes('public')"></div>
+
     <div ui-view class="row" style="background-image: url(images/pattern.png);"></div>  
+    
     <div ng-include="'views/home/footer.html'" style="position: absolute;width: 100%;height: 50px;bottom: 0px;right: 0px;" ng-hide="$root.state.includes('public')" ></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
