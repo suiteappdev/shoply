@@ -19,14 +19,11 @@ angular.module('shoplyApp')
       
   		$scope.myConfig = {
         create:true,
-        createFilter : function(input){
-
-        },
   		  valueField: $scope.key,
   		  labelField: $scope.label,
   		  placeholder: 'Producto',
         maxItems: 1,
-        searchField : [$scope.searchBy, "producto", "refMixed"],
+        searchField : $scope.searchBy,
         maxOptions : 1,
         render: {
               option: function(item, escape) {
@@ -56,7 +53,7 @@ angular.module('shoplyApp')
         setObject:"=",
         key : "@",
         label : "@",
-        searchBy:"@"
+        searchBy:"="
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {

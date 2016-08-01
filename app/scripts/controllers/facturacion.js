@@ -25,7 +25,9 @@ angular.module('shoplyApp')
     }
 
     $scope.facturar = function(){
-      alert(1);
+       modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+          $scope.$close();
+       });  
     }
 
     $scope.agregarCantidad = function(){

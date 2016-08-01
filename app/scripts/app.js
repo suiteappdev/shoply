@@ -79,9 +79,6 @@ angular
                                 imageUrl:"http://icon-icons.com/icons2/67/PNG/512/watch_13224.png"
                             }, function(){
 
-                                if(window.modal)
-                                     window.modal.hide();
-
                                  if(window.sweet)
                                     window.sweet.hide();
 

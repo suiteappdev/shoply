@@ -359,12 +359,20 @@ module.exports = function (grunt) {
           collapseBooleanAttributes: true,
           removeCommentsFromCDATA: true
         },
-        files: [{
+        files: [
+        {
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html'],
+          src: '**/*.html',
           dest: '<%= yeoman.dist %>'
-        }]
+        },
+        {
+          expand: true,
+          cwd: 'app/views',
+          src: '**/*.html',
+          dest: '<%= yeoman.dist %>/views'
+        }
+        ]
       }
     },
 

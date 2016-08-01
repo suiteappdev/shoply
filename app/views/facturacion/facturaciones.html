@@ -9,17 +9,7 @@
 					 <producto-field 
 					  	key="_id" 
 					  	label="producto"
-					  	set-object="_productObj"
-					  	ng-model="_product">
-				  	<producto-field>
-		    	</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="form-group">
-					 <producto-field 
-					  	key="_id" 
-					  	label="producto"
-					  	search-by="idcomposed"
+					  	search-by="['idcomposed', 'refMixed', 'producto']"
 					  	set-object="_productObj"
 					  	ng-model="_product">
 				  	<producto-field>
@@ -73,7 +63,7 @@
 					</div>
 					<div class="col-lg-3">
 						<div class="row">
-							<button style="line-height:40px;" ng-click="facturar()" class="custom-btn custom-btn-primary btn-block"><i class="glyphicon glyphicon-plus"></i>&nbsp;Facturar</button>						
+							<button type="submit" style="line-height:40px;" ng-click="facturar()" class="custom-btn custom-btn-primary btn-block"><i class="glyphicon glyphicon-plus"></i>&nbsp;Facturar</button>						
 						</div>
 					</div>
 				</div>

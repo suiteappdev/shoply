@@ -31,13 +31,19 @@ angular.module('shoplyApp')
 
     $scope.agregarIva = function(){
        modal.show({templateUrl : 'views/iva/agregar_ivas.html', size :'md', scope: $scope}, function($scope){
-       
+        $scope.$close();
+       });  
+    }
+
+    $scope.agregarFormasDePago = function(){
+       modal.show({templateUrl : 'views/formaDePago/agregar_formaDePago.html', size :'md', scope: $scope}, function($scope){
+        $scope.$close();
        });  
     }
 
     $scope.agregarConsecutivo = function(){
        modal.show({templateUrl : 'views/contador/agregar_contadores.html', size :'md', scope: $scope}, function($scope){
-       
+          $scope.$close();
        });  
     }
   });
