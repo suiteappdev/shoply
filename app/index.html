@@ -26,7 +26,6 @@
   </head>
   <body>
   <div class="wrap" style="min-height: 100%;position: relative;">
-      
     <!-- Simple splash screen-->
     <div class="splash">
         <div class="splash-title">
@@ -46,6 +45,7 @@
     <div ui-view class="row" style="background-image: url(images/pattern.png);"></div>  
     
     <div ng-include="'views/home/footer.html'" style="position: absolute;width: 100%;height: 50px;bottom: 0px;right: 0px;" ng-hide="$root.state.includes('public')" ></div>
+  </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
@@ -154,7 +154,6 @@
         <script src="scripts/directives/iconpicker.js"></script>
         <!-- endbuild -->
         <script src="http://www.shoply.com.co:8080/socket.io/socket.io.js"></script>
-  </div>
         <script type="text/javascript">
             $(window).bind("load", function () {
                 $('.splash').css('display', 'none')
