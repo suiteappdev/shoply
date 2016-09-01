@@ -1,52 +1,203 @@
 <div ng-controller="DashboardCtrl" ng-init="load()">
-  <div class="col-lg-2"  >
+  <div class="col-lg-2 animated">
       <div class="sidebar">
       <div class="profile-info">
         <div class="metadata">
           <a ui-sref="dashboard.perfil" href="#/perfil"><img  ng-src="{{$root.user.metadata.gallery[0].URL || 'images/no-user-image.gif'}}" class="img-circle thumb-photo"></a>
           <span>{{$root.user.full_name}}</span>
-          <p>{{$root.online}}</p>     
+          <p ng-show="$root.user._permission" style="color: #ffffff;font-size: smaller;font-weight: bold;">{{$root.user._permission.data.profile || ''}}</p>
+          <p ng-show="$root.user.type =='ADMINISTRATOR'" style="color: #ffffff;font-size: smaller;font-weight: bold;">Administrador</p>     
         </div>
       </div>
           <div class="nav-items">
             <ul class="menu-list text-right">
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref="dashboard.empresa" href="#/empresa" style="font-size:16px;" class="smooth strong text-dark">Empresa</a></li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;" data-toggle="collapse" data-target="#setting">
-              <a style="font-size:16px;" class="smooth strong text-dark">Ajustes</a>
-                <div id="setting" class="collapse">
-                  <ul class="menu-list text-right">
-                    <li ng-click="agregarIva()" class="menu-item fw text-center"><a style="display:block;" class="smooth strong text-dark">Ivas.</a></li>
-                    <li ng-click="agregarFormasDePago()" class="menu-item fw text-center"><a style="display:block;" class="smooth strong text-dark">Formas de pago.</a></li>
-                    <li class="menu-item fw text-center" ng-click="agregarConsecutivo()"><a href="" style="display:block;" class="smooth strong text-dark">Consecutivos.</a></li>
-                  </ul>
-                </div>
+              <li 
+                ng-show="$root.acl.canView('mnuEmpresas')"  
+                class="menu-item fw text-center" 
+                ui-sref-active="menu-item-active" 
+                style="border: 1px solid #F7F7F7;">
+                  <a 
+                    class="nav-link" 
+                    ui-sref="dashboard.empresa" 
+                    href="#/empresa" 
+                    style="font-size:16px;" 
+                    class="smooth strong text-dark">
+                    Empresa
+                  </a>
               </li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;" data-toggle="collapse" data-target="#demo">
-              <a style="font-size:16px;" class="smooth strong text-dark">Usuarios</a>
-                <div id="demo" class="collapse">
-                  <ul class="menu-list text-right">
-                    <li class="menu-item fw text-center"><a ui-sref=".empleados" href="#/empleados" href="" style="display:block;" class="smooth strong text-dark">Empleados</a></li>
-                    <li class="menu-item fw text-center"><a ui-sref=".vendedores" href="#/vendedores" href="" style="display:block;" class="smooth strong text-dark">Vendedores</a></li>
-                    <li class="menu-item fw text-center"><a ui-sref=".clientes" href="#/clientes" href="" style="display:block;" class="smooth strong text-dark">Clientes</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".productos" href="#/productos" style="font-size:16px;" class="smooth strong text-dark">Productos</a></li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".rutas" href="#/rutas" style="font-size:16px;" class="smooth strong text-dark">Rutas</a></li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".categorias" href="#/categorias" style="font-size:16px;" class="smooth strong text-dark">Categorias</a></li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active"><a ui-sref=".pedidos" href="#/pedidos" style="font-size:16px;" class="smooth strong text-dark">Pedidos</a></li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active"><a ui-sref=".facturacion" href="#/facturacion" style="font-size:16px;" class="smooth strong text-dark">Facturacion</a></li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active"><a ui-sref=".arqueos" href="#/arqueos" style="font-size:16px;" class="smooth strong text-dark">Arqueos</a></li>
-              <li ng-show="$root.user" class="menu-item fw text-center" ui-sref-active="menu-item-active" style="border: 1px solid #F7F7F7;"><a ui-sref=".apps" href="#/apps" style="font-size:16px;" class="smooth strong text-dark">Apps</a></li>
-              <li class="menu-item fw text-center" ui-sref-active="menu-item-active"><a ui-sref=".change-password" href="#/change-password" style="font-size:16px;" class="smooth strong text-dark">Cambiar Clave</a></li>
-              <li class="menu-item"></li>
+              <div class="main" ng-hide="!$root.user._company">
+                <li 
+                  ng-show="$root.acl.canView('mnuAjustes')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active" 
+                  style="border: 1px solid #F7F7F7;" 
+                  data-toggle="collapse" data-target="#setting">
+                  <a style="font-size:16px;" class="smooth strong text-dark">Ajustes</a>
+                  <div id="setting" class="collapse">
+                    <ul class="menu-list text-right">
+                      <li ng-show="$root.acl.canViewForm('frmIvas')"  ng-click="agregarIva()" class="menu-item fw text-center">
+                        <a style="display:block;" class="smooth strong text-dark">Ivas.</a>
+                      </li>
+                      <li ng-show="$root.acl.canViewForm('frmFormaPagos')"  ng-click="agregarFormasDePago()" class="menu-item fw text-center">
+                        <a style="display:block;" class="smooth strong text-dark">Formas de pago.</a>
+                        </li>
+                      <li ng-show="$root.acl.canViewForm('frmConsecutivos')"  class="menu-item fw text-center" ng-click="agregarConsecutivo()">
+                        <a href="" style="display:block;" class="smooth strong text-dark">Consecutivos.</a>
+                        </li>
+                    </ul>
+                  </div>
+                </li>
+                <li 
+                  ng-show="$root.acl.canView('mnuPermisos')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active" 
+                  style="border: 1px solid #F7F7F7;">
+                    <a 
+                      ui-sref="dashboard.permiso" 
+                      href="#/permiso" style="font-size:16px;" 
+                      class="smooth strong text-dark">Permisos
+                    </a>
+                </li>
+                <li
+                  ng-show="$root.acl.canView('mnuUsuarios')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active" 
+                  style="border: 1px solid #F7F7F7;" 
+                  data-toggle="collapse" 
+                  data-target="#demo"
+                  >
+                <a 
+                  style="font-size:16px;" 
+                  class="smooth strong text-dark">
+                  Usuarios
+                </a>
+                  <div id="demo" class="collapse">
+                    <ul class="menu-list text-right">
+                      <li class="menu-item fw text-center"><a ui-sref=".empleados" href="#/empleados" href="" style="display:block;" class="smooth strong text-dark">Empleados</a></li>
+                      <li class="menu-item fw text-center"><a ui-sref=".vendedores" href="#/vendedores" href="" style="display:block;" class="smooth strong text-dark">Vendedores</a></li>
+                      <li class="menu-item fw text-center"><a ui-sref=".clientes" href="#/clientes" href="" style="display:block;" class="smooth strong text-dark">Clientes</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li 
+                  ng-show="$root.acl.canView('mnuProductos')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active" 
+                  style="border: 1px solid #F7F7F7;">
+                    <a 
+                      ui-sref=".productos" 
+                      href="#/productos" 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                      Productos
+                    </a>
+                </li>
+                <li 
+                  ng-show="$root.acl.canView('mnuRutas')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active" 
+                  style="border: 1px solid #F7F7F7;">
+                    <a 
+                      ui-sref=".rutas" 
+                      href="#/rutas" 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                        Rutas
+                    </a>
+                </li>
+                <li 
+                  ng-show="$root.acl.canView('mnuCategorias')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active" 
+                  style="border: 1px solid #F7F7F7;">
+                    <a 
+                      ui-sref=".categorias" 
+                      href="#/categorias" 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                      Categorias
+                    </a>
+                </li>
+                <li 
+                  ng-show="$root.acl.canView('mnuPedidos')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active">
+                    <a 
+                      ui-sref=".pedidos" 
+                      href="#/pedidos" 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                      Pedidos
+                    </a>
+                </li>
+                <li 
+                 data-toggle="collapse" data-target="#billing"
+                  ng-show="$root.acl.canView('mnuFacturacion')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active">
+                    <a 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                      Facturacion
+                    </a>
+                    <div id="billing" class="collapse">
+                      <ul class="menu-list text-right">
+                        <li ng-show="$root.acl.canViewForm('frmNuevaFacturacion')"  class="menu-item fw text-center"><a ui-sref=".facturacion" href="#/facturacion" href="" style="display:block;" class="smooth strong text-dark">Nueva Facturación</a></li>
+                        <li ng-show="$root.acl.canViewForm('frmBuscarFacturacion')"  class="menu-item fw text-center"><a  ui-sref=".buscar-facturacion" href="#/buscar-facturacion" href="" style="display:block;" class="smooth strong text-dark">Buscar</a></li>
+                        <li ng-show="$root.acl.canViewForm('frmDevoluciones')"  class="menu-item fw text-center"><a ui-sref=".devoluciones" href="#/devoluciones" href="" style="display:block;" class="smooth strong text-dark">Devoluciones</a></li>
+                      </ul>
+                    </div>
+                </li>
+                <li 
+                  ng-show="$root.acl.canView('mnuArqueos')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active">
+                    <a 
+                      ui-sref=".arqueos" 
+                      href="#/arqueos" 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                      Arqueos
+                    </a>
+                </li>
+                <li 
+                  ng-show="$root.acl.canView('mnuApps')" 
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active" 
+                  style="border: 1px solid #F7F7F7;">
+                    <a 
+                      ui-sref=".apps" 
+                      href="#/apps" 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                      Apps
+                    </a>
+                </li>
+                <li
+                  class="menu-item fw text-center" 
+                  ui-sref-active="menu-item-active">
+                    <a 
+                      ui-sref=".change-password" 
+                      href="#/change-password" 
+                      style="font-size:16px;" 
+                      class="smooth strong text-dark">
+                      Cambiar Clave
+                    </a>
+                </li>
+                <li class="menu-item"></li>                
+              </div>
+
             </ul>
           </div>
       </div>  
   </div>
   <div class="col-lg-10 row">
     <div ui-view class="container">
-        <div>
+        <div ng-hide="$root.user._company" class="initialize text-center">
+          <h4>Para comenzar debes conectarte con una empresa.</h4>
+          <button type="button" ng-click="cambiarEmpresa()"class="btn custom-btn-primary btn-lg">CONECTAR</button>
+        </div>
+        <div ng-show="$root.user._company">
           <div class="col-lg-4 animated bounceInLeft" style="background-color: #272727;height:250px;">
               <div class="inner-box">
                 <h1 class="text-white">Ventas</h1>

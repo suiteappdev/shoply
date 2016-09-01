@@ -34,6 +34,7 @@
 			 <table class="table table-hover">
 				<thead>
 					<th>Versión</th>
+					<th>Aplicación</th>
 					<th>Observación</th>
 					<th>Fecha de creación.</th>
 					<th>Publico.</th>
@@ -43,6 +44,7 @@
 				<tbody>
 					<tr dir-paginate="record in records |filter:search |itemsPerPage: 5 " pagination-id="paginationApps">
 						<td>{{record.data.version}}</td>
+						<td>{{record.data.name}}</td>
 						<td>{{record.data.observacion || 'sin observación'}}</td>
 						<td>{{record.createdAt | date:"yyyy-MM-dd"}}</td>
 						<td><input icheck type="checkbox"  ng-model="record.data.isPublic" class="info-bounce"></td>

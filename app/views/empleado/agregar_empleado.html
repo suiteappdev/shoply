@@ -3,7 +3,7 @@
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Crear Empleado</h4>
     </div>
-  	<div class="modal-body">
+  	<div class="modal-body modal-body-pattern">
     	<div>
   	  	<form name="formEmploye" novalidate>
           <div class="row">
@@ -67,6 +67,12 @@
                       <label>Ciudad:</label>
                       <ciudad-field required ng-model="form.metadata.ciudad"></ciudad-field>
                   </div>                      
+                </div>
+                <div class="col-lg-12">
+                   <div class="form-group">
+                      <label>Perfil:</label>
+                      <perfil-field key="_id" label="profile" ng-model="form._permission"></perfil-field>
+                  </div>
                 </div>
               </div>
                   <div class="row">

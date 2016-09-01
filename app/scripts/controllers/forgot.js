@@ -1,0 +1,19 @@
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name shoplyApp.controller:HeaderCtrl
+ * @description
+ * # HeaderCtrl
+ * Controller of the shoplyApp
+ */
+angular.module('shoplyApp')
+  .controller('forgotCtrl', function ($scope, api, $state, modal, storage) {
+  	$scope.recover = function(){
+      api.recover().post($scope.form.data).success(function(res){
+        if(res){
+          alert(res);
+        }
+      });
+  	}
+  });

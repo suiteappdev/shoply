@@ -25,12 +25,12 @@ angular
     'internationalPhoneNumber',
     'ngImgCrop',
     'jkuri.datepicker',
-    'colorpicker.module'
+    'colorpicker.module',
+    'vcRecaptcha'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'
         ipnConfig.preferredCountries = ['pl', 'de', 'fr', 'uk', 'es'];
-
      $httpProvider.interceptors.push(function($injector, $q, sweetAlert, storage) {
         var rootScope = $injector.get('$rootScope');
 
@@ -44,9 +44,8 @@ angular
                    $httpProvider.defaults.headers.common['x-shoply-user'] =  angular.fromJson(window.localStorage.user) ?  angular.fromJson(window.localStorage.user)._id : null  ; // common
                    
                    if(angular.fromJson(window.localStorage.user)._company){
-                      $httpProvider.defaults.headers.common['x-shoply-company']  =  angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company;
+                      $httpProvider.defaults.headers.common['x-shoply-company']  = angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company;
                    }
-
                 }
                  
                 console.log(config, 'request')
@@ -127,9 +126,16 @@ angular
           .state('login', {
               url: '/login',
               templateUrl: 'views/login/login.html',
-              controller : 'LoginCtrl',
               data: {
                 pageTitle: 'Ingresar'
+              } 
+          })
+          .state('login.quickstart', {
+              url: '/quickstart',
+              templateUrl: 'views/register/register.html',
+              controller:'RegistrationCtrl',
+              data: {
+                pageTitle: 'Registrarse'
               } 
           })
           .state('dashboard.empresa', {
@@ -146,6 +152,14 @@ angular
               templateUrl: 'views/apps/apps.html',
               data: {
                 pageTitle: 'Apps'
+              }
+          })
+          .state('dashboard.permiso', {
+              url: '/permiso',
+              access: { requiredAuthentication: true },
+              templateUrl: 'views/permisos/permisos.html',
+              data: {
+                pageTitle: 'Permisos'
               }
           })
           .state('public', {
@@ -236,6 +250,30 @@ angular
                   pageTitle: 'Facturar'
                 }
           })
+          .state('dashboard.editar-facturacion', {
+                url: '/editar-facturacion/:facturacion',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/facturacion/facturaciones.html',
+                data: {
+                  pageTitle: 'Editar-Devolver'
+                }
+          })
+          .state('dashboard.devoluciones', {
+                url: '/devoluciones',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/devoluciones/devoluciones.html',
+                data: {
+                  pageTitle: 'Devoluciones'
+                }
+          })
+          .state('dashboard.buscar-facturacion', {
+                url: '/buscar-facturacion',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/facturacion/buscar-facturacion.html',
+                data: {
+                  pageTitle: 'Buscar Facturación'
+                }
+          })
           .state('dashboard.vendedores', {
                 url: '/vendedores',
                 access: { requiredAuthentication: true },
@@ -282,6 +320,14 @@ angular
                 templateUrl: 'views/clientes/detalle-cliente.html',
                 data: {
                   pageTitle: 'Detalle del clientes'
+                }
+          })
+          .state('dashboard.detalle_arqueo', {
+                url: '/detalle-arqueo/:arqueo',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/arqueos/detalle-arqueo.html',
+                data: {
+                  pageTitle: 'Detalle de arqueo'
                 }
           })
           .state('dashboard.rutas', {
@@ -346,14 +392,15 @@ angular
                   pageTitle: 'Detalle pedido'
                 }
           });
-  }).run(["$rootScope", "constants", "storage", "$state","sounds", "api","$window",  function($rootScope, constants, storage, $state, sounds, api, $window){
+  }).run(["$rootScope", "constants", "storage", "$state","sounds", "api","$window","permission",  function($rootScope, constants, storage, $state, sounds, api, $window, permission){
         $rootScope.currency = constants.currency;
         $rootScope.base = constants.uploadFilesUrl;
         $rootScope.isLogged = storage.get('user');
         $rootScope.user = storage.get('user');
         $rootScope.state = $state;
+        $rootScope.acl = permission;
         $rootScope.online = navigator.onLine;
-        
+
         $window.addEventListener("offline", function() {
           $rootScope.$apply(function() {
             $rootScope.online = false;

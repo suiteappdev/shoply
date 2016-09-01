@@ -15,6 +15,16 @@ label {
   text-overflow: ellipsis;
 }
 
+label.white {
+  display: inline-block;
+  font-size: $font-size-default;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  color : white;
+  text-overflow: ellipsis;
+}
+
 input[type="search"] {
   box-sizing: border-box;
 }

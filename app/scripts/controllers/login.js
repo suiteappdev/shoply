@@ -20,10 +20,16 @@ angular.module('shoplyApp')
 
 	  	var _success = function(res){
         if(res.user.type == "EMPLOYE" || res.user.type == "ADMINISTRATOR" || res.user.type == "OWNER"){
-            storage.save('token', res.token);
-            storage.save('user', res.user);
+            var  _user =  res.user;
+            var  _permission = res.user._permission;
+            var  _token = res.token;
+
+            storage.save('token', _token);
+            storage.save('user', _user);
+
             $rootScope.isLogged = res.user;
-            $rootScope.user = res.user;
+            $rootScope.user = storage.get('user');
+            
             $state.go(constants.login_state_sucess);          
         }else{
           sweetAlert.swal("Inhabilitado.", "Privilegios son insuficientes.", "error");

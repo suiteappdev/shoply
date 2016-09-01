@@ -185,18 +185,16 @@ background-image: url(http://2.bp.blogspot.com/-gic3mg0TG9Q/ThFhmc8KyAI/AAAAAAAA
 }
 
 .login-page{
-    background-image: url(../images/background-2.jpg);
-    min-height: 600px;
+    /*background-image: url(../images/background-2.jpg);*/
     background-size: cover;
     background-repeat: no-repeat;
+    height: 100vh;
+    background-color: #001c24
 }
 
 .forgot-page{
-    background-image: url(../images/background-3.jpg);
+    background-color: #001c24;
     min-height: 600px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 .page-about{
@@ -561,3 +559,59 @@ pre                             { margin-bottom:20px; }
     padding: 20px;
 }
 
+.monospace{
+  font-family:monospace!important;
+}
+
+#printable { display: none;}
+
+@media print
+{
+  #non-printable { display: none; }
+  #printable { display: block; }
+}
+
+.initialize{
+    height: 200px;
+    float: left; 
+    width: 100%; 
+    max-height: 100%;
+    top: 100px;
+    position: relative;
+}
+
+.sweet-alert.show-input input {
+    text-align: center!important;
+    font-family: lato!important;
+    font-size: 14px!important;
+}
+
+.sweet-alert h2 {
+    color: #575757;
+    font-size: 20px;
+    text-align: center;
+    text-transform: none;
+    position: relative;
+    font-weight: lighter;
+    margin: 3px 0;
+    padding: 0;
+    line-height: 40px;
+    display: block;
+}
+
+.sweet-alert button {
+    margin: 0px 5px 0 5px!important;
+}
+
+.modal-body-pattern{
+  background-image : url(../images/modal-body-pattern.png);
+}
+
+.login-content{
+    width: 60%;
+    height: 550px;
+    margin: 0 auto;
+    top:50px;
+    background-color: #eee;
+    position: relative;
+}

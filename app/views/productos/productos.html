@@ -3,7 +3,7 @@
     <div class="table_wrap table_height">
       <div class="row table-responsive table_inner">
           <div class="controls" ng-show="records.length == 0 && Records">
-            <h4 >No hay registros para mostrar <a ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
+            <h4 >No hay registros para mostrar <button ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</button></h4>
           </div>
           <p class="text-center" ng-show="!Records">
            <img style="width:50px;" src="images/loading.gif">
@@ -17,7 +17,7 @@
 	  <div class="panel-body">
 	  <div class="col-lg-12">
 		  <div class="form-group pull-right">
-		  	<button  class="custom-btn custom-btn-primary large-rounded" ng-click="agregar()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
+		  	<button ng-disabled="!$root.acl.canCreate('mnuProductos')"   class="custom-btn custom-btn-primary large-rounded" ng-click="agregar()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
 		  </div>
 	  </div>
 	  <div class="row">
@@ -47,7 +47,7 @@
 				<th></th>
 			</thead>
 			<tbody>
-				<tr dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
+				<tr dir-paginate="record in records |filter:search |itemsPerPage: 5 " pagination-id="productEntity">
 					<td>{{record.idcomposed || record.id}}</td>
 					<td>{{record.data.producto}}</td>
 					<td>{{record.data.descripcion || 'no definido'}}</td>
@@ -56,16 +56,16 @@
 					<td><span class="label label-custom">{{record._category.text || 'sin categoria'}}</span></td>
 					<td>{{record.data.estado}}</td>
 					<td></td>
-					<td class="text-right"><a ui-sref="dashboard.detalle_producto({producto: record._id})" class="custom-btn-tiny btn-block custom-btn-primary" href="#/detalle-producto/{{record._id}}"><i class="glyphicon glyphicon-eye-open"></i>Detalle</a></td>
-					<td class="text-right"><a  class="custom-btn-tiny btn-block btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>Editar</a></td>
-					<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i>Eliminar</a></td> 
+					<td style="width:50px;" class="text-right"><button ng-disabled="!$root.acl.canView('mnuProductos')"  ui-sref="dashboard.detalle_producto({producto: record._id})" class="custom-btn-tiny btn-block custom-btn-primary" href="#/detalle-producto/{{record._id}}"><i class="glyphicon glyphicon-eye-open"></i>Detalle</button></td>
+					<td style="width:50px;" class="text-right"><button ng-disabled="!$root.acl.canUpdate('mnuProductos')"   class="custom-btn-tiny btn-block btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>Editar</button></td>
+					<td style="width:50px;" class="text-right"><button ng-disabled="!$root.acl.canDelete('mnuProductos')"  ng-click="borrar()" class="custom-btn-tiny btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i>Eliminar</button></td> 
 				</tr>
 			</tbody>
 		</table>	  	
 	  </div>
 			<div class="row">
 				<div class="col-lg-12">
-					<dir-pagination-controls class="pull-right"></dir-pagination-controls>
+					<dir-pagination-controls class="pull-right" pagination-id="productEntity"></dir-pagination-controls>
 				</div>
 			</div>
 	  </div>

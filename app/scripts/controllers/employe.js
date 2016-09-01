@@ -14,13 +14,12 @@ angular.module('shoplyApp')
   	}
 
   	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/empleado/agregar_empleado.html', size :'md', scope: $scope}, function($scope){
+       modal.show({templateUrl : 'views/empleado/agregar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEmploye.$invalid){
                  modal.incompleteForm();
                 return;
             }
             
-            //angular.extend($scope.form.data , {type : "SELLER"});
             $scope.form.type = "EMPLOYE";
             api.user().post($scope.form).success(function(res){
               if(res){
@@ -36,9 +35,10 @@ angular.module('shoplyApp')
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._route = $scope.formEdit._route.map(function(_o){return _o._id});
+      $scope.formEdit._permission = $scope.formEdit._permission ? $scope.formEdit._permission._id : null;
       delete $scope.formEdit.password;
       
-      modal.show({templateUrl : 'views/empleado/editar_empleado.html', size :'md', scope: $scope}, function($scope){
+      modal.show({templateUrl : 'views/empleado/editar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditEmploye.$invalid){
                  modal.incompleteForm();
                 return;

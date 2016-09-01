@@ -21,11 +21,14 @@ angular.module('shoplyApp')
     this.reset = function(){ this.url = ""; };
 
     this.user = function(user){if(user) this.url = constants.base_url + "user/" + user; else this.url = constants.base_url + "user/"; return this;};
+    this.recover = function(){ this.url = constants.base_url + "recover/"; return this;};
+    this.permiso = function(permiso){if(permiso) this.url = constants.base_url + "permisos/" + permiso; else this.url = constants.base_url + "permisos/"; return this;};
     this.producto = function(producto){if(producto) this.url = constants.base_url + "producto/" + producto; else this.url = constants.base_url + "producto/"; return this;};
     this.pedido = function(pedido){if(pedido) this.url = constants.base_url + "pedido/" + pedido; else this.url = constants.base_url + "pedido/"; return this;};
     this.rutas = function(ruta){if(ruta) this.url = constants.base_url + "rutas/" + ruta; else this.url = constants.base_url + "rutas/"; return this;};
     this.ivas = function(iva){if(iva) this.url = constants.base_url + "ivas/" + iva; else this.url = constants.base_url + "ivas/"; return this;};
     this.formas_pagos = function(formaPago){if(formaPago) this.url = constants.base_url + "formasPago/" + formaPago; else this.url = constants.base_url + "formasPago/"; return this;};
+    this.facturacion = function(factura){if(factura) this.url = constants.base_url + "facturacion/" + factura; else this.url = constants.base_url + "facturacion/"; return this;};
     this.referencias = function(referencia){if(referencia) this.url = constants.base_url + "referencias/" + referencia; else this.url = constants.base_url + "referencias/"; return this;};
     this.contadores = function(contador){if(contador) this.url = constants.base_url + "contadores/" + contador; else this.url = constants.base_url + "contadores/"; return this;};
     this.transportador = function(transportador){if(transportador) this.url = constants.base_url + "transportador/" + transportador; else this.url = constants.base_url + "transportador/"; return this;};

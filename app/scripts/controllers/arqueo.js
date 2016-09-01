@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('ArqueoCtrl', function ($scope,$rootScope,  sweetAlert, constants, $state, modal, api, storage) {
+  .controller('ArqueoCtrl', function ($scope, $http, $filter,  $rootScope, $stateParams, sweetAlert, constants, $state, modal, api, storage) {
     
     $scope.Records = false; 
 
@@ -17,10 +17,17 @@ angular.module('shoplyApp')
     $scope.form.metadata.total_sistema = 0;
 
     $scope.load = function(){
-        api.arqueos().get().success(function(res){
-          $scope.records = res || [];
-          $scope.Records = true;
-        });
+        if($stateParams.arqueo){
+          api.arqueos($stateParams.arqueo).get().success(function(res){
+            $scope.records = res || [];
+            $scope.Records = true;
+          });   
+        }else{
+          api.arqueos().get().success(function(res){
+            $scope.records = res || [];
+            $scope.Records = true;
+          });          
+        }
   	}
 
     $scope.download = function(){
@@ -58,6 +65,7 @@ angular.module('shoplyApp')
 
               var _data = angular.copy($scope.form);
               _data.metadata.arqueo = inputValue;
+
               _data._request = $scope.form._request.map(function(o){
                 return o._id;
               });
@@ -90,6 +98,25 @@ angular.module('shoplyApp')
           });
     }
 
+    $scope.print = function(data){
+        Handlebars.registerHelper('formatCurrency', function(value) {
+            return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        });
+
+        Handlebars.registerHelper("DateShort", function(timestamp) {
+            return  $filter('date')(timestamp, 'yyyy-MM-dd');
+        });
+
+        $http.get('views/prints/arqueo.html').success(function(res){
+          var _template = Handlebars.compile(res);
+          var w = window.open("", "_blank", "scrollbars=yes,resizable=no,top=200,left=200,width=350");
+          
+          w.document.write(_template($scope.records));
+          w.print();
+          w.close();
+        });
+    }
+
     $scope.totalize = function(){
       angular.forEach($scope.form._request, function(o){
         $scope.form.metadata.total_sistema += o.metadata.total;
@@ -106,17 +133,18 @@ angular.module('shoplyApp')
         }
     });
 
-  	$scope.create = function(){
-
-  	}
-
-    $scope.update = function(){
-
-    }
-
-
-    $scope.delete = function(){
-
+    $scope.borrar = function(){
+        var _record = this.record;
+        modal.removeConfirm({closeOnConfirm : true}, 
+            function(isConfirm){ 
+               if (isConfirm) {
+                    api.arqueos(_record._id).delete().success(function(res){
+                        if(res){
+                            $scope.records.splice($scope.records.indexOf(_record), 1);
+                        }
+                    });
+               }
+           })
     }
 
   });

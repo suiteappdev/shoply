@@ -31,8 +31,11 @@ angular.module('shoplyApp')
                         $scope.load();
                         delete $scope.formPersonaNatural;
                       }
-                    });
-
+                    }).error(function(data, status){
+                        if(status == 409){
+                            sweetAlert.swal("No se pudo registrar.", "Este email ya esta registrado.", "error");
+                        }
+                     });
                       break;
                   case "juridica":
                     if($scope.clienteJuridicoForm.$invalid){
@@ -50,7 +53,11 @@ angular.module('shoplyApp')
                         $scope.load();
                         delete $scope.formPersonaJuridica;
                       }
-                    });
+                    }).error(function(data, status){
+                        if(status == 409){
+                            sweetAlert.swal("No se pudo registrar.", "Este email ya esta registrado.", "error");
+                        }
+                     });
                       break;
                   default:
                       modal.incompleteForm();
@@ -89,8 +96,11 @@ angular.module('shoplyApp')
                         $scope.load();
                         delete $scope.formEditPersonaNatural;
                       }
-                    });
-
+                    }).error(function(data, status){
+                        if(status == 409){
+                            sweetAlert.swal("No se pudo registrar.", "Este email ya esta registrado.", "error");
+                        }
+                     });
                       break;
                   case "juridica":
                     if($scope.clienteEditJuridicoForm.$invalid){
@@ -105,6 +115,10 @@ angular.module('shoplyApp')
                         $scope.load();
                         delete $scope.formEditPersonaJuridica;
                       }
+                    }).error(function(data, status){
+                        if(status == 409){
+                            sweetAlert.swal("No se pudo registrar.", "Este email ya esta registrado.", "error");
+                        }
                     });
                       break;
                   default:

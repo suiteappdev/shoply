@@ -8,7 +8,7 @@
  */
 angular.module('shoplyApp')
   .directive('imageUploader', ["api", "modal", function (api, modal, $window, $timeout) {
-  	function ctrl($scope){
+  	function ctrl($scope, $http){
 
   		$scope.image_final = '';
   		$scope.ghost = [];
@@ -35,7 +35,6 @@ angular.module('shoplyApp')
 
 		$scope.edit = function(){
 			$scope.editImage = this.file;
-
 		    modal.show({templateUrl : 'views/utils/cropper2.html', size :'md', scope: $scope}, function($scope){
 	  			$scope.editImage.loading = true;
 
@@ -51,7 +50,7 @@ angular.module('shoplyApp')
 		  		});
 
 		        $scope.$close();
-		    });
+		    }); 
 		};
   	}
 

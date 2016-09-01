@@ -3,7 +3,7 @@
     <div class="table_wrap table_height">
       <div class="row table-responsive table_inner">
           <div class="controls" ng-show="records.length == 0 && Records">
-            <h4 >No hay registros para mostrar <a ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
+            <h4 >No hay registros para mostrar <button ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</button></h4>
           </div>
           <p class="text-center" ng-show="!Records">
            <img style="width:50px;" src="images/loading.gif">
@@ -17,7 +17,7 @@
           <div class="panel-body">
           <div class="col-lg-12">
               <div class="form-group pull-right">
-                <button  class="custom-btn custom-btn-primary large-rounded" ng-click="agregar()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
+                <button ng-disabled="$root.permissionService.canCreate('mnuEmpresas')" class="custom-btn custom-btn-primary large-rounded" ng-click="agregar()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
               </div>
           </div>
           <div class="row">
@@ -40,7 +40,8 @@
                     <th>Dirección</th>
                     <th>Celular</th>
                     <th>Telefono</th>
-                    <th>Fax</th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -52,9 +53,10 @@
                         <td>{{record.data.direccion || 'no definido'}}</td>
                         <td>{{record.data.celular || 'no definido'}}</td>
                         <td>{{record.data.telefono || 'no definido'}}</td>
-                        <td class="text-right"><a ui-sref="dashboard.detalle_empresa({empresa: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-empresa/{{record._id}}">Detalle</a></td>
-                        <td class="text-right"><a class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
-                        <td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
+                        <td style="width:50px;" class="text-right"><a ui-sref="dashboard.detalle_empresa({empresa: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-empresa/{{record._id}}">Detalle</a></td>
+                        <td style="width:50px;" class="text-right"><a ng-disabled="!$root.permissionService.canUpdate('mnuEmpresa')" class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
+                        <td style="width:50px;" class="text-right"><a ng-disabled="!$root.permissionService.canDelete('mnuEmpresa')" ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
+                        <td style="width:50px;" class="text-right"><a ng-disabled="!$root.permissionService.canDelete('mnuEmpresa')" ng-click="connectCompany(record)" class="custom-btn-tiny btn-success"><i class="glyphicon glyphicon-transfer">&nbsp;Conectar</i></a></td>
                     </tr>
                 </tbody>
             </table>            

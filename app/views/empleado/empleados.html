@@ -3,7 +3,7 @@
     <div class="table_wrap table_height">
       <div class="row table-responsive table_inner">
           <div class="controls" ng-show="records.length == 0 && Records">
-            <h4 >No hay registros para mostrar <a ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
+            <h4 >No hay registros para mostrar <a  ng-click="agregar()" class="custom-btn custom-btn-primary">Crear registro</a></h4>
           </div>
           <p class="text-center" ng-show="!Records">
            <img style="width:50px;" src="images/loading.gif">
@@ -52,9 +52,9 @@
 						<td>{{record.metadata.phone || 'no definido'}}</td>
 						<td>{{record.metadata.departamento || 'no definido'}}</td>
 						<td>{{record.metadata.ciudad.toLowerCase() || 'no definido'}}</td>
-						<td class="text-right"><a ui-sref="dashboard.detalle_vendedor({vendedor: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-vendedor/{{record._id}}">Detalle</a></td>
-						<td class="text-right"><a class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
-						<td class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
+						<td style="width:50px;"class="text-right"><a ui-sref="dashboard.detalle_vendedor({vendedor: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-vendedor/{{record._id}}">Detalle</a></td>
+						<td style="width:50px;"class="text-right"><a class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
+						<td style="width:50px;"class="text-right"><a ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></a></td>
 					</tr>
 				</tbody>
 			</table>		  	

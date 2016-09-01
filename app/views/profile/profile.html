@@ -28,17 +28,13 @@
 								<input type="text" placeholder="Email" required class="form-control" ng-model="$root.user.email">
 							</div>
 							<div class="form-group">
-								<label>Telefono 2:</label>
+								<label>Telefono 1:</label>
 								<input type="text" class="form-control" international-phone-number ng-model="$root.user.metadata.phonebook[0]">
 							</div>
 							<div class="form-group">
 								<label>Telefono 2:</label>
 								<input type="text" class="form-control" international-phone-number ng-model="$root.user.metadata.phonebook[1]">
 							</div>
-							<div class="form-group">
-								<label>Telefono 3:</label>
-								<input type="text" class="form-control" international-phone-number ng-model="$root.user.metadata.phonebook[2]">
-							</div>								
 						</div>
 						<div class="col-lg-6">
   							<image-uploader area="circle" title="Sube tu imagen de perfil" button-text="Subir" items="1" label="" ng-model="$root.user.metadata.gallery"><image-uploader>

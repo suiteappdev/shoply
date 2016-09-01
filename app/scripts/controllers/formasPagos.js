@@ -50,7 +50,7 @@ angular.module('shoplyApp')
 
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
-      modal.show({templateUrl : 'views/formaDePago/editar_forma_pago.html', size :'md', scope: $scope}, function($scope){
+      modal.show({templateUrl : 'views/formaDePago/editar_forma_pago.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.$$childTail.formEditformaPago.$invalid){
                  modal.incompleteForm();
                 return;

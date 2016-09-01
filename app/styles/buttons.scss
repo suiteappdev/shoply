@@ -8,6 +8,24 @@ button[disabled=disabled], button:disabled {
 .custom-btn[disabled=disabled]{
     background-color: gray;
     cursor:not-allowed;
+
+    &:hover{
+       background-color: gray;
+    }
+}
+
+.nav-link[disabled=disabled]{
+    cursor:not-allowed!important;
+    color:gray!important;
+    pointer-events: none;
+
+    &:hover{
+      color:gray!important;
+    }
+}
+
+.nav-link{
+  color:black;
 }
 
 .custom-btn {
@@ -26,6 +44,10 @@ button[disabled=disabled], button:disabled {
 
   &:active{
 
+  }
+
+  &[disabled]{
+       background-color:none;
   }
 
   &:focus {
@@ -97,6 +119,15 @@ button[disabled=disabled], button:disabled {
     background-color: darken($primary-color, 5.0%);
     color:white;
     background-image: none;
+  }
+
+  &:focus{
+    color: #fff;
+    box-shadow: none;
+    outline: none;
+    background-color: darken($primary-color, 7.0%);
+    border: 1px solid #b1b0af;
+    border-style: dotted;
   }
 }
 

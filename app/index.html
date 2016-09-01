@@ -10,7 +10,6 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css" />
     <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css" />
     <link rel="stylesheet" href="bower_components/jstree/dist/themes/default/style.css" />
     <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
@@ -18,6 +17,8 @@
     <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css" />
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/minified/ng-img-crop.css" />
     <link rel="stylesheet" href="bower_components/angular-bootstrap-colorpicker/css/colorpicker.css" />
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -25,7 +26,7 @@
     <!-- endbuild -->
   </head>
   <body>
-  <div class="wrap" style="min-height: 100%;position: relative;">
+  <div id="non-printable" class="wrap" style="min-height: 100%;position: relative;">
     <!-- Simple splash screen-->
     <div class="splash">
         <div class="splash-title">
@@ -44,7 +45,7 @@
 
     <div ui-view class="row" style="background-image: url(images/pattern.png);"></div>  
     
-    <div ng-include="'views/home/footer.html'" style="position: absolute;width: 100%;height: 50px;bottom: 0px;right: 0px;" ng-hide="$root.state.includes('public')" ></div>
+    <div ng-include="'views/home/footer.html'" style="position: absolute;width: 100%;height: 50px;right: 0px;" ng-hide="$root.state.includes('public')" ></div>
   </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -71,10 +72,6 @@
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.js"></script>
     <script src="bower_components/bootstrap-css/js/bootstrap.min.js"></script>
-    <script src="bower_components/sifter/sifter.js"></script>
-    <script src="bower_components/microplugin/src/microplugin.js"></script>
-    <script src="bower_components/selectize/dist/js/selectize.js"></script>
-    <script src="bower_components/angular-selectize2/dist/angular-selectize.js"></script>
     <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/jsTree-directive/jsTree.directive.js"></script>
@@ -94,6 +91,12 @@
     <script src="bower_components/alasql/dist/alasql.min.js"></script>
     <script src="bower_components/iCheck/icheck.min.js"></script>
     <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+    <script src="bower_components/sifter/sifter.js"></script>
+    <script src="bower_components/microplugin/src/microplugin.js"></script>
+    <script src="bower_components/selectize/dist/js/selectize.js"></script>
+    <script src="bower_components/angular-selectize2/dist/angular-selectize.js"></script>
+    <script src="bower_components/handlebars/handlebars.js"></script>
+    <script src="bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.full.min.js"></script>
@@ -111,8 +114,10 @@
         <script src="scripts/services/account.js"></script>
         <script src="scripts/controllers/request.js"></script>
         <script src="scripts/controllers/employe.js"></script>
+        <script src="scripts/controllers/permiso.js"></script>
         <script src="scripts/controllers/apps.js"></script>
         <script src="scripts/services/api.js"></script>
+        <script src="scripts/services/permission.js"></script>
         <script src="scripts/services/constants.js"></script>
         <script src="scripts/services/storage.js"></script>
         <script src="scripts/services/sound.js"></script>
@@ -124,9 +129,11 @@
         <script src="scripts/directives/estadoproducto.js"></script>
         <script src="scripts/directives/iva.js"></script>
         <script src="scripts/directives/cropper.js"></script>
+        <script src="scripts/directives/cliente.js"></script>
         <script src="scripts/directives/estadopedido.js"></script>
         <script src="scripts/directives/company.js"></script>
         <script src="scripts/directives/entidades.js"></script>
+        <script src="scripts/directives/focus.js"></script>
         <script src="scripts/directives/references.js"></script>
         <script src="scripts/controllers/productdetail.js"></script>
         <script src="scripts/controllers/ivas.js"></script>
@@ -136,7 +143,9 @@
         <script src="scripts/directives/routes.js"></script>
         <script src="scripts/directives/system.js"></script>
         <script src="scripts/directives/vendedor.js"></script>
+        <script src="scripts/directives/perfil.js"></script>
         <script src="scripts/statics/departamentos.js"></script>
+        <script src="statics/permisos.js"></script>
         <script src="scripts/statics/municipios.js"></script>
         <script src="scripts/controllers/categoria.js"></script>
         <script src="scripts/directives/categoria.js"></script>
@@ -147,12 +156,16 @@
         <script src="scripts/controllers/changepassword.js"></script>
         <script src="scripts/controllers/company.js"></script>
         <script src="scripts/controllers/facturacion.js"></script>
+        <script src="scripts/controllers/devoluciones.js"></script>
         <script src="scripts/controllers/arqueo.js"></script>
+        <script src="scripts/controllers/forgot.js"></script>
         <script src="scripts/controllers/formasPagos.js"></script>
         <script src="scripts/services/sweetalert.js"></script>
         <script src="scripts/controllers/transportador.js"></script>
         <script src="scripts/directives/iconpicker.js"></script>
         <!-- endbuild -->
+        <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer
+></script>
         <script src="http://www.shoply.com.co:8080/socket.io/socket.io.js"></script>
         <script type="text/javascript">
             $(window).bind("load", function () {

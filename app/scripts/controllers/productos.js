@@ -21,8 +21,7 @@ angular.module('shoplyApp')
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._category = this.record._category ? this.record._category._id : null;
-      
-      $scope.ivaValue = this.record._iva.data.valor;
+      $scope.ivaValue = this.record._iva ? this.record._iva.data.valor : 0;
 
       $scope.formEdit._iva = this.record._iva ? this.record._iva._id : null;
       
@@ -46,7 +45,7 @@ angular.module('shoplyApp')
           });
       } 
 
-      modal.show({templateUrl : 'views/productos/editar_producto.html', size :'md', scope: $scope}, function($scope){
+      modal.show({templateUrl : 'views/productos/editar_producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formProducto.$invalid){
                  modal.incompleteForm();
                 return;
@@ -101,9 +100,10 @@ angular.module('shoplyApp')
     });
 
     $scope.editLoad = function(){
-      $scope.$watch('formEdit.data.precio', function(n, o){
+      
+       $scope.$watch('formEdit.data.precio', function(n, o){
         try{
-          var _valor_iva = ((parseInt($scope.editIva ? $scope.editIva.valor  : 0 ) / 100) * $scope.formEdit.data.precio  || 0); 
+          var _valor_iva = ((parseInt($scope.EditIva ? $scope.EditIva.valor  : 0  || $scope.ivaValue) / 100) * $scope.formEdit.data.precio  || 0); 
           
           var _valor_utilidad = ((($scope.formEdit.data.utilidad || 0)  / 100) * $scope.formEdit.data.precio  || 0);
 
@@ -118,9 +118,16 @@ angular.module('shoplyApp')
 
       });
 
-      $scope.$watch('editIva.valor', function(n, o){
+      $scope.$watch('EditIva.valor', function(n, o){
           try{
-            $scope.formEdit.data.valor_iva = ($scope.formEdit.data.precio * (parseInt(n || $scope.ivaValue) / 100));
+
+            if(!n && !o){
+              $scope.formEdit.data.valor_iva = (($scope.formEdit.data.precio * (parseInt($scope.ivaValue) / 100)));
+            }else{
+             $scope.formEdit.data.valor_iva = ($scope.formEdit.data.precio * (parseInt(n || 0) / 100));
+            }
+
+            //$scope.formEdit.data.valor_iva = ($scope.formEdit.data.precio * (parseInt(n) / 100));
             $scope.formEdit.data.precio_venta = (
                                             $scope.formEdit.data.valor_iva + ($scope.formEdit.data.precio) 
                                             + ($scope.formEdit.data.valor_utilidad )
@@ -148,7 +155,7 @@ angular.module('shoplyApp')
 
 
     $scope.agregar = function(){
-       modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope}, function($scope){
+       modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formProducto.$invalid){
                  modal.incompleteForm();
                 return;

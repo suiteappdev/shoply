@@ -14,7 +14,7 @@ angular.module('shoplyApp')
   	}
 
   	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/vendedores/agregar_vendedor.html', size :'md', scope: $scope}, function($scope){
+       modal.show({templateUrl : 'views/vendedores/agregar_vendedor.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formVendedor.$invalid){
                  modal.incompleteForm();
                 return;
@@ -29,6 +29,10 @@ angular.module('shoplyApp')
                 $scope.load();
                 delete $scope.form;
               }
+            }).error(function(data, status){
+                if(status == 409){
+                    sweetAlert.swal("No se pudo registrar.", "Este email ya esta registrado.", "error");
+                }
             });
         });
   	}
@@ -38,7 +42,7 @@ angular.module('shoplyApp')
       $scope.formEdit._route = $scope.formEdit._route.map(function(_o){return _o._id});
       delete $scope.formEdit.password;
       
-      modal.show({templateUrl : 'views/vendedores/editar_vendedor.html', size :'md', scope: $scope}, function($scope){
+      modal.show({templateUrl : 'views/vendedores/editar_vendedor.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditVendedor.$invalid){
                  modal.incompleteForm();
                 return;

@@ -16,11 +16,22 @@ angular.module('shoplyApp')
         var _total = 0;
 
         angular.forEach(products, function(_curr){
-              _total = _total + (_curr.valor_iva);
+              _total = (_total + (_curr.valor_iva)) * _curr.cantidad;
+        });
+
+        return _total;
+      },
+
+      totalizeDiscount : function(products){
+        var _total = 0;
+
+        angular.forEach(products, function(_curr){
+          if(_curr.valor_descuento){
+             _total = (_total + _curr.valor_descuento);
+          }
         });
 
         return _total;
       }
   	};
-    // AngularJS will instantiate a singleton by calling "new" on this function
   });

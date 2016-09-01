@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('CompanyCtrl', function ($scope, $rootScope,  sweetAlert, constants, $state, modal, api, storage) {
+  .controller('CompanyCtrl', function ($scope, $timeout, $rootScope,  sweetAlert, constants, $state, modal, api, storage) {
   	$scope.Records = false;
 
     $scope.load = function(){
@@ -18,8 +18,27 @@ angular.module('shoplyApp')
       });
   	}
 
+    $scope.connectCompany = function(){
+        $scope.company = this.record;
+         modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+            var _user = $rootScope.user;
+            $scope.loading = true;
+            
+            api.empresa($scope.company._id).get().success(function(res){
+              $timeout(function(){
+                $rootScope.user._company = res;
+                storage.update('user', $rootScope.user);
+                toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
+                $scope.loading = false;
+                $state.go('dashboard');
+                $scope.$close();
+              }, 5000);
+            });       
+         });   
+    }
+
   	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/company/agregar_empresa.html', size :'md', scope: $scope}, function($scope){
+       modal.show({templateUrl : 'views/company/agregar_empresa.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEmpresa.$invalid){
                  modal.incompleteForm();
                 return;
@@ -38,7 +57,7 @@ angular.module('shoplyApp')
 
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
-      modal.show({templateUrl : 'views/company/editar_empresa.html', size :'md', scope: $scope}, function($scope){
+      modal.show({templateUrl : 'views/company/editar_empresa.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditarEmpresa.$invalid){
                  modal.incompleteForm();
                 return;

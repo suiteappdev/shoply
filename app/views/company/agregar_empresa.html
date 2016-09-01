@@ -2,7 +2,7 @@
     <div class="modal-header text-center custom-modal-header">
         <h4 class="modal-title">Crear Empresa</h4>
     </div>
-    <div class="modal-body">
+    <div class="modal-body modal-body-pattern">
       <div class="row" ng-init="selected = 'informacion'">
         <div class="col-lg-4">
           <div class="form-group">
@@ -27,7 +27,7 @@
                           <!-- form-profile.html -->
                           <div class="form-group">
                               <label for="name"  >Empresa*:</label>
-                              <input type="text"  required class="form-control" placeholder="Empresa" name="name" ng-model="$parent.form.data.empresa">
+                              <input type="text" focus-on="selected == 'informacion'"  required class="form-control" placeholder="Empresa" name="name" ng-model="$parent.form.data.empresa">
                           </div>
                           <div class="form-group">
                               <label for="name" >Nit*:</label>
@@ -86,7 +86,7 @@
             </div>
             <div ng-show="selected == 'logo'" ng-cloak style="margin-top:10px;">
                 <div class="row">
-                      <image-uploader area="circle" title="Sube tu imagen corporativa" button-text="Cargar Imagen" items="1" label="text-white" ng-model="form.data.gallery"><image-uploader>
+                      <image-uploader area="circle" title="Sube tu imagen corporativa" button-text="Cargar Imagen" items="1" label="text-dark" ng-model="form.data.gallery"><image-uploader>
                 </div>
             </div>                           
     </form>        

@@ -81,7 +81,10 @@ angular.module('selectize', []).value('selectizeConfig', {}).directive("selectiz
         selectize = element[0].selectize;
 
         setSelectizeOptions(scope.options);
-
+        
+        if(scope.config.setFocus){
+          selectize.focus();
+        }
         //provides a way to access the selectize element from an
         //angular controller
         if (scope.config.onInitialize) {

@@ -21,8 +21,7 @@ angular.module('shoplyApp')
       $scope.$watch('ngModel', function(n, o){
         if(n){
           angular.forEach($scope.records, function(e){
-            console.log(e);
-            if(e._id === n){
+            if(e._id == n){
                 $scope.setObject = e;
             }
           });          
