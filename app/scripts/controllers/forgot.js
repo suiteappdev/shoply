@@ -12,8 +12,10 @@ angular.module('shoplyApp')
   	$scope.recover = function(){
       api.recover().post($scope.form.data).success(function(res){
         if(res){
-          alert(res);
+          $scope.success = true;
         }
+      }).error(function(){
+      	  $scope.failed = true;
       });
   	}
   });

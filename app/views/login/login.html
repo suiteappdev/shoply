@@ -22,11 +22,11 @@
               <h3 class="text-white">Iniciar Sesión.</h3> 
             </div>
           </div>
-            <form name="loginForm" ng-controller="LoginCtrl">
+            <form name="loginForm" ng-controller="LoginCtrl" ng-init="load()">
               <div class="panel animated bounceInLeft"  style="background-color: rgba(0, 0, 0, 0.3)!important;">
                   <div class="form-group">
                   <label class="text-white">Email*:</label>
-                    <input type="email" required="true" name="username" ng-model="form.data.email" class="form-control" placeholder="Correo">
+                    <input type="email" required="true" name="email" ng-model="form.data.email" class="form-control" placeholder="Correo">
                   </div>
                   <div class="form-group">
                   <label class="text-white">Contraseña*:</label>
@@ -38,11 +38,11 @@
                         <button ng-click="login()" style="width:30%;margin:0 auto;paddin:5px;border-radius:4px;" class="custom-btn custom-btn-primary">Entrar</button>
                       </div>                    
                     </div> 
-                    <div class="col-lg-6 text-right">
+                    <div class="col-lg-6 text-right" ng-show="loginForm.email.$valid">
                       <div class="form-group">
                           <label class="text-white">
-                            <input icheck type="checkbox"  ng-model="app.remenber" class="info-bounce">
-                            Recordar email:
+                            <input ng-init="app.remenber = fromStore" ng-change="remember(app.remenber)" icheck type="checkbox"  ng-model="app.remenber" class="info-bounce">
+                            Recordar Email:
                           </label>
                        </div>                    
                     </div>                     

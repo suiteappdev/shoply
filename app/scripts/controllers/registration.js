@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('RegistrationCtrl', function ($scope, account, sweetAlert, modal) {
+  .controller('RegistrationCtrl', function ($scope, account, sweetAlert, modal, storage) {
   	
   	$scope.register = function(){
       var _success = function(data){
@@ -34,6 +34,8 @@ angular.module('shoplyApp')
             modal.incompleteForm();
       }
   	};
+
+
 
     $scope.login = function(){
       var _success = function(data){
