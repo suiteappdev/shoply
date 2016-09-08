@@ -24,6 +24,14 @@
           </div>
             <form name="loginForm" ng-controller="LoginCtrl" ng-init="load()">
               <div class="panel animated bounceInLeft"  style="background-color: rgba(0, 0, 0, 0.3)!important;">
+                  <div class="alert alert-warning animated rubberBand" ng-show="unprivileged">
+                    <a class="close" ng-click="unprivileged = false;">&times;</a>
+                    <strong>Ups!</strong>Usted no tiene privilegios para ingresar.
+                  </div>
+                  <div class="alert alert-danger" ng-show="failed">
+                    <a class="close" ng-click="failed = false;">&times;</a>
+                    <strong>Error!</strong> Email y Contraseña incorrectos.
+                  </div>
                   <div class="form-group">
                   <label class="text-white">Email*:</label>
                     <input type="email" required="true" name="email" ng-model="form.data.email" class="form-control" placeholder="Correo">

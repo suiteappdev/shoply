@@ -1,1 +1,63 @@
-<div ng-controller="ProductdetailCtrl" ng-init="load()"> <div class="row"> <h3>Detalle del producto</h3> <div class="panel panel-default animated bounceIn" style="padding:0px!important"> <div class="panel-body"> <div class="col-lg-4"> <div class="form-group"> <label for="email">Producto:</label> <p>{{record.data.producto}}</p> </div> <div class="form-group"> <label for="email">Descripcion:</label> <p>{{record.data.descripcion}}</p> </div> <div class="form-group"> <label for="email">Estado:</label> <p>{{record.data.estado}}</p> </div> </div> <div class="col-lg-4"> <div class="form-group"> <label for="email">Categoria:</label> <p><span class="label label-custom">{{record._category.text || 'sin categoria'}}</span></p> </div> <div class="form-group"> <label for="email">Iva:</label> <p>{{record.data.iva || 0}}</p> </div> <div class="form-group"> <label for="email">% Utilidad:</label> <p>{{record.data.utilidad + '%'}}</p> </div> </div> <div class="col-lg-4"> <div class="form-group"> <label for="email">Precio base:</label> <p>{{record.data.precio | currency:"$ "}}</p> </div> <div class="form-group"> <label for="pwd">Precio de venta:</label> <p>{{record.data.precio_venta | currency:"$ "}}</p> </div> <div class="form-group"> <label for="pwd">Valor utilidad:</label> <p>{{record.data.valor_utilidad | currency:"$ "}}</p> </div> </div> </div> <div class="panel-footer">{{record.updatedAt}}</div> </div> <h3>Album</h3> <div class="panel panel-default" style="padding:0px"> <div class="panel-body"> <image-uploader ng-model="record.data.gallery"> <image-uploader> </image-uploader></image-uploader></div> <div class="panel-footer">Imagenes del Producto</div> </div> </div> </div>
+<div ng-controller="ProductdetailCtrl" ng-init="load()">
+	<div class="row">
+		<h3>Detalle del producto</h3>
+		<div class="panel panel-default animated bounceIn" style="padding:0px!important;">
+		  <div class="panel-body">
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="email">Producto:</label>
+					<p>{{record.data.producto}}</p>
+				</div>
+				<div class="form-group">
+					<label for="email">Descripcion:</label>
+					<p>{{record.data.descripcion}}</p>
+				</div>
+				<div class="form-group">
+					<label for="email">Estado:</label>
+					<p>{{record.data.estado}}</p>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="email">Categoria:</label>
+					<p><span class="label label-custom">{{record._category.text || 'sin categoria'}}</span></p>
+				</div>
+				<div class="form-group">
+					<label for="email">Iva:</label>
+					<p>{{record.data.iva || 0}}</p>
+				</div>
+				<div class="form-group">
+					<label for="email">% Utilidad:</label>
+					<p>{{record.data.utilidad + '%'}}</p>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label for="email">Precio base:</label>
+					<p>{{record.data.precio | currency:"$ "}}</p>
+				</div>
+				<div class="form-group">
+					<label for="pwd">Precio de venta:</label>
+					<p>{{record.data.precio_venta | currency:"$ "}}</p>
+				</div>
+				<div class="form-group">
+					<label for="pwd">Valor utilidad:</label>
+					<p>{{record.data.valor_utilidad | currency:"$ "}}</p>
+				</div>
+			</div>
+		  </div>
+		  <div class="panel-footer">{{record.updatedAt}}</div>
+
+		  </div>
+		<h3>Album</h3>
+		<div class="panel panel-default" style="padding:0px;">
+		  <div class="panel-body">
+  				<image-uploader 
+  					ng-model="record.data.gallery"
+  					>
+				<image-uploader>
+		  </div>
+		  <div class="panel-footer">Imagenes del Producto</div>
+		</div>
+	</div>
+</div>

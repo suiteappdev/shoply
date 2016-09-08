@@ -1,1 +1,71 @@
-<div class="inmodal" ng-controller="FacturacionCtrl" ng-init="getPaymentMethods()"> <div class="modal-header text-center custom-modal-header"> <!--<i class="fa fa-sliders color-success h-modal-icon"></i>--> <h4 class="modal-title">Nueva Factura</h4> </div> <div class="modal-body modal-body-pattern"> <div class="row"> <div class="file-wrap" style="height: 150px" ng-show="loading"> <div class="item-loading text-center" style="position:relative;top:25%"> <img style="height:30px" src="images/loading.gif"> <p>cargando datos...</p> </div> </div> </div> <div ng-hide="loading"> <form name="formFacturacion" novalidate> <div class="row"> <div class="col-lg-12"> <div class="form-group"> <label>Descuento:</label> <input type="number" tabindex="0" placeholder="% Descuento" class="form-control" ng-model="$parent.$parent.gdiscount"> </div> </div> <div ng-repeat="method in paymentMethods | orderBy:'data.priority'"> <div class="col-lg-6"> <label class="custom-btn custom-btn-primary btn-block">{{method.data.descripcion}}</label> </div> <div class="col-lg-6"> <div class="form-group"> <input ng-init="setReceived()" type="number" focus-on="method.data.priority" tabindex="{{($index + 1)}}" ng-change="setReceived(method.data)" ng-keypress="openBaseForm($event, method.data.value)" class="form-control text-center" ng-model="method.data.value" placeholder="Valor"> <p class="animated slideInRight" style="background-color: #383737;color: white; padding: 4px;text-align: center" ng-show="method.data.cardCode"><i style="top: 2px" class="glyphicon glyphicon-credit-card"></i>&nbsp;Voucher : <span style="color: #ff00c6!important;font-weight: bold">{{method.data.cardCode}}</span></p> </div> </div> </div> </div> <div class="row text-center" style="background-color:rgb(8, 8, 8)"> <div class="col-lg-3"> <label class="text-white" ng-init="$parent.$parent.totalParcial = $parent.$parent.total">Total:</label> <h5 style="color:#009ddc;!important;top: -9px;position: relative" class="no-margin monospace">{{$parent.$parent.totalParcial | currency:"COP $"}}</h5> </div> <div class="col-lg-3"> <label class="text-white">Descuento:</label> <h5 ng-init="$parent.$parent.vgdescuento = 0" style="color:#009ddc;!important;top: -9px;position: relative" class="no-margin monospace">{{$parent.$parent.vgdescuento | currency:"COP $"}}</h5> </div> <div class="col-lg-3"> <label class="text-white">Cambio:</label> <h5 style="color:#009ddc;!important;top: -9px;position: relative" class="no-margin monospace">{{change || 0 | currency:"COP $"}}</h5> </div> <div class="col-lg-3"> <label class="text-white">Valor recibido:</label> <h5 style="color:#009ddc;!important;top: -9px;position: relative" class="no-margin monospace">{{received || 0 | currency:"COP $"}}</h5> </div> </div> </form> </div> </div> <div class="modal-footer custom-modal-footer"> <button type="button" tabindex="{{paymentMethods.length + 2}}" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button> <button type="button" tabindex="{{paymentMethods.length + 1}}" class="custom-btn custom-btn-primary" ng-click="ok()">Facturar</button> </div> </div>
+<div class="inmodal" ng-controller="FacturacionCtrl" ng-init="getPaymentMethods()">
+    <div class="modal-header text-center custom-modal-header">
+        <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
+        <h4 class="modal-title">Nueva Factura</h4>
+    </div>
+  	<div class="modal-body modal-body-pattern">
+      <div class="row">
+        <div class="file-wrap" style="height: 150px;" ng-show="loading">
+          <div class="item-loading text-center" style="position:relative;top:25%;">
+            <img style="height:30px;" src="images/loading.gif">
+            <p>cargando datos...</p>
+          </div>
+        </div>
+       </div>
+    	<div ng-hide="loading">
+  	  	<form name="formFacturacion" novalidate>
+          <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label>Descuento:</label>
+                  <input type="number" tabindex="0" placeholder="% Descuento" class="form-control" ng-model="$parent.$parent.gdiscount">
+                </div>
+              </div>  
+              <div ng-repeat="method in paymentMethods | orderBy:'data.priority'">
+                <div class="col-lg-6">
+                  <label class="custom-btn custom-btn-primary btn-block">{{method.data.descripcion}}</label>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                     <input
+                      ng-init="setReceived()"
+                      type="number" 
+                      focus-on="method.data.priority" 
+                      tabindex="{{($index + 1)}}" 
+                      ng-change="setReceived(method.data)"
+                      ng-keypress="openBaseForm($event, method.data.value)" 
+                      class="form-control text-center" 
+                      ng-model="method.data.value" 
+                      placeholder="Valor"
+                      >
+                      <p  class="animated slideInRight" style="background-color: #383737;color: white; padding: 4px;text-align: center;" ng-show="method.data.cardCode"><i style="top: 2px;" class="glyphicon glyphicon-credit-card"></i>&nbsp;Voucher : <span style="color: #ff00c6!important;font-weight: bold;">{{method.data.cardCode}}</span></p>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row text-center" style="background-color:rgb(8, 8, 8);">
+            <div class="col-lg-3">
+              <label class="text-white" ng-init="$parent.$parent.totalParcial = $parent.$parent.total">Total:</label>
+              <h5 style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{$parent.$parent.totalParcial | currency:"COP $"}}</h5>
+            </div>
+            <div class="col-lg-3">
+              <label class="text-white">Descuento:</label>
+              <h5 ng-init="$parent.$parent.vgdescuento = 0"  style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{$parent.$parent.vgdescuento | currency:"COP $"}}</h5>
+            </div>
+            <div class="col-lg-3">
+              <label class="text-white">Cambio:</label>
+              <h5 style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{change || 0 | currency:"COP $"}}</h5>
+            </div>
+            <div class="col-lg-3">
+              <label class="text-white">Valor recibido:</label>
+              <h5 style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{received || 0 | currency:"COP $"}}</h5>
+            </div>
+          </div>
+  	  	</form>
+    	</div>
+  	</div>
+    <div class="modal-footer custom-modal-footer">
+        <button type="button" tabindex="{{paymentMethods.length + 2}}" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
+        <button type="button" tabindex="{{paymentMethods.length + 1}}" class="custom-btn custom-btn-primary" ng-click="ok()">Facturar</button>
+    </div>
+</div>

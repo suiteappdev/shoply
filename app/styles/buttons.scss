@@ -131,6 +131,17 @@ button[disabled=disabled], button:disabled {
   }
 }
 
+.custom-btn-primary.custom-btn-inverse{
+    border: 1px solid #e15305;
+    background-color: transparent;
+    color: #e15305;
+
+    &:hover{
+     color: white;
+     background-color: $primary-color;
+    }
+}
+
 .custom-btn-secondary.transparent{
   background-color: rgba(255, 0, 0, 0.0);
   border : 1px solid $dark-color;

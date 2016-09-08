@@ -192,7 +192,29 @@
       </div>  
   </div>
   <div class="col-lg-10 row">
+    <div class="row sp-toolbar">
+      <div class="col-lg-4">
+        <button
+          ng-click="cambiarEmpresa()" 
+          type="button" class="custom-btn custom-btn-primary custom-btn-inverse" 
+          ng-click="print()">
+          <img class="img-circle thumb-photo" ng-src="{{$root.user._company.data.gallery[0].URL}}">
+          {{$root.user._company.data.empresa}}&nbsp;
+          <i class="glyphicon glyphicon-ok"></i>
+        </button>
+      </div>
+      <div class="col-lg-4">
+        
+      </div>
+      <div class="col-lg-4 text-right">
+        <button ng-show="$root.grid.selected" ng-click="callForDelete()" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-trash"></i>&nbsp;ELIMINAR</button>
+          <button ng-click="callForEdit()" ng-show="$root.grid.selected" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-edit"></i>&nbsp;EDITAR</button>        
+
+          <button ng-click="callForCreate()" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-plus"></i>&nbsp;CREAR</button>          
+      </div>
+    </div> 
     <div ui-view class="container">
+ 
         <div ng-hide="$root.user._company" class="initialize text-center">
           <h4>Para comenzar debes conectarte con una empresa.</h4>
           <button type="button" ng-click="cambiarEmpresa()"class="btn custom-btn-primary btn-lg">CONECTAR</button>

@@ -1,4 +1,4 @@
-<div ng-controller="CompanyCtrl" ng-init="load()">
+<div ng-init="load()">
   <div class="content" ng-show="!records || records.length == 0">
     <div class="table_wrap table_height">
       <div class="row table-responsive table_inner">
@@ -12,8 +12,32 @@
     </div>  
   </div>
     <div class="row" ng-show="records.length > 0">
-        <h3>Empresas</h3>
-        <div class="panel panel-default" style="padding:0px;">
+    <ul class="sp-list"> 
+      <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
+        <div class="sp-item-image">
+          <img ng-src="{{record.data.gallery[0].URL}}">
+        </div>
+        <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
+        <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+        <h4>{{record.data.empresa}}</h4>
+        <p>{{record.data.descripcion}}</p>
+        <p class="sp-text">Dir:&nbsp;{{record.data.direccion}}&nbsp;&nbsp;</p>
+        <p class="sp-text">Tel:&nbsp;{{record.data.telefono}}&nbsp;&nbsp;</p>
+        <p class="sp-text">Cel:&nbsp;{{record.data.celular}}&nbsp;&nbsp;</p>
+        <p class="sp-text">fax:&nbsp;{{record.data.fax}}&nbsp;&nbsp;</p>
+        <span style="position: absolute;top: 4px;right: 117px;" class="label label-success" ng-show="$root.user._company._id == record._id">Actualmente en uso</span>
+        <div class="row">
+          <div class="sp-footer">
+
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="col-lg-12">
+      <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+    </div>
+        <h3 class="hidden">Empresas</h3>
+        <div class="hidden panel panel-default" style="padding:0px;">
           <div class="panel-body">
           <div class="col-lg-12">
               <div class="form-group pull-right">

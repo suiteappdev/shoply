@@ -37,7 +37,7 @@ angular.module('shoplyApp')
          });   
     }
 
-  	$scope.agregar = function(){
+  	$scope.create = function(){
        modal.show({templateUrl : 'views/company/agregar_empresa.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEmpresa.$invalid){
                  modal.incompleteForm();
@@ -47,16 +47,16 @@ angular.module('shoplyApp')
             api.empresa().post(angular.extend($scope.form, { _user : angular.fromJson(window.localStorage.user)._id})).success(function(res){
               if(res){
                 sweetAlert.swal("Registro completado.", "has registrado una nueva empresa.", "success");
+                $timeout($scope.load());
                 $scope.$close();
-                $scope.load();
                 delete $scope.form;
               }
             });
         });
   	}
 
-    $scope.edit = function(){
-      $scope.formEdit = angular.copy(this.record);
+    $scope.edit = function(record, callback){
+      $scope.formEdit = angular.copy(record);
       modal.show({templateUrl : 'views/company/editar_empresa.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditarEmpresa.$invalid){
                  modal.incompleteForm();
@@ -68,14 +68,18 @@ angular.module('shoplyApp')
                     sweetAlert.swal("Registro Modificado", "Registro modificado correctamente.", "success");
                     $scope.load();
                     $scope.$close();
-                    delete $scope.form.data;
+                    delete $scope.formEdit.data;                      
                 }
             });
       });
     }
 
-    $scope.borrar = function(){
-        var _record = this.record;
+    $scope.delete = function(record){
+        var _record = record || this.record;
+        if(_record._id == $rootScope.user._company._id){
+            sweetAlert.swal("Ups!!", "No puedes eliminar una empresa en uso.", "warning");
+            return
+        }
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

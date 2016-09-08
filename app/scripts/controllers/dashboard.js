@@ -16,6 +16,18 @@ angular.module('shoplyApp')
       }
   	}
 
+    $scope.callForEdit = function(){
+      $scope.$$childHead.edit($rootScope.grid.value);
+    }
+
+    $scope.callForDelete = function(){
+      $scope.$$childHead.delete($rootScope.grid.value);
+    }
+
+    $scope.callForCreate = function (){
+      $scope.$$childHead.create();
+    }
+
     $scope.rememberCompany = function(remenber){
         if(remenber){
           storage.save('remenberCompany', company);

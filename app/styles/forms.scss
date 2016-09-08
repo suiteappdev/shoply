@@ -156,3 +156,10 @@ input[type="checkbox"]:checked + label:before {
 input[type="checkbox"]:checked + label:after {
   font-weight: bold;
 }
+
+.form-control:focus {
+    outline: 0 !important;
+    box-shadow: none!important;
+    border-color: #e0e0e0!important;
+    -webkit-box-shadow: none!important;
+}

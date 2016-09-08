@@ -140,6 +140,7 @@ angular
           })
           .state('dashboard.empresa', {
               url: '/empresa',
+              controller:'CompanyCtrl',
               access: { requiredAuthentication: true },
               templateUrl: 'views/company/empresas.html',
               data: {

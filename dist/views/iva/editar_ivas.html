@@ -1,1 +1,30 @@
-<div class="inmodal" ng-controller="IvasCtrl"> <div class="modal-header text-center custom-modal-header"> <!--<i class="fa fa-sliders color-success h-modal-icon"></i>--> <h4 class="modal-title">Editar Iva</h4> </div> <div class="modal-body modal-body-pattern"> <div> <form name="formEditIva" novalidate> <div class="row"> <div class="col-lg-7"> <div class="form-group"> <label>Descripcion:</label> <input type="text" focus-on="true" required placeholder="Descripcion" ng-model="formEdit.data.descripcion" class="form-control"> </div> </div> <div class="col-lg-5"> <div class="form-group"> <label>Valor:</label> <input type="number" required placeholder="Valor" ng-model="formEdit.data.valor" class="form-control"> </div> </div> </div> </form> </div> </div> <div class="modal-footer custom-modal-footer"> <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button> <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Actualizar</button> </div> </div>
+<div class="inmodal" ng-controller="IvasCtrl">
+    <div class="modal-header text-center custom-modal-header">
+        <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
+        <h4 class="modal-title">Editar Iva</h4>
+    </div>
+  	<div class="modal-body modal-body-pattern">
+    	<div>
+  	  	<form name="formEditIva" novalidate>
+          <div class="row">
+              <div class="col-lg-7">
+                  <div class="form-group">
+                    <label>Descripcion:</label>
+                    <input type="text" focus-on="true" required placeholder="Descripcion" ng-model="formEdit.data.descripcion" class="form-control">
+                  </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="form-group">
+                    <label>Valor:</label>
+                    <input type="number"required  placeholder="Valor" ng-model="formEdit.data.valor" class="form-control">
+                 </div>
+              </div>
+          </div>
+  	  	</form>
+    	</div>
+  	</div>
+    <div class="modal-footer custom-modal-footer">
+        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Actualizar</button>
+    </div>
+</div>

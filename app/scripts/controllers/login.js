@@ -35,15 +35,15 @@ angular.module('shoplyApp')
 
               $rootScope.isLogged = res.user;
               $rootScope.user = storage.get('user');
-              
               $state.go(constants.login_state_sucess);          
           }else{
             sweetAlert.swal("Inhabilitado.", "Privilegios son insuficientes.", "error");
+            $scope.unprivileged = true;
           }
         };
 
         var _error = function(res){
-            sweetAlert.swal("Formulario incorrecto.", "Las credenciales ingresadas son incorrectas.", "error");
+            $scope.failed = true;
         };
 
         account.usuario().ingresar($scope.form.data).then(_success, _error); 

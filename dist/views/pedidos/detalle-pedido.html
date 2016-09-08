@@ -1,1 +1,102 @@
-<div class="container" ng-controller="RequestdetailCtrl" ng-init="load()"> <div class="row"> <div class="col-xs-12"> <div class="invoice-title"> <h2>Detalle del pedido</h2><h3 class="pull-right">Orden # {{record.id}}</h3> </div> <small>{{record._company.data.empresa}}, LCC</small><br> <small>{{record._company.data.descripcion}}</small> <hr> <div class="row"> <div class="col-xs-6"> <address> <strong>Facturado a:</strong><br> {{record._seller.name +" "+ record._seller.last_name}}<br> {{record._seller.metadata.departamento}}, {{record._seller.metadata.ciudad}}<br> </address> </div> <div class="col-xs-6 text-right"> <address> <strong>Enviar a:</strong><br> {{(record._client.name +" "+ record._client.last_name)}}<br> {{record.metadata.direccion}}.<br> {{record.metadata.ciudad}}, {{record.metadata.barrio}} </address> </div> </div> <div class="row"> <div class="col-xs-6"> <address> <strong>Tipo de Cliente:</strong><br> <span class="label label-info" ng-show="record._seller">Vendedor</span><span class="label label-warning" ng-show="record._client &&!record._seller">Cliente</span><br> {{record._seller.email}} </address> </div> <div class="col-xs-6 text-right"> <address> <strong>fecha de la Orden:</strong><br> {{record.createdAt | date:"yyyy-MM-dd hh:mm:ss a"}}<br><br> </address> </div> </div> </div> </div> <div class="row"> <div class="col-md-12"> <div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title"><strong>Resumen de la Orden</strong></h3> </div> <div class="panel-body"> <div class="table-responsive"> <table class="table table-condensed"> <thead> <tr> <td><strong>Producto</strong></td> <td class="text-center"><strong>Precio</strong></td> <td class="text-center"><strong>Cantidad</strong></td> <td class="text-right"><strong>Total</strong></td> </tr> </thead> <tbody> <!-- foreach ($order->lineItems as $line) or some such thing here --> <tr ng-repeat="record in record.shoppingCart"> <td>{{record.data.producto}}</td> <td class="text-center">{{record.data.precio_venta | currency :"$ "}}</td> <td class="text-center">{{record.data.unidades}}</td> <td class="text-right"></td> </tr> <tr> <td class="thick-line"></td> <td class="thick-line"></td> <td class="thick-line text-center"><strong>Subtotal</strong></td> <td class="thick-line text-right">{{record.metadata.subtotal | currency: "$ "}}</td> </tr> <tr> <td class="no-line"></td> <td class="no-line"></td> <td class="no-line text-center"><strong>Iva 10%</strong></td> <td class="no-line text-right">{{record.metadata.total_iva_10 | currency: "$ "}}</td> </tr> <tr> <td class="no-line"></td> <td class="no-line"></td> <td class="no-line text-center"><strong>Iva 5%</strong></td> <td class="no-line text-right">{{record.metadata.total_iva_5 | currency: "$ "}}</td> </tr> <tr> <td class="no-line"></td> <td class="no-line"></td> <td class="no-line text-center"><strong>Total</strong></td> <td class="no-line text-right">{{record.metadata.total | currency: "$ "}}</td> </tr> </tbody> </table> </div> </div> </div> </div> </div> </div>
+<div class="container" ng-controller="RequestdetailCtrl" ng-init="load()">
+    <div class="row">
+        <div class="col-xs-12">
+    		<div class="invoice-title">
+    			<h2>Detalle del pedido</h2><h3 class="pull-right">Orden # {{record.id}}</h3>
+    		</div>
+            <small>{{record._company.data.empresa}}, LCC</small><br />
+            <small>{{record._company.data.descripcion}}</small>
+    		<hr>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    				<strong>Facturado a:</strong><br>
+    					{{record._seller.name +" "+ record._seller.last_name}}<br>
+    					{{record._seller.metadata.departamento}}, {{record._seller.metadata.ciudad}}<br>
+    				</address>
+    			</div>
+    			<div class="col-xs-6 text-right">
+    				<address>
+        			<strong>Enviar a:</strong><br>
+    					{{(record._client.name +" "+ record._client.last_name)}}<br>
+    					{{record.metadata.direccion}}.<br>
+    					{{record.metadata.ciudad}}, {{record.metadata.barrio}}
+    				</address>
+    			</div>
+    		</div>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    					<strong>Tipo de Cliente:</strong><br>
+						<span class="label label-info" ng-show="record._seller">Vendedor</span><span class="label label-warning" ng-show="record._client &&!record._seller">Cliente</span><br>
+    					{{record._seller.email}}
+    				</address>
+    			</div>
+    			<div class="col-xs-6 text-right">
+    				<address>
+    					<strong>fecha de la Orden:</strong><br>
+    					{{record.createdAt | date:"yyyy-MM-dd hh:mm:ss a"}}<br><br>
+    				</address>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Resumen de la Orden</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+        							<td><strong>Producto</strong></td>
+        							<td class="text-center"><strong>Precio</strong></td>
+        							<td class="text-center"><strong>Cantidad</strong></td>
+        							<td class="text-right"><strong>Total</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
+    							<tr ng-repeat="record in record.shoppingCart">
+    								<td>{{record.data.producto}}</td>
+    								<td class="text-center">{{record.data.precio_venta | currency :"$ "}}</td>
+    								<td class="text-center">{{record.data.unidades}}</td>
+    								<td class="text-right"></td>
+    							</tr>
+    							<tr>
+    								<td class="thick-line"></td>
+    								<td class="thick-line"></td>
+    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
+    								<td class="thick-line text-right">{{record.metadata.subtotal | currency: "$ "}}</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Iva 10%</strong></td>
+    								<td class="no-line text-right">{{record.metadata.total_iva_10 | currency: "$ "}}</td>
+    							</tr> 
+    							<tr>
+
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Iva 5%</strong></td>
+    								<td class="no-line text-right">{{record.metadata.total_iva_5 | currency: "$ "}}</td>
+    							</tr>
+    							<tr>
+    								<td class="no-line"></td>
+    								<td class="no-line"></td>
+    								<td class="no-line text-center"><strong>Total</strong></td>
+    								<td class="no-line text-right">{{record.metadata.total | currency: "$ "}}</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>

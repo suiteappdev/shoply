@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body custom-modal-body" style="height:350px;">
     <div class="cropArea">
-      <img-crop ng-hide="true" image="$parent.editImage.URL || $parent.editImage.preview" area-type="{{$parent.area}}" result-image="$parent.image_final"></img-crop>
+      <img-crop image="$parent.editImage.preview || $parent.editImage.URL" area-type="{{$parent.area}}" result-image="$parent.image_final"></img-crop>
     </div>
     </div>
     <div class="modal-footer custom-modal-footer">
