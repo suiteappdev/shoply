@@ -19,7 +19,8 @@ angular.module('shoplyApp')
     $scope.load = function(){
         if($stateParams.arqueo){
           api.arqueos($stateParams.arqueo).get().success(function(res){
-            $scope.records = res || [];
+            $scope.form._request = res._request || [];
+            $scope.form.metadata = res.metadata;
             $scope.Records = true;
           });   
         }else{
@@ -34,16 +35,20 @@ angular.module('shoplyApp')
       $scope._schema = $scope.form._request.map(function(o){
           var _output = new Object();
 
-           // _ouput.seller = o._seller.name + " " + o.last_name || "no definido"; 
-            _output.date = o.createdAt.toString(); 
-           // _ouput.client = o._client.name + " " + o.last_name || "no definido"; 
-            _output.total = o.metadata.total.toString();
-            _output.status = o.metadata.estado.toString();
+           _output.vendedor = o._seller.full_name; 
+           _output.fecha = new Date(o.createdAt).toISOString().substr(0,10); 
+           _output.Cliente = o._client.full_name; 
+           _output.total = o.metadata.total.toString();
+           _output.Estado = o.metadata.estado.toString();
 
           return _output; 
       });
 
-      alasql('SELECT * INTO XLSX("reporte.xlsx",{headers:true}) FROM ?',[$scope._schema]);
+    var data1 = $scope._schema;
+    var data2 = [$scope.form.metadata];
+    var opts = [{sheetid:'Pedidos',header:true},{sheetid:'Facturacion',header:false}];
+    var res = alasql('SELECT INTO XLSX("Arqueo.xlsx",?) FROM ?',[opts,[data1,data2]]);
+  
     }
 
     $scope.guardar = function(){

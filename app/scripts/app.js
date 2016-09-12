@@ -31,7 +31,7 @@ angular
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'
         ipnConfig.preferredCountries = ['pl', 'de', 'fr', 'uk', 'es'];
-     $httpProvider.interceptors.push(function($injector, $q, sweetAlert, storage) {
+        $httpProvider.interceptors.push(function($injector, $q, sweetAlert, storage) {
         var rootScope = $injector.get('$rootScope');
 
         return {
@@ -212,8 +212,7 @@ angular
                 }
           })
           .state('reset', {
-                url: '/reset',
-                access: { requiredAuthentication: true },
+                url: '/reset/:token',
                 templateUrl: 'views/reset/reset.html',
                 data: {
                   pageTitle: 'Cambiar clave'
@@ -313,6 +312,14 @@ angular
                 templateUrl: 'views/arqueos/crear-arqueo.html',
                 data: {
                   pageTitle: 'Crear Arqueo'
+                }
+          })
+          .state('dashboard.editar-arqueo', {
+                url: '/editar-arqueo/:arqueo',
+                access: { requiredAuthentication: true },
+                templateUrl: 'views/arqueos/editar-arqueo.html',
+                data: {
+                  pageTitle: 'Editar Arqueo'
                 }
           })
           .state('dashboard.detalle_cliente', {

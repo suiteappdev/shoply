@@ -13,9 +13,9 @@
           <a class="close" ng-click="failed = false;">&times;</a>
           <strong>Error!</strong> Este usuario no existe.
         </div>
-          <form name="forgotForm">
+          <form name="forgotForm" novalidate>
               <div class="form-group">
-              <label class="text-white">Email:</label>
+              <label class="text-white">Email * :</label>
                 <input type="email" required name="email" ng-model="form.data.email" class="form-control" placeholder="Correo">
               </div>
               <div class="form-group">

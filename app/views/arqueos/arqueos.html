@@ -51,7 +51,8 @@
 						<td>{{record.metadata.faltante | currency:"$ " || 0}}</td>
 						<td>{{record.createdAt | date:"yyyy-MM-dd"}}</td>
 						<td style="width:50px;"class="text-right"><a ui-sref="dashboard.detalle_arqueo({arqueo: record._id})" class="custom-btn-tiny custom-btn-primary" href="#/detalle-arqueo/{{record._id}}">Detalle</a></td>
-						<td style="width:50px;"class="text-right"><button class="custom-btn-tiny btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</button></td>
+						<td style="width:50px;"class="text-right">
+						<a ui-sref="dashboard.editar-arqueo({arqueo : record._id})" href="#!editar-arqueo" class="custom-btn-tiny btn-primary"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</a></td>
 						<td style="width:50px;"class="text-right"><button ng-click="borrar()" class="custom-btn-tiny btn-danger"><i class="glyphicon glyphicon-trash">&nbsp;Borrar</i></button></td>
 					</tr>
 				</tbody>

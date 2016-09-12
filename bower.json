@@ -41,5 +41,11 @@
   "moduleName": "shoplyApp",
   "resolutions": {
     "angular": "~1.4.0"
+  },
+
+  "overrides" :{
+    "moment" : {
+      "main" : ["min/moment.min.js", "locale/es.js"]
+    }
   }
 }

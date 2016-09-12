@@ -192,9 +192,10 @@
       </div>  
   </div>
   <div class="col-lg-10 row">
-    <div class="row sp-toolbar">
+    <div class="row sp-toolbar" ng-show="$root.state.current.name == 'dashboard.empresa'">
       <div class="col-lg-4">
         <button
+          ng-show="$root.user._company" 
           ng-click="cambiarEmpresa()" 
           type="button" class="custom-btn custom-btn-primary custom-btn-inverse" 
           ng-click="print()">
