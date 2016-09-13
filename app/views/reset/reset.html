@@ -1,4 +1,4 @@
-  <div class="row forgot-page" ng-controller="forgotCtrl">
+  <div class="row forgot-page" ng-controller="ResetPasswordCtrl">
     <div class="wrap" style="position:relative;top:50px;">
         <h1 class="text-white text-center">Cambiar Contraseña?</h1>
         <div class="panel" style="background-color: rgba(0, 0, 0, 0.3)!important;width: 500px;margin: 0 auto;
@@ -12,17 +12,17 @@
           <a class="close" ng-click="failed = false;">&times;</a>
           <strong>Error!</strong> Este enlace Expiro.
         </div>
-          <form name="forgotForm">
+          <form name="resetForm" novalidate>
               <div class="form-group">
               <label class="text-white">Nueva Contraseña:</label>
-                <input type="email" required name="password" ng-model="form.data.new" class="form-control" placeholder="Nueva Contraseña">
+                <input type="password" required name="password" ng-model="form.data.newpwd" class="form-control" placeholder="Nueva Contraseña">
               </div>
               <div class="form-group">
               <label class="text-white">Confirmar Contraseña:</label>
-                <input type="email" required name="confirm" ng-model="form.data.confirm" class="form-control" placeholder="Confirmar Contraseña">
+                <input type="password" required name="confirm" ng-model="form.data.confirm" class="form-control" placeholder="Confirmar Contraseña">
               </div>
               <div class="form-group">
-                <button style="padding:10px;border-radius:5px;" ng-click="change()" class="custom-btn custom-btn-primary">Cambiar</button>
+                <button style="padding:10px;border-radius:5px;" ng-click="reset()" class="custom-btn custom-btn-primary">Cambiar</button>
               </div>               
           </form>
         </div>    
