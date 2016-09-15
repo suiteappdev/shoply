@@ -19,7 +19,7 @@ angular.module('shoplyApp')
     }
 
   	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/apps/agregar_app.html', size :'md', scope: $scope, backdrop: 'static'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/apps/agregar_app.html', size :'md', scope: $scope, backdrop: 'static'}, function($scope){
             $scope.loading = true;
 
             var fd  = new FormData();

@@ -5,7 +5,7 @@ angular.module('shoplyApp')
       canView : function(id){
         var _allow = false;
 
-        if($rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
+        if($rootScope.user && $rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
           angular.forEach($rootScope.user._permission.data.permission, function(o){
             if(o._menu == id){
                 _allow = o.access ? o.access.view : false; 
@@ -13,7 +13,7 @@ angular.module('shoplyApp')
           });
 
 
-        }else if($rootScope.user.type == "ADMINISTRATOR"){
+        }else if($rootScope.user && $rootScope.user.type == "ADMINISTRATOR"){
           _allow = true;
         }
 
@@ -23,7 +23,7 @@ angular.module('shoplyApp')
       canViewForm : function(id){
         var _allow = false;
 
-        if($rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
+        if($rootScope.user && $rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
           angular.forEach($rootScope.user._permission.data.permission, function(o){
             if(o._form == id){
                 _allow = o.access ? o.access.view : false; ; 
@@ -31,7 +31,7 @@ angular.module('shoplyApp')
           });
 
 
-        }else if($rootScope.user.type == "ADMINISTRATOR"){
+        }else if($rootScope.user && $rootScope.user.type == "ADMINISTRATOR"){
           _allow = true;
         }
 
@@ -41,7 +41,7 @@ angular.module('shoplyApp')
       canCreate : function (id){
         var _allow = false;
 
-        if($rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
+        if($rootScope.user && $rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
           angular.forEach($rootScope.user._permission.data.permission, function(o){
             if(o._menu == id){
                 _allow = o.access ? o.access.view : false;  
@@ -49,7 +49,7 @@ angular.module('shoplyApp')
           });
 
 
-        }else if($rootScope.user.type == "ADMINISTRATOR"){
+        }else if($rootScope.user && $rootScope.user.type == "ADMINISTRATOR"){
           _allow = true;
         }
 
@@ -58,7 +58,7 @@ angular.module('shoplyApp')
       canUpdate : function(id){
         var _allow = false;
 
-        if($rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
+        if($rootScope.user && $rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
           angular.forEach($rootScope.user._permission.data.permission, function(o){
             if(o._menu == id){
                 _allow = o.access ? o.access.view : false;  
@@ -66,7 +66,7 @@ angular.module('shoplyApp')
           });
 
 
-        }else if($rootScope.user.type == "ADMINISTRATOR"){
+        }else if($rootScope.user && $rootScope.user.type == "ADMINISTRATOR"){
           _allow = true;
         }
 
@@ -75,7 +75,7 @@ angular.module('shoplyApp')
       canDelete : function(id){
         var _allow = false;
 
-        if($rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
+        if($rootScope.user && $rootScope.user._permission && $rootScope.user.type == "EMPLOYE"){
           angular.forEach($rootScope.user._permission.data.permission, function(o){
             if(o._menu == id){
                 _allow = o.access ? o.access.view : false;  
@@ -83,7 +83,7 @@ angular.module('shoplyApp')
           });
 
 
-        }else if($rootScope.user.type == "ADMINISTRATOR"){
+        }else if($rootScope.user && $rootScope.user.type == "ADMINISTRATOR"){
           _allow = true;
         }
 

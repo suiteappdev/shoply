@@ -12,13 +12,14 @@ angular.module('shoplyApp')
   	$scope.logout = function(){
   		storage.delete('token');
   		storage.delete('user');
-  		delete $rootScope.isLogged;
+      delete $rootScope.isLogged;
+      delete $rootScope.user;
+  		delete $rootScope.grid;
   		$state.go('login');
-  		$window.location.reload();
   	}
 
   	$scope.cambiarEmpresa = function(){
-         modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+         window.modal = modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
             var _user = $rootScope.user;
             $scope.loading = true;
             

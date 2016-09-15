@@ -9,7 +9,8 @@
               <img src="images/md-login.png">
             </div>
             <div class="col-lg-12 text-center" style="position:relative;">
-              <a ui-sref=".quickstart" href="#!/quickstart" style="padding:10px;border-radius: 4px;" class="custom-btn custom-btn-primary">Registrarse</a>
+              <a ng-show="$root.state.current.name =='login.quickstart'" ui-sref="login" href="#!/login" style="padding:10px;border-radius: 4px;" class="custom-btn custom-btn-primary">Ingresar</a>
+              <a ng-show="$root.state.current.name =='login'" ui-sref=".quickstart" href="#!/quickstart" style="padding:10px;border-radius: 4px;" class="custom-btn custom-btn-primary">Registrarse</a>
             </div>
             <div class="col-lg-12 text-center" style="top:20px;">
             <a href="">Aprende como funciona...</a>
@@ -22,7 +23,7 @@
               <h3 class="text-white">Iniciar Sesión.</h3> 
             </div>
           </div>
-            <form name="loginForm" ng-controller="LoginCtrl" ng-init="load()">
+            <form name="loginForm" ng-controller="LoginCtrl" ng-init="load()" novalidate>
               <div class="panel animated bounceInLeft"  style="background-color: rgba(0, 0, 0, 0.3)!important;">
                   <div class="alert alert-warning animated rubberBand" ng-show="unprivileged">
                     <a class="close" ng-click="unprivileged = false;">&times;</a>
@@ -56,10 +57,10 @@
                     </div>                     
                   </div>
                   <div class="col-lg-6 text-center" style="margin-top: 40px;">
-                    <a href="#/forgot" sref="forgot" class="text-white"> Olvidaste tu contraseña?</a>
+                    <a href="#/forgot" sref="forgot" class="text-white"> Recuperar Contraseña?</a>
                   </div>
                   <div class="col-lg-6 last text-center" style="margin-top: 40px;">
-                    <a href="" class="text-white">No eres miembro aun?</a>
+                    <a ui-sref=".quickstart" href="#/quickstart" class="text-white">No eres miembro aun?</a>
                   </div>             
               </div>            
             </form>

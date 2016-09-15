@@ -56,7 +56,7 @@ angular.module('shoplyApp')
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
 
-      modal.show({templateUrl : 'views/contador/editar_contadores.html', size :'md', scope: $scope}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/contador/editar_contadores.html', size :'md', scope: $scope}, function($scope){
             if($scope.formEditContador.$invalid){
                  modal.incompleteForm();
                 return;

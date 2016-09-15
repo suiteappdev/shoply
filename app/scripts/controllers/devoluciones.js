@@ -99,7 +99,7 @@ angular.module('shoplyApp')
 
       if(this.method.data.card){
         if(event.which === 13) {
-           modal.show({templateUrl : 'views/facturacion/baseForm.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+           window.modal =  modal.show({templateUrl : 'views/facturacion/baseForm.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
               $scope.method.data.base =  ( $scope.totalCard / 1.16);
               $scope.method.data.Iva = ($scope.totalCard) - ( $scope.totalCard / 1.16);
               $scope.$parent.$parent.form._payments = $scope.paymentMethods;
@@ -119,7 +119,7 @@ angular.module('shoplyApp')
     });
 
     $scope.facturar = function(){
-       modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
           $scope.form.data =  new Object();
           $scope.form._seller = $rootScope.user._id;
           $scope.form.data.TotalIva = $scope.TotalIva;

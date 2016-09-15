@@ -35,10 +35,21 @@ angular.module('shoplyApp')
         }
 
         storage.delete('remenberCompany');
+    }
+
+    $scope.connectCompany = function(){
+          var _user = $rootScope.user;
+          api.empresa($rootScope.grid.value._id).get().success(function(res){
+            $timeout(function(){
+              $rootScope.user._company = res;
+              storage.update('user', $rootScope.user);
+              toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
+            });
+          });       
     } 
 
     $scope.cambiarEmpresa = function(){
-         modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+         window.modal  = modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
             var _user = $rootScope.user;
             $scope.loading = true;
             api.empresa($scope.company._id).get().success(function(res){
@@ -59,19 +70,19 @@ angular.module('shoplyApp')
     }
 
     $scope.agregarIva = function(){
-       modal.show({templateUrl : 'views/iva/agregar_ivas.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        window.modal = modal.show({templateUrl : 'views/iva/agregar_ivas.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
         $scope.$close();
        });  
     }
 
     $scope.agregarFormasDePago = function(){
-       modal.show({templateUrl : 'views/formaDePago/agregar_formaDePago.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        window.modal = modal.show({templateUrl : 'views/formaDePago/agregar_formaDePago.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
         $scope.$close();
        });  
     }
 
     $scope.agregarConsecutivo = function(){
-       modal.show({templateUrl : 'views/contador/agregar_contadores.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        window.modal = modal.show({templateUrl : 'views/contador/agregar_contadores.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
           $scope.$close();
        });  
     }

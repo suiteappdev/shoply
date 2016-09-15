@@ -19,7 +19,7 @@ angular.module('shoplyApp')
     };
 
     $scope.addIcon = function(){
-       modal.show({templateUrl : 'views/categorias/agregar-icono.html', size :'md', scope: $scope}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/categorias/agregar-icono.html', size :'md', scope: $scope}, function($scope){
 
         });
     }
@@ -29,7 +29,7 @@ angular.module('shoplyApp')
     }
 
     $scope.agregar = function(){
-       modal.show({templateUrl : 'views/categorias/agregar-categoria.html', size :'md', scope: $scope}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/categorias/agregar-categoria.html', size :'md', scope: $scope}, function($scope){
             if($scope.formCategoria.$invalid){
                  modal.incompleteForm();
                 return;
@@ -64,7 +64,7 @@ angular.module('shoplyApp')
       $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._category = this.record
 
-      modal.show({templateUrl : 'views/categorias/editar_categoria.html', size :'md', scope: $scope}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/categorias/editar_categoria.html', size :'md', scope: $scope}, function($scope){
             if($scope.formEditCategoria.$invalid){
                  modal.incompleteForm();
                 return;

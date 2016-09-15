@@ -16,7 +16,7 @@ angular.module('shoplyApp')
   	}
 
     $scope.agregar = function(){
-       modal.show({templateUrl : 'views/transportador/agregar-transportador.html', size :'md', scope: $scope}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/transportador/agregar-transportador.html', size :'md', scope: $scope}, function($scope){
             if($scope.formTransportador.$invalid){
                  modal.incompleteForm();
                 return;

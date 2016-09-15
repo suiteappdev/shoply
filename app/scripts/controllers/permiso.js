@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('PermisoCtrl', function ($scope, $window, $rootScope, sweetAlert, constants, $state, modal, api, storage) {
+  .controller('PermisoCtrl', function ($scope, $window, $rootScope, $timeout, sweetAlert, constants, $state, modal, api, storage) {
   	$scope.Records = false;
 
   $scope.menus = $window.permisos.menus;
@@ -59,26 +59,11 @@ angular.module('shoplyApp')
     }
 
     $scope.addMenuEdit = function(){
-      /*var _exist = false;
-
-      if($scope.formEdit.data.permission){
-        angular.forEach($scope.formEdit.data.permission, function(o){
-          if($scope.formEdit.data._form == o._form){
-            _exist = true;
-          }
-        });
-      }
-
-      if(_exist){
-        sweetAlert.swal("Registro Duplicado", "No puedes agregar 2 permisos a un solo formulario", "warning");
-        return;
-      }*/
-
       $scope.formEdit.data.permission.push({_menu : $scope.formEdit.data._menu, access: $scope.formEdit.data.access, _form:$scope.formEdit.data._form});
     }
 
-  	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/permisos/agregar_permiso.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+  	$scope.create = function(){
+       window.modal = modal.show({templateUrl : 'views/permisos/agregar_permiso.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.permisoForm.$invalid){
                  modal.incompleteForm();
                 return;
@@ -101,10 +86,10 @@ angular.module('shoplyApp')
                 api.permiso().post($scope.formData).success(function(res){
                   if(res){
                     sweetAlert.swal("Registro completado.", "Has creado un nuevo perfil.", "success");
-                    $scope.$close();
-                    $scope.load();
+                    $timeout($scope.load());
                     delete $scope.permission;
                     delete $scope.formData;
+                    $scope.$close();
                     window.swal.close();   
                   }
                 });
@@ -113,11 +98,8 @@ angular.module('shoplyApp')
   	}
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy(this.record);
-       
-      console.log($scope.formEdit);
-
-      modal.show({templateUrl : 'views/permisos/editar_permiso.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+      $scope.formEdit = angular.copy($rootScope.grid.value);
+      window.modal = modal.show({templateUrl : 'views/permisos/editar_permiso.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditarPermiso.$invalid){
                  modal.incompleteForm();
                 return;
@@ -151,17 +133,17 @@ angular.module('shoplyApp')
 
     $scope.removeFromList = function(){
         var _record = this.record;
-        console.log(_record);
+        modal.removeConfirm({closeOnConfirm : true}, function(isConfirm){ 
+            if(isConfirm){
+              $scope.formEdit.data.permission.splice($scope.formEdit.data.permission.indexOf(_record), 1);
+              $scope.$apply();              
+            }
 
-        modal.removeConfirm({closeOnConfirm : true}, 
-            function(isConfirm){ 
-             $scope.formEdit.data.permission.splice($scope.formEdit.data.permission.indexOf(_record), 1);
-              $scope.$apply();
            })
     } 
 
-    $scope.borrar = function(){
-        var _record = this.record;
+    $scope.delete = function(){
+        var _record = $rootScope.grid.value;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

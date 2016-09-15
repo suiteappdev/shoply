@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('shoplyApp')
-  .controller('ClientCtrl', function ($scope, sweetAlert, constants, $state, modal, api, storage) {
+  .controller('ClientCtrl', function ($scope,$rootScope, sweetAlert, constants, $state, modal, api, storage) {
     $scope.Records = false; 
   	
     $scope.load = function(){
@@ -13,8 +13,8 @@ angular.module('shoplyApp')
       });
   	}
 
-  	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/clientes/agregar-cliente.html', size :'md', scope: $scope}, function($scope){
+  	$scope.create = function(){
+       window.modal = modal.show({templateUrl : 'views/clientes/agregar-cliente.html', size :'md', scope: $scope, backdrop:true}, function($scope){
               switch($scope.selected) {
                   case "natural":
                     if($scope.clienteNaturalForm.$invalid){
@@ -67,21 +67,21 @@ angular.module('shoplyApp')
 
     $scope.edit = function(){
 
-      switch(this.record.data.persona) {
+      switch($rootScope.grid.value.data.persona) {
           case "natural":
-            $scope.formEditPersonaNatural = angular.copy(this.record);
-            $scope.selected = this.record.data.persona;
+            $scope.formEditPersonaNatural = angular.copy($rootScope.grid.value);
+            $scope.selected = $rootScope.grid.value.data.persona;
               break;
           case "juridica":
-            $scope.formEditPersonaJuridica = angular.copy(this.record);
-            $scope.selected = this.record.data.persona;
+            $scope.formEditPersonaJuridica = angular.copy($rootScope.grid.value);
+            $scope.selected = $rootScope.grid.value.data.persona;
 
               break;
           default:
               modal.incompleteForm();
       }
       
-      modal.show({templateUrl : 'views/clientes/editar_cliente.html', size :'md', scope: $scope}, function($scope){
+     window.modal =  modal.show({templateUrl : 'views/clientes/editar_cliente.html', size :'md', scope: $scope, backdrop:true}, function($scope){
               switch($scope.selected) {
                   case "natural":
                     if($scope.clienteEditNaturalForm.$invalid){
@@ -127,8 +127,8 @@ angular.module('shoplyApp')
       });
     }
 
-    $scope.borrar = function(){
-        var _record = this.record;
+    $scope.delete = function(){
+        var _record = $rootScope.grid.value;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

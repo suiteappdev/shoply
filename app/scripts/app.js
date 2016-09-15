@@ -80,6 +80,8 @@ angular
 
                                  if(window.sweet)
                                     window.sweet.hide();
+                                 if(window.modal)
+                                    window.modal.close();
 
                                 window.localStorage.clear();
                                 window.location = "#/login";
@@ -158,6 +160,7 @@ angular
           .state('dashboard.permiso', {
               url: '/permiso',
               access: { requiredAuthentication: true },
+              controller:'PermisoCtrl',
               templateUrl: 'views/permisos/permisos.html',
               data: {
                 pageTitle: 'Permisos'
@@ -277,6 +280,7 @@ angular
           .state('dashboard.vendedores', {
                 url: '/vendedores',
                 access: { requiredAuthentication: true },
+                controller : 'SellerCtrl',
                 templateUrl: 'views/vendedores/vendedores.html',
                 data: {
                   pageTitle: 'Vendedores'
@@ -284,6 +288,7 @@ angular
           })
           .state('dashboard.empleados', {
                 url: '/empleados',
+                controller:'employeCtrl',
                 access: { requiredAuthentication: true },
                 templateUrl: 'views/empleado/empleados.html',
                 data: {
@@ -293,6 +298,7 @@ angular
           .state('dashboard.clientes', {
                 url: '/clientes',
                 access: { requiredAuthentication: true },
+                controller:'ClientCtrl',
                 templateUrl: 'views/clientes/clientes.html',
                 data: {
                   pageTitle: 'Clientes'
@@ -447,6 +453,12 @@ angular
         });
 
       $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
+            if($rootScope.grid && $rootScope.grid.value)
+              delete $rootScope.grid;
+            if(window.modal){
+              window.modal.close();
+            }
+            
             if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !storage.get('token')) {
                     event.preventDefault();
                     $state.transitionTo('login');

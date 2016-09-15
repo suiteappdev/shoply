@@ -45,7 +45,7 @@ angular.module('shoplyApp')
           });
       } 
 
-      modal.show({templateUrl : 'views/productos/editar_producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/productos/editar_producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formProducto.$invalid){
                  modal.incompleteForm();
                 return;
@@ -155,7 +155,7 @@ angular.module('shoplyApp')
 
 
     $scope.agregar = function(){
-       modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formProducto.$invalid){
                  modal.incompleteForm();
                 return;

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('shoplyApp')
-  .controller('employeCtrl', function ($scope,$timeout, sweetAlert, constants, $state, modal, api, storage) {
+  .controller('employeCtrl', function ($scope, $timeout, $rootScope, sweetAlert, constants, $state, modal, api, storage) {
     $scope.Records = false; 
   	
     $scope.load = function(){
@@ -13,8 +13,8 @@ angular.module('shoplyApp')
       });
   	}
 
-  	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/empleado/agregar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+  	$scope.create = function(){
+       window.modal = modal.show({templateUrl : 'views/empleado/agregar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEmploye.$invalid){
                  modal.incompleteForm();
                 return;
@@ -33,29 +33,58 @@ angular.module('shoplyApp')
   	}
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy(this.record);
+      $scope.formEdit = angular.copy($rootScope.grid.value);
       $scope.formEdit._route = $scope.formEdit._route.map(function(_o){return _o._id});
       $scope.formEdit._permission = $scope.formEdit._permission ? $scope.formEdit._permission._id : null;
       delete $scope.formEdit.password;
       
-      modal.show({templateUrl : 'views/empleado/editar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/empleado/editar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditEmploye.$invalid){
                  modal.incompleteForm();
                 return;
             }
 
-            api.user($scope.formEdit._id).put($scope.formEdit).success(function(res){
-                if(res){
-                    sweetAlert.swal("Registro Modificado", "Registro modificado correctamente.", "success");
-                    $scope.load();
-                    $scope.$close();
-                    delete $scope.formEdit;
-                }
-            });
+            if($scope.formEdit.password){
+                api.verification_code().add($scope.formEdit._id).get().success(function(res){
+                  if(res){
+                     sweetAlert.swal({
+                        title: "Escriba el codigo de verificación",
+                        type: "input",
+                        showCancelButton: false,
+                        closeOnConfirm: false,
+                        animation: "slide-from-top",
+                        inputPlaceholder: "Codigo de verificación" 
+                      }, function(inputValue){
+                          $scope.formEdit.verificationCode = inputValue;
+                          api.user($scope.formEdit._id).put($scope.formEdit).success(function(res){
+                              if(res){
+                                  sweetAlert.swal("Registro Modificado", "Registro modificado correctamente.", "success");
+                                  $scope.load();
+                                  $scope.$close();
+                                  delete $scope.formEdit;
+                              }
+                          }).error(function(data, status){
+                            if(status == 400){
+                              sweetAlert.swal("Error de validación", "Codigo de verificación incorrecto.", "warning");
+                            }
+                          });
+                      });                      
+                  }
+                });
+            }else{
+              api.user($scope.formEdit._id).put($scope.formEdit).success(function(res){
+                  if(res){
+                      sweetAlert.swal("Registro Modificado", "Registro modificado correctamente.", "success");
+                      $scope.load();
+                      $scope.$close();
+                      delete $scope.formEdit;
+                  }
+              });
+            }
       });
     }
 
-    $scope.borrar = function(){
+    $scope.delete = function(){
         var _record = this.record;
 
         modal.removeConfirm({closeOnConfirm : true}, 

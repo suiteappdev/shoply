@@ -13,7 +13,7 @@ angular.module('shoplyApp')
   	}
 
   	$scope.agregar = function(){
-       modal.show({templateUrl : 'views/rutas/agregar-ruta.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/rutas/agregar-ruta.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formRuta.$invalid){
                  modal.incompleteForm();
                 return;
@@ -43,7 +43,7 @@ angular.module('shoplyApp')
         });        
       }
 
-      modal.show({templateUrl : 'views/rutas/editar-ruta.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/rutas/editar-ruta.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.rutaEditForm.$invalid){
                  modal.incompleteForm();
                 return;

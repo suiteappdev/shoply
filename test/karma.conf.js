@@ -58,6 +58,7 @@ module.exports = function(config) {
       'bower_components/angular-selectize2/dist/angular-selectize.js',
       'bower_components/handlebars/handlebars.js',
       'bower_components/angular-recaptcha/release/angular-recaptcha.js',
+      'bower_components/metisMenu/dist/metisMenu.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

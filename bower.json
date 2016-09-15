@@ -32,7 +32,8 @@
     "ejs": "https://github.com/mde/ejs.git#^2.5.1",
     "handlebars": "^4.0.5",
     "components-font-awesome": "^4.6.3",
-    "angular-recaptcha": "^3.0.4"
+    "angular-recaptcha": "^3.0.4",
+    "metisMenu": "^2.5.2"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -42,10 +43,12 @@
   "resolutions": {
     "angular": "~1.4.0"
   },
-
-  "overrides" :{
-    "moment" : {
-      "main" : ["min/moment.min.js", "locale/es.js"]
+  "overrides": {
+    "moment": {
+      "main": [
+        "min/moment.min.js",
+        "locale/es.js"
+      ]
     }
   }
 }

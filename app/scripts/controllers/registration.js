@@ -8,13 +8,14 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('RegistrationCtrl', function ($scope, account, sweetAlert, modal, storage) {
+  .controller('RegistrationCtrl', function ($scope, account, $state, sweetAlert, modal, storage) {
   	
   	$scope.register = function(){
       var _success = function(data){
         if(data){
            sweetAlert.swal("Registro completado.", "Te has registrado correctamente.", "success");
            delete $scope.formRegister;
+           $state.go('login');
         }
       };
 

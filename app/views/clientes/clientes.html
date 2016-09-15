@@ -1,4 +1,4 @@
-<div ng-controller="ClientCtrl" ng-init="load()">
+<div ng-init="load()">
   <div class="content" ng-show="!records || records.length == 0">
     <div class="table_wrap table_height">
       <div class="row table-responsive table_inner">
@@ -12,8 +12,28 @@
     </div>  
   </div>
 	<div class="row" ng-show="records.length > 0">
-		<h3>Clientes</h3>
-		<div class="panel panel-default" style="padding:0px;">
+    <ul class="sp-list"> 
+      <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
+        <div class="sp-item-image">
+          <img ng-src="{{record.data.gallery[0].URL || 'images/missing-image.png'}}">
+        </div>
+        <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
+        <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+        <h4 ng-show="record.data.nit">{{record.data.representante_legal || record.data.razon_social}}</h4>
+		<h4 ng-show="!record.data.nit">{{(record.name) +" "+(record.last_name)}}</h4>
+        <p>{{record.email}}</p>
+        <p class="sp-text">Cel:&nbsp;{{record.data.phone}}&nbsp;&nbsp;</p>
+        <p class="sp-text">Documento &nbsp;{{record.data.documento || 'Nit'}} : {{record.data.numero_documento || record.data.nit}}&nbsp;&nbsp;</p>
+        <p style="position: absolute;top: 4px;right: 117px;">{{record.data.departamento}}, {{record.data.ciudad}}</p>
+        <div class="row">
+          <div class="sp-footer">
+
+          </div>
+        </div>
+      </li>
+    </ul>
+		<h3 ng-hide="true" >Clientes</h3>
+		<div ng-hide="true"  class="panel panel-default" style="padding:0px;">
 		  <div class="panel-body">
 		  <div class="col-lg-12">
 			  <div class="form-group pull-right">

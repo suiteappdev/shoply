@@ -50,7 +50,7 @@ angular.module('shoplyApp')
 
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
-      modal.show({templateUrl : 'views/iva/editar_ivas.html', size :'md', scope: $scope}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/iva/editar_ivas.html', size :'md', scope: $scope}, function($scope){
             if($scope.$$childTail.formEditIva.$invalid){
                  modal.incompleteForm();
                 return;

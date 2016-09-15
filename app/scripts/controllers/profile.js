@@ -3,7 +3,7 @@ angular.module('shoplyApp')
   .controller('ProfileCtrl', function ($scope, api, modal, constants, $state, storage, account, $rootScope) {
 
     $scope.crop = function(){
-      modal.show({templateUrl : 'views/utils/cropper.html', size :'md', scope: $scope}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/utils/cropper.html', size :'md', scope: $scope}, function($scope){
           $scope.update();
           $scope.$close();
       });

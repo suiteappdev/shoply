@@ -9,7 +9,8 @@
           <p ng-show="$root.user.type =='ADMINISTRATOR'" style="color: #ffffff;font-size: smaller;font-weight: bold;">Administrador</p>     
         </div>
       </div>
-          <div class="nav-items">
+        <sp-sidebar-menu></sp-sidebar-menu>
+          <div class="nav-items hidden">
             <ul class="menu-list text-right">
               <li 
                 ng-show="$root.acl.canView('mnuEmpresas')"  
@@ -192,7 +193,10 @@
       </div>  
   </div>
   <div class="col-lg-10 row">
-    <div class="row sp-toolbar" ng-show="$root.state.current.name == 'dashboard.empresa'">
+    <div class="row sp-toolbar" 
+      ng-show="$root.state.current.name == 'dashboard.empresa' || $root.state.current.name == 'dashboard.permiso' || $root.state.current.name == 'dashboard.empleados' || $root.state.current.name == 'dashboard.vendedores' || $root.state.current.name == 'dashboard.clientes'"
+
+      >
       <div class="col-lg-4">
         <button
           ng-show="$root.user._company" 
@@ -208,10 +212,20 @@
         
       </div>
       <div class="col-lg-4 text-right">
-        <button ng-show="$root.grid.selected" ng-click="callForDelete()" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-trash"></i>&nbsp;ELIMINAR</button>
-          <button ng-click="callForEdit()" ng-show="$root.grid.selected" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-edit"></i>&nbsp;EDITAR</button>        
-
-          <button ng-click="callForCreate()" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-plus"></i>&nbsp;CREAR</button>          
+        <div class="row">
+          <div class="col-lg-3">
+            <button ng-show="$root.grid.selected && $root.state.current.name == 'dashboard.empresa' " ng-click="connectCompany()" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="fa fa-database"></i>&nbsp;Conectar</button>        
+          </div>
+          <div class="col-lg-3">
+            <button ng-show="$root.grid.selected" ng-click="callForDelete()" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>        
+          </div>
+          <div class="col-lg-3">
+              <button ng-click="callForEdit()" ng-show="$root.grid.selected" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</button>          
+          </div>
+          <div class="col-lg-3">
+              <button ng-click="callForCreate()" style="top:4px;position:relative;" class="custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;&nbsp;Crear</button>           
+          </div>        
+        </div>
       </div>
     </div> 
     <div ui-view class="container">

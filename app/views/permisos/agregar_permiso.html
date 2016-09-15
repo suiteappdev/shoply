@@ -70,7 +70,6 @@
                         <td>{{record.access.update ? 'SI' : 'NO'}}</td>
                         <td>{{record.access.delete ? 'SI' : 'NO'}}</td>
                         <td class="text-right">
-                          <a style="width:auto;"  class="custom-btn-tiny btn-block btn-primary" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i>Editar</a>
                           <a style="width:auto;" ng-click="removeFromList()" class="custom-btn-tiny btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i>Quitar</a>
                         </td> 
                       </tr>
@@ -87,8 +86,7 @@
           </div>
     	</div>
   	</div>
-    <div class="modal-footer custom-modal-footer">
-        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
-        <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Crear</button>
+    <div class="modal-footer custom-modal-footer" style="padding:0px;">
+        <button type="button" style="height:40px;" class="custom-btn btn-block custom-btn-primary" ng-click="ok()">Crear</button>
     </div>
 </div>
