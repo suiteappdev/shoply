@@ -1,4 +1,4 @@
-<div ng-controller="ProductosCtrl" ng-init="load()">
+<div ng-init="load()">
   <div class="content" ng-show="!records || records.length == 0">
     <div class="table_wrap table_height">
       <div class="row table-responsive table_inner">
@@ -11,9 +11,28 @@
       </div>
     </div>  
   </div>
-	<div class="row" ng-show="records.length > 0">
-	<h3>Productos</h3>
-	<div class="panel panel-default" style="padding:0px;">
+	<div  class="row" ng-show="records.length > 0">
+    <ul class="sp-list"> 
+      <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
+        <div class="sp-item-image">
+          <img ng-src="{{record.data.gallery[0].URL}}">
+        </div>
+        <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
+        <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+        <h4>{{record.data.producto}}</h4>
+        <p>{{record.data.descripcion}}</p>
+        <p class="sp-text">Base:&nbsp;<span class="label label-primary">{{record.data.precio | currency:"$ "}}</span>&nbsp;&nbsp;</p>
+        <p class="sp-text">Precio de venta:&nbsp;<span class="label label-primary">{{record.data.precio_venta | currency:"$ "}}</span>&nbsp;&nbsp;</p>
+        <span style="position: absolute;top: 4px;right: 117px;" class="label label-success">Etiquetas:&nbsp;{{record.data.tags.join(", ").toLowerCase()}}</span>
+        <div class="row">
+          <div class="sp-footer">
+
+          </div>
+        </div>
+      </li>
+    </ul>
+	<h3  ng-hide="true" >Productos</h3>
+	<div ng-hide="true"  class="panel panel-default" style="padding:0px;">
 	  <div class="panel-body">
 	  <div class="col-lg-12">
 		  <div class="form-group pull-right">

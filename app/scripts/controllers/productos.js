@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('ProductosCtrl',["$scope", "modal", "api", "constants",function ($scope, modal, api, constants) {
+  .controller('ProductosCtrl',["$scope", "$rootScope", "modal", "api", "constants",function ($scope, $rootScope, modal, api, constants) {
     $scope.Records = false; 
 
     $scope.load = function(){
@@ -19,11 +19,11 @@ angular.module('shoplyApp')
     }
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy(this.record);
-      $scope.formEdit._category = this.record._category ? this.record._category._id : null;
-      $scope.ivaValue = this.record._iva ? this.record._iva.data.valor : 0;
+      $scope.formEdit = angular.copy($rootScope.grid.value);
+      $scope.formEdit._category = $rootScope.grid.value._category ? $rootScope.grid.value._category._id : null;
+      $scope.ivaValue = $rootScope.grid.value._iva ? $rootScope.grid.value._iva.data.valor : 0;
 
-      $scope.formEdit._iva = this.record._iva ? this.record._iva._id : null;
+      $scope.formEdit._iva = $rootScope.grid.value._iva ? $rootScope.grid.value._iva._id : null;
       
       if($scope.formEdit.data.tags){
         $scope.tags = $scope.formEdit.data.tags.map(function(o){
@@ -154,7 +154,7 @@ angular.module('shoplyApp')
 
 
 
-    $scope.agregar = function(){
+    $scope.create = function(){
        window.modal = modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formProducto.$invalid){
                  modal.incompleteForm();
@@ -175,8 +175,8 @@ angular.module('shoplyApp')
         });
     }
 
-    $scope.borrar = function(){
-        var _record = this.record;
+    $scope.delete = function(){
+        var _record = $rootScope.grid.value;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

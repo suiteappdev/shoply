@@ -240,6 +240,7 @@ angular
           .state('dashboard.productos', {
                 url: '/productos',
                 access: { requiredAuthentication: true },
+                controller : 'ProductosCtrl',
                 templateUrl: 'views/productos/productos.html',
                 data: {
                   pageTitle: 'Productos'
