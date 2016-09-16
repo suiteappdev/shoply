@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('CategoriaCtrl', function ($scope, modal, api) {
+  .controller('CategoriaCtrl', function ($scope, $rootScope, modal, api) {
     $scope.Records = false; 
     
     $scope.load = function(){
@@ -28,8 +28,8 @@ angular.module('shoplyApp')
       console.log(this);
     }
 
-    $scope.agregar = function(){
-       window.modal = modal.show({templateUrl : 'views/categorias/agregar-categoria.html', size :'md', scope: $scope}, function($scope){
+    $scope.create = function(){
+       window.modal = modal.show({templateUrl : 'views/categorias/agregar-categoria.html', size :'md', scope: $scope, backdrop:true}, function($scope){
             if($scope.formCategoria.$invalid){
                  modal.incompleteForm();
                 return;
@@ -45,8 +45,8 @@ angular.module('shoplyApp')
         });
     }
 
-    $scope.borrar = function(){
-        var _record = this.record;
+    $scope.delete = function(){
+        var _record = $rootScope.grid.value;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 
@@ -61,10 +61,10 @@ angular.module('shoplyApp')
    }
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy(this.record);
-      $scope.formEdit._category = this.record
+      $scope.formEdit = angular.copy($rootScope.grid.value);
+      $scope.formEdit._category = $rootScope.grid.value;
 
-      window.modal = modal.show({templateUrl : 'views/categorias/editar_categoria.html', size :'md', scope: $scope}, function($scope){
+      window.modal = modal.show({templateUrl : 'views/categorias/editar_categoria.html', size :'md', scope: $scope, backdrop:true}, function($scope){
             if($scope.formEditCategoria.$invalid){
                  modal.incompleteForm();
                 return;

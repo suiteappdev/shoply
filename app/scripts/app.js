@@ -24,6 +24,7 @@ angular
     'angularUtils.directives.dirPagination',
     'internationalPhoneNumber',
     'ngImgCrop',
+    'angular-preload-image',
     'jkuri.datepicker',
     'colorpicker.module',
     'vcRecaptcha'
@@ -348,6 +349,7 @@ angular
           .state('dashboard.rutas', {
                 url: '/rutas',
                 access: { requiredAuthentication: true },
+                controller:'RouteCtrl',
                 templateUrl: 'views/rutas/rutas.html',
                 data: {
                   pageTitle: 'Rutas'
@@ -357,6 +359,7 @@ angular
           .state('dashboard.categorias', {
                 url: '/categorias',
                 access: { requiredAuthentication: true },
+                controller:'CategoriaCtrl',
                 templateUrl: 'views/categorias/categorias.html',
                 data: {
                   pageTitle: 'Categorias'

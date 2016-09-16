@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('shoplyApp')
-  .controller('RouteCtrl', function ($scope, sweetAlert, constants, $state, modal, api, storage) {
+  .controller('RouteCtrl', function ($scope,$rootScope, sweetAlert, constants, $state, modal, api, storage) {
     $scope.Records = false; 
   	
     $scope.load = function(){
@@ -12,7 +12,7 @@ angular.module('shoplyApp')
       });
   	}
 
-  	$scope.agregar = function(){
+  	$scope.create = function(){
        window.modal = modal.show({templateUrl : 'views/rutas/agregar-ruta.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formRuta.$invalid){
                  modal.incompleteForm();
@@ -31,7 +31,7 @@ angular.module('shoplyApp')
   	}
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy(this.record);
+      $scope.formEdit = angular.copy($rootScope.grid.value);
       
       if($scope.formEdit.data.barrios){
         $scope.barrios = $scope.formEdit.data.barrios.map(function(o){
@@ -60,8 +60,8 @@ angular.module('shoplyApp')
       });
     }
 
-    $scope.borrar = function(){
-        var _record = this.record;
+    $scope.delete = function(){
+        var _record = $rootScope.grid.value;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

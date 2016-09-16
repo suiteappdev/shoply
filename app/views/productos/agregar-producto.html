@@ -7,7 +7,7 @@
 	  	<div class="row">
 	  		<div class="col-lg-3">
 	  			<div class="form-group">
-	  				<button ng-class="selected=='basic' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='basic'" class="custom-btn btn-block">información Basica</button>	
+	  				<button ng-class="selected=='basic' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='basic'" class="custom-btn btn-block">Información Basica</button>	
 	  			</div>
 	  		</div>
 	  		<div class="col-lg-3">
@@ -107,17 +107,18 @@
 			</div>	
 	  		</form>
 		</div>
-		<div class="row">
-			  <div class="col-lg-6 text-left">
-			  	<h4 style="color:#545454 !important">Precio de Venta :</h4>	
-			  </div>
-			  <div class="col-lg-6 text-right" ng-init="$parent.form.data.precio_venta = 0;">
-			  	<h4 style="color:#545454 !important">{{$parent.form.data.precio_venta | currency:"COP$ "}}</h4>
-			  </div>	  	
+	</div>
+	<div class="row" style="border: none;background-color: #000D11;color: #FFF;margin:0px;">
+		<div class="col-lg-12">
+		  <div class="col-lg-6 text-left">
+		  	<h4 style="color:white !important">Precio de Venta :</h4>	
+		  </div>
+		  <div class="col-lg-6 text-right" ng-init="$parent.form.data.precio_venta = 0;">
+		  	<h4 style="color:white!important">{{$parent.form.data.precio_venta | currency:"COP$ "}}</h4>
+		  </div>			
 		</div>
 	</div>
-    <div class="modal-footer custom-modal-footer">
-        <button type="button" class="custom-btn btn-danger" ng-click="cancel()">Cancelar</button>
-        <button type="button" class="custom-btn custom-btn-primary" ng-click="ok()">Agregar</button>
+    <div class="modal-footer custom-modal-footer" style="padding:0px;">
+        <button type="button" style="height:40px;" class="custom-btn btn-block custom-btn-primary" ng-click="ok()">Agregar</button>
     </div>
 </div>

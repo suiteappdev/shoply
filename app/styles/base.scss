@@ -1003,3 +1003,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
     padding: 10px;
     box-sizing: border-box;
 }
+
+.intl-tel-input input, .intl-tel-input input[type=text], .intl-tel-input input[type=tel]{
+  padding-left:50px!important;
+}
