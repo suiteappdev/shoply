@@ -16,6 +16,7 @@ angular.module('shoplyApp')
   		  valueField: $scope.key,
   		  labelField: $scope.label,
   		  placeholder: 'Elijas las rutas',
+        selectOnTab : true,
         plugins: ['remove_button']
   		};
 

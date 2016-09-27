@@ -27,7 +27,8 @@ angular
     'angular-preload-image',
     'jkuri.datepicker',
     'colorpicker.module',
-    'vcRecaptcha'
+    'vcRecaptcha',
+    'cfp.hotkeys'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'
@@ -250,6 +251,7 @@ angular
           .state('dashboard.facturacion', {
                 url: '/facturacion',
                 access: { requiredAuthentication: true },
+                controller : 'FacturacionCtrl',
                 templateUrl: 'views/facturacion/facturaciones.html',
                 data: {
                   pageTitle: 'Facturar'
@@ -258,6 +260,7 @@ angular
           .state('dashboard.editar-facturacion', {
                 url: '/editar-facturacion/:facturacion',
                 access: { requiredAuthentication: true },
+                controller : 'FacturacionCtrl',
                 templateUrl: 'views/facturacion/facturaciones.html',
                 data: {
                   pageTitle: 'Editar-Devolver'
@@ -266,6 +269,7 @@ angular
           .state('dashboard.devoluciones', {
                 url: '/devoluciones',
                 access: { requiredAuthentication: true },
+                controller : 'DevolucionesCtrl',
                 templateUrl: 'views/devoluciones/devoluciones.html',
                 data: {
                   pageTitle: 'Devoluciones'

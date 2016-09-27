@@ -23,6 +23,7 @@ angular.module('shoplyApp')
     		  labelField:$scope.label,
     		  placeholder: 'Entidad',
     		  maxItems: 1,
+          selectOnTab : true,
           onItemAdd : function(value, $item){
           angular.forEach($scope.records, function(v, k){
             if(v.value == value){

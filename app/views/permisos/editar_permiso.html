@@ -2,7 +2,7 @@
     <div class="modal-header text-center custom-modal-header">
         <h4 class="modal-title">Editar Permiso</h4>
     </div>
-  	<div class="modal-body modal-body-pattern">
+  	<div class="modal-body">
       <div class="row">
         <div class="file-wrap" style="height: 150px;" ng-show="loading">
           <div class="item-loading text-center" style="position:relative;top:25%;">
@@ -46,41 +46,33 @@
                     Borrar
                   </label>
               </div>
-              <div class="col-lg-12 text-right">
-                  <button type="button" class="custom-btn custom-btn-primary" ng-click="addMenuEdit()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
+              <div class="col-lg-12 text-right form-group">
+                  <button  type="button" style="border-radius: 5px;" class="custom-btn custom-btn-primary" ng-click="addMenuEdit()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                <h4 class="text-center" ng-show="!formEdit.data.permission || formEdit.data.permission.length == 0" ><i class="fa fa-exclamation-triangle"></i>&nbsp;no hay menus configurados</h4>                  
+                <ul class="sp-list"> 
+                    <li class="sp-list-item sp-choice" dir-paginate="record in formEdit.data.permission |filter:search | itemsPerPage: 3 " pagination-id="permissionEditEntity"> 
+                      <div class="sp-item-image text-center">
+                        <i style="font-size: 50px;position: relative;top: 15%;" class="fa {{record.menuIcon}}"></i>
+                      </div>
+                      <a class="trash" ng-click="removeFromListEdit()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+                      <h4>{{record.menuText}}</h4>
+                      <p class="sp-text" style="top: -3px!important;">Formulario:&nbsp;{{record.formText.toLowerCase() || 'Sin Formulario'}}&nbsp;&nbsp;</p>
+                      <p><span  ng-show="record.access.view" style="margin-right:5px;" class="label label-primary ng-binding">Ver : Permitido</span><span ng-show="record.access.create"  style="margin-right:5px;" class="label label-primary">Crear : Permitido</span><span  ng-show="record.access.update" style="margin-right:5px;" class="label label-primary ng-binding">Editar : Permitido</span><span   ng-show="record.access.delete" style="margin-right:5px;" class="label label-primary ng-binding">Borrar : Permitido</span></p>
+                     {{barrio}}</span></p>
+                      <div class="row">
+                        <div class="sp-footer">
+
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  </div>
               </div>
               <div class="col-lg-12">
-                <div class="table-responsive">
-                   <table class="table table-hover">
-                    <thead>
-                      <th>Menu</th>
-                      <th>Formulario</th>
-                      <th>Ver</th>
-                      <th>Crear</th>
-                      <th>Editar</th>
-                      <th>Borrar</th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      <tr dir-paginate="record in formEdit.data.permission | itemsPerPage: 5 " pagination-id="permissionEditEntity">
-                        <td>{{record._menu}}</td>
-                        <td>{{record._form || 'Sin formulario'}}</td>
-                        <td>{{record.access.view ? 'SI' : 'NO'}}</td>
-                        <td>{{record.access.create ? 'SI' : 'NO'}}</td>
-                        <td>{{record.access.update ? 'SI' : 'NO'}}</td>
-                        <td>{{record.access.delete ? 'SI' : 'NO'}}</td>
-                        <td style="width:50px;" class="text-right">
-                          <a  ng-click="removeFromList()" class="custom-btn-tiny btn-block btn-danger"><i class="glyphicon glyphicon-trash"></i>Quitar</a>
-                        </td> 
-                      </tr>
-                    </tbody>
-                  </table>      
-                </div>  
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <dir-pagination-controls class="pull-right" pagination-id="permissionEditEntity"></dir-pagination-controls>
-                    </div>
-                  </div>  
+                <dir-pagination-controls class="pull-right" pagination-id="permissionEditEntity"></dir-pagination-controls>
               </div>
             </form>
           </div>

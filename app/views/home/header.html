@@ -33,7 +33,7 @@
           <div style="padding:5px; padding-right: 20px;" ng-show="isLogged" >
               <span uib-dropdown="" on-toggle="toggled(open)" class="dropdown">
                 <a href="" id="userOption" uib-dropdown-toggle="" class="dropdown-toggle text-white" aria-haspopup="true" aria-expanded="false">
-                 {{($root.user.name + " "+ $root.user.last_name)}}
+                 {{($root.user.name + " "+ $root.user.last_name).toLowerCase()}}
                 </a>
                 <a ng-click="cambiarEmpresa()" ng-show="$root.user._company" href="" style="font-size: 10px;color: #ff5e1b;position: absolute;top: 11px;right: 1px;text-align: right;display: block;width: 100%;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;"><i class="glyphicon glyphicon-triangle-right"></i>{{$root.user._company.data.empresa}}</a>
                 <ul class="dropdown-menu pull-right" uib-dropdown-menu="" aria-labelledby="userOption">
@@ -44,7 +44,7 @@
                   </li>
                 </ul>
               </span> 
-              <a href="#!profile" ui-sref="dashboard.perfil"><img preload-image ng-src="{{$root.user.metadata.gallery[0].URL}}" default-image="images/no-user-image.gif" fallback-image="images/loading.svg" class="img-circle thumb-photo"></a>
+              <a href="#!profile" ui-sref="dashboard.perfil"><img preload-image ng-src="{{$root.user.metadata.gallery[0].URL}}" default-image="images/loading.svg" fallback-image="images/no-user-image.gif" class="img-circle thumb-photo"></a>
           </div>
         </div>
       </div>

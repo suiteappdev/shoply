@@ -28,6 +28,11 @@ angular.module('shoplyApp')
 
 
     $scope.load = function(){
+      
+      if($scope.permission){
+        delete $scope.permission;
+      }
+
       api.permiso().get().success(function(res){
         $scope.records = res || [];
         $scope.Records = true;
@@ -35,31 +40,41 @@ angular.module('shoplyApp')
   	}
 
     $scope.addMenu = function(){
-      /*var _exist = false;
-
-      if($scope.permission){
-        angular.forEach($scope.permission, function(o){
-          if($scope.form.data._form == o._form){
-            _exist = true;
-          }
-        });
-      }
-
-      if(_exist){
-        sweetAlert.swal("Registro Duplicado", "No puedes agregar 2 permisos a un solo formulario", "warning");
-        return;
-      }*/
-
       if(!$scope.permission){
-        $scope.permission = [];
-        $scope.permission.push(angular.copy($scope.form.data));
+        $scope.permission = []; 
+        $scope.form.data.menuText = $scope.getObj("menus", $scope.form.data._menu).nombre;
+        $scope.form.data.menuIcon = $scope.getObj("menus", $scope.form.data._menu).icon;
+        $scope.form.data.formText = $scope.getObj("forms", $scope.form.data._form) ? $scope.getObj("forms", $scope.form.data._form).nombre : null;
+        $scope.permission.push(angular.copy( $scope.form.data));
+        $scope.form.data._form = null;
+        $scope.form.data.access = null;
       }else{
+        $scope.form.data.menuText = $scope.getObj('menus', $scope.form.data._menu).nombre;
+        $scope.form.data.menuIcon = $scope.getObj("menus", $scope.form.data._menu).icon;
+        $scope.form.data.formText = $scope.getObj("forms", $scope.form.data._form) ? $scope.getObj("forms", $scope.form.data._form).nombre : null;
         $scope.permission.push(angular.copy($scope.form.data));
+        $scope.form.data._form = null;
+        $scope.form.data.access = null;
       }
     }
 
+    $scope.getObj = function(collection, id){
+      return $scope[collection].filter(function(obj){
+        return obj.id == id; 
+      })[0];
+    }
+
+
     $scope.addMenuEdit = function(){
-      $scope.formEdit.data.permission.push({_menu : $scope.formEdit.data._menu, access: $scope.formEdit.data.access, _form:$scope.formEdit.data._form});
+      var data = {};
+
+      data._menu = $scope.formEdit.data._menu;
+      data.access = $scope.formEdit.data.access;
+      data._form = $scope.formEdit.data._form;
+      data.menuText = $scope.getObj("menus", $scope.formEdit.data._menu).nombre
+      data.menuIcon = $scope.getObj("menus", $scope.formEdit.data._menu).icon
+      data.formText = $scope.getObj("forms", $scope.formEdit.data._form) ? $scope.getObj("forms", $scope.formEdit.data._form).nombre : null;
+      $scope.formEdit.data.permission.push(data);
     }
 
   	$scope.create = function(){
@@ -132,7 +147,18 @@ angular.module('shoplyApp')
     }
 
     $scope.removeFromList = function(){
-        var _record = this.record;
+        var _record = this.record || $rootScope.grid.value;
+        modal.removeConfirm({closeOnConfirm : true}, function(isConfirm){ 
+            if(isConfirm){
+              $scope.permission.splice($scope.permission.indexOf(_record), 1);
+              $scope.$apply();              
+            }
+
+           })
+    } 
+
+    $scope.removeFromListEdit = function(){
+        var _record = this.record || $rootScope.grid.value;
         modal.removeConfirm({closeOnConfirm : true}, function(isConfirm){ 
             if(isConfirm){
               $scope.formEdit.data.permission.splice($scope.formEdit.data.permission.indexOf(_record), 1);

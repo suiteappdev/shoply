@@ -664,6 +664,7 @@ pre                             { margin-bottom:20px; }
 
     &:active{
       outline:none;
+      border-bottom: 0px;
     }
 }
 
@@ -1007,3 +1008,18 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .intl-tel-input input, .intl-tel-input input[type=text], .intl-tel-input input[type=tel]{
   padding-left:50px!important;
 }
+
+.center-modal {
+    position: fixed;
+    top: 10%;
+    left: 18.5%;
+    z-index: 1050;
+    width: 80%;
+    height: 80%;
+    margin-left: -10%;
+}
+
+.selectizeLoading {
+  background-color:red;
+}
+

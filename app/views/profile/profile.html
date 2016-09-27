@@ -17,24 +17,20 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 							    <label>Nombres:</label>
-							    <input type="text" placeholder="Nombres" required class="form-control" ng-model="$root.user.name">
+							    <p>{{$root.user.name}}</p>
 							</div>						
 							<div class="form-group">
 								<label>Apellidos:</label>
-							<input type="text" placeholder="Apellidos" required class="form-control" ng-model="$root.user.last_name">
+								<p>{{$root.user.last_name}}</p>
 							</div>
 							<div class="form-group">
 								<label>Email:</label>
-								<input type="text" placeholder="Email" required class="form-control" ng-model="$root.user.email">
+								<p>{{$root.user.email}}</p>
 							</div>
-							<div class="form-group">
-								<label>Telefono 1:</label>
-								<input type="text" class="form-control" international-phone-number ng-model="$root.user.metadata.phonebook[0]">
-							</div>
-							<div class="form-group">
-								<label>Telefono 2:</label>
-								<input type="text" class="form-control" international-phone-number ng-model="$root.user.metadata.phonebook[1]">
-							</div>
+		                    <div class="form-group">
+		                      <label>Celular:</label>
+		                      <input type="text" class="form-control" international-phone-number ng-model="$root.user.metadata.phone">
+		                    </div>                  
 						</div>
 						<div class="col-lg-6">
   							<image-uploader area="circle" title="Sube tu imagen de perfil" button-text="Subir" items="1" label="" ng-model="$root.user.metadata.gallery"><image-uploader>

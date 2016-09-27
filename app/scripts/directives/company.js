@@ -16,6 +16,7 @@ angular.module('shoplyApp')
   		});
 
   		$scope.myConfig = {
+        loadingClass: 'selectizeLoading',
   		  valueField: $scope.key,
   		  labelField: $scope.label,
   		  placeholder: 'Empresa',

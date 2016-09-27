@@ -5,19 +5,18 @@ angular.module('shoplyApp')
   	function ctrl($scope, api, modal, $rootScope){
   		api.user().get().success(function(res){
   			$scope.records = res.filter(function(_o){
-          if(_o.data && _o.data.nit == "10001"){
-            _o.full_name = "Ventas Diarias";
-          }
-          
+          _o.full_name = _o.name +" "+ _o.last_name;
           return _o.type == "CLIENT";
         });
   		});
 
   		$scope.myConfig = {
+        loadingClass: 'selectizeLoading',
   		  valueField: $scope.key,
   		  labelField: $scope.label,
   		  placeholder: 'Cliente',
         openOnFocus : false,
+        selectOnTab : true,
         maxItems: 1
   		};
 

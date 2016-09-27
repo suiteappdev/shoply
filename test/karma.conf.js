@@ -60,6 +60,7 @@ module.exports = function(config) {
       'bower_components/angular-recaptcha/release/angular-recaptcha.js',
       'bower_components/metisMenu/dist/metisMenu.js',
       'bower_components/angular-preload-image/angular-preload-image.js',
+      'bower_components/angular-hotkeys/build/hotkeys.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

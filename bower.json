@@ -34,7 +34,8 @@
     "components-font-awesome": "^4.6.3",
     "angular-recaptcha": "^3.0.4",
     "metisMenu": "^2.5.2",
-    "angular-preload-image": "*"
+    "angular-preload-image": "*",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

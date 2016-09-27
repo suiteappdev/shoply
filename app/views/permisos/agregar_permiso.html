@@ -2,7 +2,7 @@
     <div class="modal-header text-center custom-modal-header">
         <h4 class="modal-title">Agregar Permiso</h4>
     </div>
-  	<div class="modal-body modal-body-pattern">
+  	<div class="modal-body">
       <div class="row">
         <div class="file-wrap" style="height: 150px;" ng-show="loading">
           <div class="item-loading text-center" style="position:relative;top:25%;">
@@ -25,7 +25,7 @@
               <div class="col-lg-3">
                   <label>
                     <input icheck type="checkbox"  ng-model="form.data.access.view" class="info-bounce">
-                    Ver Listado
+                    Ver
                   </label>
               </div>
               <div class="col-lg-3">
@@ -46,10 +46,35 @@
                     Borrar
                   </label>
               </div>
-              <div class="col-lg-12 text-right">
-                  <button type="button" class="custom-btn custom-btn-primary" ng-click="addMenu()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
+              <div class="col-lg-12 form-group text-right" style="border-bottom: 1px solid #f1f1f1;padding-bottom: 5px;">
+                  <button style="border-radius: 5px;" type="button" class="custom-btn custom-btn-primary" ng-click="addMenu()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Agregar</button>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                <h4 class="text-center" ng-show="!permission || permission.length == 0" ><i class="fa fa-exclamation-triangle"></i>&nbsp;no hay menus configurados</h4>                  
+                <ul class="sp-list"> 
+                    <li class="sp-list-item sp-choice" dir-paginate="record in permission |filter:search | itemsPerPage: 3 " pagination-id="permissionEditEntity"> 
+                      <div class="sp-item-image text-center">
+                        <i style="font-size: 50px;position: relative;top: 15%;" class="fa {{record.menuIcon}}"></i>
+                      </div>
+                      <a class="trash" ng-click="removeFromList()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+                      <h4>{{record.menuText}}</h4>
+                      <p class="sp-text" style="top: -3px!important;">Formulario:&nbsp;{{record.formText.toLowerCase() || 'Sin Formulario'}}&nbsp;&nbsp;</p>
+                      <p><span  ng-show="record.access.view" style="margin-right:5px;" class="label label-primary ng-binding">Ver : Permitido</span><span ng-show="record.access.create"  style="margin-right:5px;" class="label label-primary">Crear : Permitido</span><span  ng-show="record.access.update" style="margin-right:5px;" class="label label-primary ng-binding">Editar : Permitido</span><span   ng-show="record.access.delete" style="margin-right:5px;" class="label label-primary ng-binding">Borrar : Permitido</span></p>
+                     {{barrio}}</span></p>
+                      <div class="row">
+                        <div class="sp-footer">
+
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  </div>
               </div>
               <div class="col-lg-12">
+                    <dir-pagination-controls class="pull-right" pagination-id="permissionEditEntity"></dir-pagination-controls>
+              </div>
+              <div class="col-lg-12" ng-hide="true">
                 <div class="table-responsive">
                    <table class="table table-hover">
                     <thead>

@@ -2,10 +2,10 @@
 <sp-sidebar-header></sp-sidebar-header>
   <div class="col-lg-10 row">
   <sp-header-toolbar></sp-header-toolbar>
-    <div ui-view class="container">
+    <div ui-view>
         <div ng-hide="$root.user._company" class="initialize text-center">
           <h4>Para comenzar debes conectarte con una empresa.</h4>
-          <button type="button" ng-click="cambiarEmpresa()"class="btn custom-btn-primary btn-lg">CONECTAR</button>
+          <button type="button" ng-click="cambiarEmpresa()"class="btn custom-btn-primary btn-lg">Elejir Empresa</button>
         </div>
         <div ng-show="$root.user._company">
           <div class="col-lg-4 animated bounceInLeft" style="background-color: #272727;height:250px;">

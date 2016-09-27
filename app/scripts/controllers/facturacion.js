@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('FacturacionCtrl',["$scope","shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http", "$filter", "$stateParams", function ($scope, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter, $stateParams) {
+  .controller('FacturacionCtrl',["$scope", "hotkeys", "shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http", "$filter", "$stateParams", "storage","$timeout", function ($scope, hotkeys, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter, $stateParams, $storage, $timeout) {
     
     $scope.records = [];
 
@@ -23,15 +23,24 @@ angular.module('shoplyApp')
     }, true);
 
     $scope.load = function(){
-      $scope.focuset = true;
-      
+      $scope.records =[];
       if($stateParams.facturacion){
         api.facturacion($stateParams.facturacion).get().success(function(res){
           $scope.rs = res;
           $scope.records = $scope.rs._product;
-          $rootScope.$emit("focusOn", true);                          
+          $scope.form._client = res._client;
         });
+      }else{
+        $scope.setDefault = $storage.get('defaultClient') || null;
       }
+    }
+
+    $scope.setDefaultClient = function(){
+        if(this.defaultOption){
+          $storage.save('defaultClient', $scope.form._client);
+        }else{
+          $storage.delete('defaultClient');
+        }
     }
 
     $scope.printA = function(data, iva_detail){
@@ -76,7 +85,7 @@ angular.module('shoplyApp')
       }else{
         $scope.loading = true;
         api.formas_pagos().get().success(function(res){
-          $scope.paymentMethods = res ||[];
+          $scope.$parent.paymentMethods = res ||[];
           $scope.loading = false;
         });        
       }
@@ -88,7 +97,7 @@ angular.module('shoplyApp')
 
       if(this.method.data.card){
         if(event.which === 13) {
-           window.modal = modal.show({templateUrl : 'views/facturacion/baseForm.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+           window.modal = modal.show({templateUrl : 'views/facturacion/baseForm.html', size :'md', scope: $scope, backdrop:'static',  windowClass: 'center-modal'}, function($scope){
               $scope.method.data.base =  ( $scope.totalCard / 1.16);
               $scope.method.data.Iva = ($scope.totalCard) - ( $scope.totalCard / 1.16);
               $scope.$parent.$parent.form._payments = $scope.paymentMethods;
@@ -108,7 +117,11 @@ angular.module('shoplyApp')
     });
 
     $scope.facturar = function(){
-       window.modal = modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+      if($scope.records == 0){
+        return;
+      }
+
+       window.modal = modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
           $scope.form.data =  new Object();
           $scope.form._seller = $rootScope.user._id;
           $scope.form.data.TotalIva = $scope.TotalIva;
@@ -116,7 +129,7 @@ angular.module('shoplyApp')
           $scope.form.data.subtotal =  $scope.subTotal;
           $scope.form.data.descuentoGlobal = $scope.gdiscount || 0;
           $scope.form.data.valorDescuentoGlobal = $scope.vgdescuento;
-
+          $scope.form._payments = $scope.paymentMethods;
 
           $scope.form._product = $scope.records.map(function(o){
               delete o.$order;
@@ -163,7 +176,9 @@ angular.module('shoplyApp')
                             delete $scope.form;
                             delete $scope.rs;
                             $scope.records.length = 0;
+                            response.createdAt = moment(new Date(response.createdAt)).format('lll');
                             $scope.printA(response);
+                            
                             $scope.$close();
                             sweetAlert.swal("Listo.", "Actualización realizada correctamente.", "success");
                             $rootScope.$emit("focusOn", true);                          
@@ -176,6 +191,7 @@ angular.module('shoplyApp')
                   if(res){
                       delete $scope.form;
                       $scope.records.length = 0;
+                      res.createdAt = moment(new Date(res.createdAt)).format('lll');
                       $scope.printA(res);
                       $scope.$close();
                       sweetAlert.swal("Listo.", "Venta realizada correctamente.", "success");
@@ -200,28 +216,23 @@ angular.module('shoplyApp')
         inputPlaceholder: "Cantidad" 
       }, function(inputValue){
           $scope.records[$scope.records.indexOf(_record)].cantidad = parseInt(inputValue || 1);
+
           window.swal.close();   
       });   
     }
 
     $scope.agregarDescuento = function(){
-     var _record = this.record;
+     $scope.descuentoRecord = this.record;
 
-     sweetAlert.swal({
-        title: "% de Descuento",
-        type: "input",
-        showCancelButton: false,
-        closeOnConfirm: false,
-        animation: "slide-from-top",
-        inputPlaceholder: "%" 
-      }, function(inputValue){
-          _record.descuento = parseInt(inputValue) || 0;
-          _record.valor_descuento = (_record.precio_venta * _record.cantidad) * (parseInt(_record.descuento || 0) / 100);
-          _record.total  = (_record.total - _record.valor_descuento); 
-          window.swal.close();   
-      });   
+     window.modal = modal.show({templateUrl : 'views/facturacion/descuento.html', size :'sm', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
+        if($scope.pdiscount){
+          $scope.descuentoRecord.descuento = parseInt($scope.pdiscount) || 0;
+          $scope.descuentoRecord.valor_descuento = ($scope.descuentoRecord.precio_venta * $scope.descuentoRecord.cantidad) * (parseInt($scope.descuentoRecord.descuento || 0) / 100);
+          $scope.descuentoRecord.total  = ($scope.descuentoRecord.total - $scope.descuentoRecord.valor_descuento); 
+          $scope.$close();
+        }
+     });
     }
-
 
     $scope.$watch('_product', function(n, o){
       if(n){
@@ -229,6 +240,11 @@ angular.module('shoplyApp')
           angular.forEach($scope.records, function(_o){
             if(_o._id == n){
               _found = true;
+
+              if(_o.valor_descuento){
+                _o.valor_descuento = _o.valor_descuento + _o.valor_descuento;
+              }
+
               _o.cantidad = _o.cantidad + 1;
               _o.total = (_o.precio_venta * _o.cantidad);
             }
@@ -242,7 +258,7 @@ angular.module('shoplyApp')
       }
     });
 
-    $scope.quitar = function(){
+    $scope.delete = function(){
         var _record = this.record;
         $scope.records.splice($scope.records.indexOf(_record), 1);
     }

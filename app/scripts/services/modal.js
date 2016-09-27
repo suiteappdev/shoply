@@ -23,6 +23,7 @@ angular.module('shoplyApp')
 		            backdrop : params.backdrop,
 		            size: params.size || 'md',
 		            scope : params.scope,
+		            windowClass: params.windowClass,
 		            controller :["$scope", function($scope){
 		                $scope.ok = function(){
 		                	onAccept($scope);

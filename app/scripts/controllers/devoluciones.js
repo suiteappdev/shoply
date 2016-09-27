@@ -8,10 +8,12 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('DevolucionesCtrl',["$scope","shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http","$filter", function ($scope, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter) {
+  .controller('DevolucionesCtrl',["$scope", "storage", "shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http","$filter", function($scope, $storage, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter) {
     
     $scope.findByCode = function($event){
       if($event.keyCode == 13 || $event.which  == 13){
+       $scope.Records = true;
+
        api.facturacion().add("find").post($scope.form.data).success(function(res){
           if(res.length == 0){
             sweetAlert.swal("0 Resultado.", "No se encontro esta factura.", "success");
@@ -19,6 +21,8 @@ angular.module('shoplyApp')
           }
           
           $scope.devolucionesRecords = res || [];
+          $scope.Records = false;
+          
        });
       }
     }
@@ -29,12 +33,15 @@ angular.module('shoplyApp')
     } 
 
     $scope.find = function(){
+       $scope.devolucionesRecords = [];
+       $scope.Records = true;
        api.facturacion().add("find").post($scope.form.data).success(function(res){
           $scope.devolucionesRecords = res || [];
+          $scope.Records = false;
        });
     } 
 
-    $scope.records = [];
+
     $scope.$watch('records', function(n, o){
         if(n.length > 0){
            $scope.total = (shoppingCart.totalize(n) - shoppingCart.totalizeDiscount(n) || 0);
@@ -46,7 +53,7 @@ angular.module('shoplyApp')
     }, true);
 
     $scope.load = function(){
-    
+      $scope.setDefault = $storage.get('defaultClient') || null;
     }
 
     $scope.printA = function(data, iva_detail){

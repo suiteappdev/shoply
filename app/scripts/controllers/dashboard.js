@@ -9,12 +9,16 @@
  */
 angular.module('shoplyApp')
   .controller('DashboardCtrl', function ($scope, api, modal, storage, $state, $rootScope, $timeout, permission) {
-  	
     $scope.load = function(){
       if(angular.fromJson(localStorage.company)){
           $rootScope.user._company = angular.fromJson(localStorage.company);
       }
   	}
+    $scope.go = function($event){
+      if($event.code == "F2" || $event.key == "F2"){
+        $state.go('dashboard.facturacion');
+      }
+    }
 
     $scope.callForEdit = function(){
       $scope.$$childHead.edit($rootScope.grid.value);
@@ -26,6 +30,10 @@ angular.module('shoplyApp')
 
     $scope.callForCreate = function (){
       $scope.$$childHead.create();
+    }
+
+    $scope.facturar = function(){
+      $scope.$$childHead.facturar();
     }
 
     $scope.rememberCompany = function(remenber){

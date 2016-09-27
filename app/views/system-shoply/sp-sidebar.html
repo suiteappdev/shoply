@@ -1,6 +1,6 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu" style="display: block;">
+            <ul class="nav sp-menu" id="sp-menu" style="display: block;">
                 <li ng-show="$root.acl.canView('mnuEmpresas')">
                     <a  ui-sref="dashboard.empresa" href="#/empresa" ><i class="fa fa-building-o"></i> <span class="nav-label">Empresa</span></a>
                 </li>
@@ -36,9 +36,9 @@
                     <a ui-sref="dashboard.pedidos" href="#!/pedidos"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Pedidos</span> </a>
                 </li>
                 <li ng-show="$root.acl.canView('mnuFacturacion')">
-                    <a href="mailbox.html"><i class="fa fa-credit-card"></i> <span class="nav-label">Facturación </span><span class="label label-warning pull-right">16/24</span></a>
+                    <a hotkey="{'f2': go}"><i class="fa fa-credit-card"></i> <span class="nav-label">Facturación </span><span class="label label-warning pull-right">F2</span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li ng-show="$root.acl.canViewForm('frmNuevaFacturacion')"><a ui-sref="dashboard.facturacion" href="#!/empleado">Nueva facturación</a></li>
+                        <li ng-show="$root.acl.canViewForm('frmNuevaFacturacion')"><a ui-sref="dashboard.facturacion" href="#!/empleado">Nueva Facturación</a></li>
                         <li ng-show="$root.acl.canViewForm('frmBuscarFacturacion')"><a ui-sref="dashboard.buscar-facturacion" href="#!/buscar-facturacion">Buscar</a></li>
                         <li ng-show="$root.acl.canViewForm('frmDevoluciones')"><a ui-sref="dashboard.devoluciones" href="#!/devoluciones">Devoluciones</a></li>
                     </ul>

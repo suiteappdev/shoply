@@ -5,7 +5,7 @@ angular.module('shoplyApp')
           templateUrl: 'views/system-shoply/sp-sidebar.html',
           restrict: 'EA',
           link: function postLink(scope, element, attrs) {
-
+          	element.find('#sp-menu').metisMenu();
           }
       };
   });
