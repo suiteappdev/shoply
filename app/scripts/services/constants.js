@@ -10,7 +10,7 @@
 angular.module('shoplyApp')
   .constant('constants', {
   	base_url : "http://www.shoply.com.co:8080/api/",
-    socket : "http://www.shoply.com.co:8080",                          
+    socket : "http://shoply.com.co:8080",                          
   	login_state_sucess : 'dashboard',
     uploadURL : "http://www.shoply.com.co:8080/api/uploads",
     uploadFilesUrl : "http://www.shoply.com.co:8080/uploads/",
