@@ -12,7 +12,9 @@ angular.module('shoplyApp')
 
   		$scope.myConfig = {
         loadingClass: 'selectizeLoading',
+        create : false,
   		  valueField: $scope.key,
+        maxOptions : 1,
   		  labelField: $scope.label,
   		  placeholder: 'Cliente',
         openOnFocus : false,

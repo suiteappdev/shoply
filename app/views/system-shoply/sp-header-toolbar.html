@@ -1,5 +1,5 @@
     <div class="row sp-toolbar" 
-      ng-show="$root.state.current.name == 'dashboard.empresa' || $root.state.current.name == 'dashboard.permiso' || $root.state.current.name == 'dashboard.empleados' || $root.state.current.name == 'dashboard.vendedores' || $root.state.current.name == 'dashboard.clientes' || $root.state.current.name == 'dashboard.productos' || $root.state.current.name == 'dashboard.rutas' || $root.state.current.name == 'dashboard.categorias' || $root.state.current.name == 'dashboard.facturacion'"
+      ng-show="$root.state.current.name == 'dashboard.empresa' || $root.state.current.name == 'dashboard.permiso' || $root.state.current.name == 'dashboard.empleados' || $root.state.current.name == 'dashboard.vendedores' || $root.state.current.name == 'dashboard.clientes' || $root.state.current.name == 'dashboard.productos' || $root.state.current.name == 'dashboard.rutas' || $root.state.current.name == 'dashboard.categorias' || $root.state.current.name == 'dashboard.facturacion' || $root.state.current.name == 'dashboard.arqueos'"
 
       >
       <div class="col-lg-4 row">
@@ -17,17 +17,11 @@
       <div class="col-lg-4">
         
       </div>
-      <div class="col-lg-4 text-right" ng-show="$root.grid.selected && $root.state.current.name != 'dashboard.facturacion'">
-        <div class="row">
-          <div class="col-lg-4" ng-show="$root.grid.selected">
-            <button  ng-click="callForDelete()" style="top:4px;position:relative;" class="btn-block animated fadeInRight custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>        
-          </div>
-          <div class="col-lg-4" ng-show="$root.grid.selected">
-              <button  ng-click="callForEdit()" ng-show="$root.grid.selected" style="top:4px;position:relative;" class="btn-block animated fadeInRight custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</button>          
-          </div>
-          <div class="col-lg-4" ng-show="$root.grid.selected">
-              <button   ng-click="callForCreate()" style="top:4px;position:relative;" class="btn-block animated fadeInRight custom-btn custom-btn-primary custom-btn-inverse"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;&nbsp;Crear</button>           
-          </div>        
-        </div>
+      <div class="col-lg-4 text-right" ng-hide="$root.state.current.name == 'dashboard.facturacion'">
+      <div class="btn-group">
+        <button type="button" ng-click="callForCreate()" class="btn custom-btn-primary">Crear</button>
+        <button type="button" ng-show="$root.grid.selected" ng-click="callForEdit()" class="btn custom-btn-primary"><i class="glyphicon glyphicon-edit"></i>&nbsp;Actualizar</button>
+        <button type="button" ng-show="$root.grid.selected" ng-click="callForDelete()" class="btn custom-btn-primary"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>
+      </div>
       </div>
     </div> 

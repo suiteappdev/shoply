@@ -63,7 +63,7 @@ padding: 10px;">
         </div>
         <span class="sp-meta-right">Iva : {{record.iva.data.descripcion | date:'yyyy-MM-dd'}}</span>
         <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
-        <h4 class="no-margin">{{record.producto}}</h4>
+        <h4 class="no-margin">{{record.producto}}<span style="font-size: 12px;color: #a5a5a5;">&nbsp;- en&nbsp;{{record._category.text}}</span></h4>
         <p>{{record.descripcion}}</p>
         <p class="sp-text">Unidades:&nbsp;<span style="font-family:monospace;" class="label label-primary">{{record.cantidad}}</span>&nbsp;&nbsp;</p>
         <p class="sp-text">Precio de venta:&nbsp;<span style="font-family:monospace;" class="label label-primary">{{record.precio_venta | currency:"$ "}}</span>&nbsp;&nbsp;</p>

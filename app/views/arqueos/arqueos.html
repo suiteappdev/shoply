@@ -1,9 +1,9 @@
-<div ng-controller="ArqueoCtrl" ng-init="load()">
-  <div class="content" ng-show="records.length == 0">
+<div ng-init="load()">
+	 <div class="content" ng-show="records.length == 0">
     <div ng-class="records.length == 0 ? 'table_wrap table_height' : ''">
       <div ng-class="records.length == 0 ? 'row table-responsive table_inner' : 'row'">
           <div class="controls" ng-show="records.length == 0 && Records">
-            <h4 >No hay registros para mostrar <a href="#!crear-arqueo" ui-sref="dashboard.crear-arqueo" class="custom-btn custom-btn-primary"> <i class="glyphicon glyphicon-plus"></i>&nbsp;  Crear registro</a></h4>
+            <h4 >No hay registros para mostrar</h4>
           </div>
           <p class="text-center" ng-show="!Records">
            <img style="width:50px;" src="images/loading.svg">
@@ -11,7 +11,9 @@
       </div>
     </div>  
   </div>
+  
 	<div class="row" ng-show="records.length > 0">
+
 		<h3>Arqueos</h3>
 		<div class="panel panel-default" style="padding:0px;">
 		  <div class="panel-body">

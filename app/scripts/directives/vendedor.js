@@ -5,14 +5,15 @@ angular.module('shoplyApp')
   	function ctrl($scope, api, modal, $rootScope){
   		api.user().get().success(function(res){
   			$scope.records = res.filter(function(_o){
-            return _o.type == "SELLER";
+            return _o.type == "SELLER" || _o.type == "EMPLOYE";
         });
   		});
 
   		$scope.myConfig = {
   		  valueField: $scope.key,
   		  labelField: $scope.label,
-  		  placeholder: 'Vendedor'
+  		  placeholder: 'Vendedor',
+        maxItems: 1
   		};
 
   	}

@@ -3,17 +3,13 @@
 angular.module('shoplyApp')
   .directive('productoField', function () {
   	function ctrl($scope, api, modal, $rootScope){
-
-      $scope.load = function(){
-        $rootScope.$emit("focusOn", true);
-      }
-
   		api.producto().get().success(function(res){
   			$scope.records = res.map(function(o){
           var _obj = new Object();
               _obj = o.data;
               _obj.iva = o._iva;
               _obj._reference = o._reference;
+              _obj._category = o._category;
               _obj._id = o._id;
               _obj.idcomposed = o.idcomposed;
               _obj.refMixed = o._reference.reference.join("");
@@ -56,7 +52,7 @@ angular.module('shoplyApp')
   	}
 
     return {
-      template: '<selectize ng-init="load()" config="myConfig" options="records" ng-model="ngModel"></selectize>',
+      template: '<selectize config="myConfig" options="records" ng-model="ngModel"></selectize>',
       restrict: 'EA',
       scope : {
       	ngModel : "=",
@@ -68,9 +64,7 @@ angular.module('shoplyApp')
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {
-        scope.$root.$on("focusOn", function(event, data){
-            element[0].firstChild.selectize.focus();
-        })
+        element[0].firstChild.selectize.focus();
       }
     };
   });

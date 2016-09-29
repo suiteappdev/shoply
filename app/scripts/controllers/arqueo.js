@@ -26,13 +26,17 @@ angular.module('shoplyApp')
         }else{
           api.arqueos().get().success(function(res){
             $scope.records = res || [];
-            $scope.Records = true;
+            //$scope.Records = true;
           });          
         }
   	}
 
+    $scope.create = function(){
+      $state.go('dashboard.crear-arqueo');
+    }
+
     $scope.download = function(){
-      $scope._schema = $scope.form._request.map(function(o){
+      $scope._schema = $scope.form._billings.map(function(o){
           var _output = new Object();
 
            _output.vendedor = o._seller.full_name; 
@@ -68,17 +72,18 @@ angular.module('shoplyApp')
                     return false   
               } 
 
-              var _data = angular.copy($scope.form);
+              var _data = angular.copy($scope.form._billings);
+              _data.metadata = {};
               _data.metadata.arqueo = inputValue;
 
-              _data._request = $scope.form._request.map(function(o){
+              _data._billings = $scope.form._billings.map(function(o){
                 return o._id;
               });
 
               api.arqueos().post(_data).success(function(res){
                 if(res){
                    sweetAlert.swal("Registro Creado", "Registro creado correctamente.", "success");
-                   $scope.form._request = [];
+                   $scope.form._billings = [];
                    $scope.form.metadata = {};
                    $scope.form.metadata.total_sistema = 0;
                    $scope.form.metadata.sobrante = 0;
@@ -89,16 +94,13 @@ angular.module('shoplyApp')
             });
     }
 
-    $scope.get = function(){
-      $scope.loading = true;
-       api.pedido()
-          .add($scope.vendedor).
-           add("/" + $scope.ini)
-          .add("/" +$scope.end).get().success(function(res){
+    $scope.find = function(){
+      $scope.Records = true;
+       api.facturacion().add("find/").post($scope.formData).success(function(res){
             if(res){
-              $scope.form._request = res || [];
+              $scope.form._billings = res || [];
               $scope.totalize();
-              $scope.loading = false;
+              $scope.Records = false;
             }
           });
     }
@@ -123,8 +125,8 @@ angular.module('shoplyApp')
     }
 
     $scope.totalize = function(){
-      angular.forEach($scope.form._request, function(o){
-        $scope.form.metadata.total_sistema += o.metadata.total;
+      angular.forEach($scope.form._billings, function(o){
+        $scope.form.metadata.total_sistema += o.data.total || 0;
       });
     }
 

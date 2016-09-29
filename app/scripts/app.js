@@ -313,6 +313,7 @@ angular
           .state('dashboard.arqueos', {
                 url: '/arqueos',
                 access: { requiredAuthentication: true },
+                controller : 'ArqueoCtrl',
                 templateUrl: 'views/arqueos/arqueos.html',
                 data: {
                   pageTitle: 'arqueos'
@@ -321,6 +322,7 @@ angular
           .state('dashboard.crear-arqueo', {
                 url: '/crear-arqueo',
                 access: { requiredAuthentication: true },
+                controller:'ArqueoCtrl',
                 templateUrl: 'views/arqueos/crear-arqueo.html',
                 data: {
                   pageTitle: 'Crear Arqueo'

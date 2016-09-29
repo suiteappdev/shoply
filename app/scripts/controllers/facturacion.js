@@ -32,6 +32,7 @@ angular.module('shoplyApp')
         });
       }else{
         $scope.setDefault = $storage.get('defaultClient') || null;
+        $rootScope.$emit("focusOn", true);                          
       }
     }
 
