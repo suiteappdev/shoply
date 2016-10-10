@@ -47,6 +47,21 @@
           </div>
   	  	</form>
     	</div>
+    <div class="row">
+      <hr/>
+      <div class="col-lg-6">
+        <label class="text-dark">
+            <input icheck type="checkbox" ng-init="printJob = true"  ng-model="printJob" class="info-bounce">
+                Imprimir.
+        </label>        
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+            <label>Enviar Factura a:</label>
+            <selectize config="{plugins: ['remove_button'], create:true, maxItems:10, placeholder:'Escriba cada email separado por coma (,)'}" options='[]' ng-model="invoiceTo"></selectize>
+          </div>
+      </div>
+    </div>  
   	</div>
         <div class="text-center" style="height: 100%;position: relative;float: left;
     width: 100%;background-color:rgb(8, 8, 8);">

@@ -13,9 +13,9 @@
   </div>
 	<div  class="row" ng-show="records.length > 0">
     <ul class="sp-list"> 
-      <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
+      <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records |filter:search |itemsPerPage: 5 " pagination-id="productEntity">
         <div class="sp-item-image">
-          <img preload-image default-image="images/loading.svg" fallback-image="images/missing-product.png" ng-src="{{record.data.gallery[0].URL}}">
+          <img preload-image default-image="images/missing-product.png" fallback-image="images/loading.svg" ng-src="{{record.data.gallery[0].URL}}">
         </div>
         <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
         <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
@@ -31,6 +31,9 @@
         </div>
       </li>
     </ul>
+	<div class="col-lg-12">
+		<dir-pagination-controls class="pull-right" pagination-id="productEntity"></dir-pagination-controls>
+	</div>
 	<h3  ng-hide="true" >Productos</h3>
 	<div ng-hide="true"  class="panel panel-default" style="padding:0px;">
 	  <div class="panel-body">

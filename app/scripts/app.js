@@ -77,7 +77,7 @@ angular
                          sweetAlert.swal({
                                 title: "La sesión ha expirado",
                                 text: "Tiempo de sesión agotado, por favor ingrese nuevamente",
-                                imageUrl:"http://icon-icons.com/icons2/67/PNG/512/watch_13224.png"
+                                imageUrl:"images/expired.png"
                             }, function(){
 
                                  if(window.sweet)
@@ -154,6 +154,7 @@ angular
           .state('dashboard.apps', {
               url: '/apps',
               access: { requiredAuthentication: true },
+              controller:'AppsCtrl',
               templateUrl: 'views/apps/apps.html',
               data: {
                 pageTitle: 'Apps'
@@ -255,6 +256,15 @@ angular
                 templateUrl: 'views/facturacion/facturaciones.html',
                 data: {
                   pageTitle: 'Facturar'
+                }
+          })
+          .state('dashboard.facturacion-pedido', {
+                url: '/facturacion-pedido/:pedido',
+                access: { requiredAuthentication: true },
+                controller : 'FacturacionCtrl',
+                templateUrl: 'views/facturacion/facturaciones.html',
+                data: {
+                  pageTitle: 'Facturar Pedido'
                 }
           })
           .state('dashboard.editar-facturacion', {
@@ -390,6 +400,7 @@ angular
           .state('dashboard.pedidos', {
                 url: '/pedidos',
                 access: { requiredAuthentication: true },
+                controller:'RequestCtrl',
                 templateUrl: 'views/pedidos/pedidos.html',
                 data: {
                   pageTitle: 'Pedidos'

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('shoplyApp')
-  .controller('AppsCtrl', function ($scope, $stateParams, $timeout, sweetAlert,  constants, $state, modal, api, storage) {
+  .controller('AppsCtrl', function ($scope, $stateParams, $timeout, sweetAlert,  constants, $state, modal, api, storage, $rootScope) {
     $scope.Records = false; 
   	
     $scope.load = function(){
@@ -18,7 +18,32 @@ angular.module('shoplyApp')
       }); 
     }
 
-  	$scope.agregar = function(){
+    $scope.edit = function(){
+      $scope.formEdit = $rootScope.grid.value;
+       window.modal = modal.show({templateUrl : 'views/apps/editar_app.html', size :'md', scope: $scope, backdrop: 'static'}, function($scope){
+            $scope.loading = true;
+
+            var fd  = new FormData();
+
+            fd.append("data", JSON.stringify($scope.formEdit.data));
+            fd.append("splash", $scope.form.splash);
+            fd.append("icon", $scope.form.icono);
+
+            api.apps().add("build").post(fd, {
+              transformRequest: angular.identity,
+              headers: {'Content-Type': undefined}
+            }).success(function(res){
+              if(res.data){
+                  $scope.loading = false;
+                  sweetAlert.swal("Correcto", "Aplicacion creada correctamente ", "success");
+                  $scope.load();
+                  $scope.$close();
+              }
+            });
+        });
+    }
+
+  	$scope.create = function(){
        window.modal = modal.show({templateUrl : 'views/apps/agregar_app.html', size :'md', scope: $scope, backdrop: 'static'}, function($scope){
             $scope.loading = true;
 
@@ -42,8 +67,8 @@ angular.module('shoplyApp')
         });
   	}
 
-    $scope.borrar = function(){
-        var _record = this.record;
+    $scope.delete = function(){
+        var _record = this.record || $rootScope.grid.value;
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 
                if (isConfirm) {

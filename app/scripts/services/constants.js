@@ -13,7 +13,6 @@ angular.module('shoplyApp')
     socket : "http://shoply.com.co:8080",                          
   	login_state_sucess : 'dashboard',
     uploadURL : "http://www.shoply.com.co:8080/api/uploads",
-    uploadFilesUrl : "http://www.shoply.com.co:8080/uploads/",
     base_resource : "http://www.shoply.com.co:8080/api/resource/",
   	currency  : 'COP',
   	iva : [{valor :5, text : "5%"}, {valor :10, text : "10%"}],

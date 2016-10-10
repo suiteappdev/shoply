@@ -85,7 +85,7 @@ angular.module('shoplyApp')
     }
 
     $scope.delete = function(){
-        var _record = this.record;
+        var _record = this.record || $rootScope.grid.value;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

@@ -59,7 +59,7 @@ padding: 10px;">
     <ul class="sp-list"> 
       <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records |filter:search |itemsPerPage: 5 "  pagination-id="facturacionEntity">
         <div class="sp-item-image" style="margin-left:4px;">
-          <img preload-image default-image="images/loading.svg" fallback-image="images/missing-product.png" ng-src="{{record.gallery[0].URL}}">
+          <img preload-image default-image="images/missing-product.png" fallback-image="images/loading.svg" ng-src="{{record.gallery[0].URL}}">
         </div>
         <span class="sp-meta-right">Iva : {{record.iva.data.descripcion | date:'yyyy-MM-dd'}}</span>
         <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>

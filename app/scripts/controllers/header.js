@@ -19,7 +19,7 @@ angular.module('shoplyApp')
   	}
 
   	$scope.cambiarEmpresa = function(){
-         window.modal = modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+         window.modal = modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
             var _user = $rootScope.user;
             $scope.loading = true;
             

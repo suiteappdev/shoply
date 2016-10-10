@@ -1,9 +1,31 @@
-<div class="container" ng-controller="RequestdetailCtrl" ng-init="load()">
+<div ng-controller="RequestdetailCtrl" ng-init="load()">
+  <div class="content" ng-show="!record || record.length == 0">
+    <div class="table_wrap table_height">
+      <div class="row table-responsive table_inner">
+          <div class="controls" ng-show="record.length == 0 && Records">
+            <h4 >No hay registros para mostrar</h4>
+          </div>
+          <p class="text-center" ng-show="!Records">
+           <img style="width:50px;" src="images/loading.svg">
+          </p>
+      </div>
+    </div>  
+  </div>
     <div class="row">
+    <div class="sub-header" style="height:60px;background-color: #00232d;box-sizing: border-box;
+padding: 10px;">
+        <div class="col-lg-4">
+            <h2 class="no-margin text-white">Pedido # <span style="color:#f95c07;">{{record.id}}</span></h2>
+        </div>
+        <div class="col-lg-4">
+            
+        </div>
+        <div class="col-lg-4 text-right">
+           <button ng-click="facturar()" style="border-radius:5px;" class="custom-btn  custom-btn-primary"><i class="fa fa-credit-card"></i>&nbsp;Facturar</button>
+        </div>
+    </div>
         <div class="col-xs-12">
-    		<div class="invoice-title">
-    			<h2>Detalle del pedido</h2><h3 class="pull-right">Orden # {{record.id}}</h3>
-    		</div>
+            <hr>
             <small>{{record._company.data.empresa}}, LCC</small><br />
             <small>{{record._company.data.descripcion}}</small>
     		<hr>
@@ -34,7 +56,7 @@
     			</div>
     			<div class="col-xs-6 text-right">
     				<address>
-    					<strong>fecha de la Orden:</strong><br>
+    					<strong>Fecha de la Orden:</strong><br>
     					{{record.createdAt | date:"yyyy-MM-dd hh:mm:ss a"}}<br><br>
     				</address>
     			</div>
@@ -73,19 +95,12 @@
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
     								<td class="thick-line text-right">{{record.metadata.subtotal | currency: "$ "}}</td>
     							</tr>
-    							<tr>
+    							<tr ng-repeat="iva in ivadetails">
     								<td class="no-line"></td>
     								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Iva 10%</strong></td>
-    								<td class="no-line text-right">{{record.metadata.total_iva_10 | currency: "$ "}}</td>
+    								<td class="no-line text-center"><strong>Iva del {{iva.tipo || 0}}%</strong></td>
+    								<td class="no-line text-right">{{iva.viva | currency: "$ "}}</td>
     							</tr> 
-    							<tr>
-
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Iva 5%</strong></td>
-    								<td class="no-line text-right">{{record.metadata.total_iva_5 | currency: "$ "}}</td>
-    							</tr>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>

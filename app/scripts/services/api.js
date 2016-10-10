@@ -39,6 +39,7 @@ angular.module('shoplyApp')
     this.arqueos = function(arqueo){if(arqueo) this.url = constants.base_url + "arqueos/" + arqueo; else this.url = constants.base_url + "arqueos/"; return this;};
     this.apps = function(app){if(app) this.url = constants.base_url + "apps/" + app; else this.url = constants.base_url + "apps/"; return this;};
     this.upload = function(){ this.url = constants.uploadURL; return this};
+    this.uploadLocal = function(){ this.url = constants.base_url + "upload-local/"; return this};
     this.s3 = function(){ this.url = constants.base_url + "upload-amazon/"; return this};
     
     return this;

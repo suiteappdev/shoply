@@ -30,6 +30,28 @@ angular.module('shoplyApp')
           $scope.records = $scope.rs._product;
           $scope.form._client = res._client;
         });
+      }else if($stateParams.pedido){
+        api.pedido($stateParams.pedido).get().success(function(res){
+          $scope.pedido = res;
+
+          $scope.records = res.shoppingCart.map(function(o){
+            var _obj = new Object();
+                _obj = o.data;
+                _obj.iva = o._iva;
+                _obj._reference = o._reference;
+                _obj._category = o._category;
+                _obj._id = o._id;
+                _obj.idcomposed = o.idcomposed;
+                _obj.refMixed = o._reference.reference.join("");
+                _obj.cantidad = o.data.unidades;
+                _obj.total = (o.data.precio_venta * o.data.unidades);
+
+
+                return _obj; 
+          }) || [];
+
+          $scope.form._client = res._client._id;
+        });
       }else{
         $scope.setDefault = $storage.get('defaultClient') || null;
         $rootScope.$emit("focusOn", true);                          
@@ -122,7 +144,7 @@ angular.module('shoplyApp')
         return;
       }
 
-       window.modal = modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
           $scope.form.data =  new Object();
           $scope.form._seller = $rootScope.user._id;
           $scope.form.data.TotalIva = $scope.TotalIva;

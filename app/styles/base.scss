@@ -38,7 +38,7 @@ hr {
   overflow: hidden;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #e2e2e2;
 }
 
 // Typography
@@ -1023,4 +1023,157 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .selectizeLoading {
   background-color:red;
 }
+
+phone {
+    display: block;
+    border-radius: 22px;
+    width: 300px;
+    height: 500px;
+    background: #0c0c0c;
+    left: 50%;
+    margin-left: 51%;
+    margin-top: 1px;
+    position: absolute;
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5);
+    -webkit-transform: rotate3d(0, 0, 0, 0);
+}
+
+phone:after {
+   content: "";
+   display: block;
+   width: 0px;
+   height: 0px;
+   left: 0px;
+   position: absolute;
+   border: 180px dotted transparent;
+   border-right: 120px solid rgba(255, 255, 255, 0.03);
+   border-top: 250px solid rgba(255, 255, 255, 0.03);
+   border-top-right-radius: 22px; 
+}
+
+.mobile-button {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 48px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 100%;
+    font-weight: 400;
+    position: absolute;
+    bottom: -10px;
+    margin-left: -25px;
+    margin-bottom: 15px;
+    left: 50%;
+    border-radius: 80px;
+    border: 0px;
+    background: -webkit-linear-gradient(#000, #0b0b0b);
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.03);
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+mobile-button:hover {
+  cursor: pointer;
+} 
+
+mobile-button:active {
+  color: #ddd;
+  text-shadow: 0px 0px 30px #0b86c2;
+}
+
+speaker {
+    display: block;
+    margin-top: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    width: 70px;
+    height: 10px;
+    border-radius: 50px;
+    background: #151515 url(http://www.jtparrett.co.uk/grain.png);
+    box-shadow: inset 0px 1px 2px #000, 0px 1px 0px rgba(255, 255, 255, 0.1);
+}
+
+screen {
+   display: block; 
+   width: 260px;
+   height: 370px;
+   background: #151515 url(http://www.jtparrett.co.uk/grain.png);
+   margin: 70px 20px;
+   border-radius: 3px;
+   text-align: center;
+   color: #aaa;
+   text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+   font-size: 200%;
+   position: absolute;
+   font-weight: 400;
+   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1);
+   line-height: 300;
+}
+
+.screen-wrapper{
+  height:100%;
+}
+
+.mobile-header{
+  width: 100%;
+  height:40px;
+  background-color:gray
+}
+
+.mobile-footer{
+    width: 100%;
+    height: 40px;
+    background-color: gray;
+    position: absolute;
+    bottom: 0px;
+}
+
+.mobile-content{
+    height: 100%;
+    padding: 10px;
+}
+
+.content-inner{
+    height: 100%;
+    width:100%;
+    line-height: 0;
+}
+.mobile-image-product{
+    width: 100%;
+    vertical-align: top;
+    height: 160px;
+}
+
+.mobile-product-description h5{
+  margin:0px;
+  margin-bottom:5px;
+  color: #656565;
+  font-size: 12px;
+}
+
+.mobile-product-description h6{
+  margin-bottom: 5px!important;
+}
+
+.mobile-product-description p{
+  margin:0px;
+  text-align:left;
+  text-shadow:none;
+}
+
+.mobile-product-description{
+    height: 70px;
+    width: 100%;
+    position: relative;
+    background-color: #7f7f7f;
+    padding:5px;
+    margin-bottom:5px;
+}
+
+.mobile-product-description p {
+  font-size:14px;
+  background-color:gray;
+  margin-bottom:5px;
+}
+
 

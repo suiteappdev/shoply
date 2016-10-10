@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('ProductosCtrl',["$scope", "$rootScope", "modal", "api", "constants",function ($scope, $rootScope, modal, api, constants) {
+  .controller('ProductosCtrl',["$scope", "$rootScope", "modal", "api", "constants", "$state", function ($scope, $rootScope, modal, api, constants, $state) {
     $scope.Records = false; 
 
     $scope.load = function(){
@@ -16,6 +16,10 @@ angular.module('shoplyApp')
         $scope.records = res || [];
         $scope.Records = true;
       });
+    }
+
+    $scope.detail = function(){
+      $state.go('dashboard.detalle_producto', { producto : $rootScope.grid.value._id})      
     }
 
     $scope.edit = function(){

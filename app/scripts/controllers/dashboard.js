@@ -32,6 +32,10 @@ angular.module('shoplyApp')
       $scope.$$childHead.create();
     }
 
+    $scope.callForDetails = function (){
+      $scope.$$childHead.detail();
+    }
+
     $scope.facturar = function(){
       $scope.$$childHead.facturar();
     }
@@ -57,7 +61,7 @@ angular.module('shoplyApp')
     } 
 
     $scope.cambiarEmpresa = function(){
-         window.modal  = modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+         window.modal  = modal.show({templateUrl : 'views/company/conectar.html', size :'sm', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
             var _user = $rootScope.user;
             $scope.loading = true;
             api.empresa($scope.company._id).get().success(function(res){
@@ -84,13 +88,13 @@ angular.module('shoplyApp')
     }
 
     $scope.agregarFormasDePago = function(){
-        window.modal = modal.show({templateUrl : 'views/formaDePago/agregar_formaDePago.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        window.modal = modal.show({templateUrl : 'views/formaDePago/agregar_formaDePago.html', size :'md', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
         $scope.$close();
        });  
     }
 
     $scope.agregarConsecutivo = function(){
-        window.modal = modal.show({templateUrl : 'views/contador/agregar_contadores.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        window.modal = modal.show({templateUrl : 'views/contador/agregar_contadores.html', size :'md', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
           $scope.$close();
        });  
     }

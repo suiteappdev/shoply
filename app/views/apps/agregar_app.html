@@ -1,4 +1,53 @@
 <div class="inmodal">
+  <phone ng-show="selected == 'apariencia'" class="animated bounceInRight">
+    <speaker></speaker>
+    <screen>
+      <div class="screen-wrapper">
+        <div class="mobile-header" style="background-color:{{form.data.headerColor}}">
+          <h5 class="text-center no-margin" style="top: 12px;position: relative;color: {{form.data.headerText}}">{{form.data.name || 'Aplicacion de Prueba'}}</h5>
+        </div>
+        <div class="mobile-content">
+          <div class="content-inner">
+            <div class="product-box">
+              <img class="mobile-image-product" src="/images/missing-image.png">
+              <div class="mobile-product-description">
+                <h5 class="text-dark text-left">Nombre del Producto</h5>
+                <h6 class="no-margin text-left">Descripción del producto</h6>
+                <h6 class="no-margin text-left">$30.000COP</h6>
+              </div>
+              <div style="height: 40px;width: 100%;position: relative;background-color: {{form.data.productButtonBackground}};" >
+                <div class="row">
+                  <div class="col-lg-4">
+                    <span style="top:12px;position:relative;font-size:10px;"><i style="font-size:18px;color:{{form.data.productBotonColor}}" class="fa fa-heart"></i></span>
+                  </div>
+                  <div class="col-lg-4">
+                    <span style="top:12px;position:relative;font-size:10px;"><i style="font-size:18px;color:{{form.data.productBotonColor}}" class="fa fa-comment"></i></span>
+                  </div>
+                  <div class="col-lg-4">
+                    <span style="top:12px;position:relative;font-size:10px;"><i style="font-size:18px;color:{{form.data.productBotonColor}}" class="fa fa-shopping-cart"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-footer" style="background-color:{{form.data.footerColor}}">
+          <div class="row" style="line-height:0px;">
+            <div class="col-lg-4">
+              <span style="top:12px;position:relative;"><i style="font-size:18px;color:{{form.data.footerText}}" class="fa fa-cube"></i></span>
+            </div>
+            <div class="col-lg-4">
+              <span style="top:12px;position:relative;"><i style="font-size:18px;color:{{form.data.footerText}}" class="fa fa-shopping-cart"></i><span style="color:{{form.data.notificatorIconColor}}; position: relative; top: -8px;right: 5px;background-color: {{form.data.notificatorBackgroundColor}};" class="badge">5</span></span>
+            </div>
+            <div class="col-lg-4">
+              <span style="top:12px;position:relative;"><i style="font-size:18px;color:{{form.data.footerText}}" class="fa fa-bars"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </screen>
+    <button class="mobile-button">&#9776;</button>
+  </phone>
     <div class="modal-header text-center custom-modal-header">
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Crear App</h4>
@@ -78,6 +127,36 @@
                               </div>
                             </div>
                         </fieldset>
+                          <fieldset class="col-lg-6 no-margin">
+                            <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Botones del Producto</legend>
+                              <div class="col-lg-6">
+                                <div class="form-group">  
+                                      <label>Fondo:</label>
+                                      <div colorpicker="hex" type="text" class="form-control" ng-model="form.data.productButtonBackground" style="width:20px;height:20px;background-color:{{form.data.productButtonBackground}};"></div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="form-group">  
+                                    <label>Color de Botones:</label>
+                                    <div colorpicker="hex" type="text" class="form-control" ng-model="form.data.productBotonColor" style="width:20px;height:20px;background-color:{{form.data.productBotonColor}};"></div>
+                                </div>
+                              </div>
+                          </fieldset>                          
+                          <fieldset class="col-lg-6 no-margin">
+                            <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Notificador</legend>
+                              <div class="col-lg-6">
+                                <div class="form-group">  
+                                      <label>Fondo:</label>
+                                      <div colorpicker="hex" type="text" class="form-control" ng-model="form.data.notificatorBackgroundColor" style="width:20px;height:20px;background-color:{{form.data.notificatorBackgroundColor}};"></div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="form-group">  
+                                    <label>Color de Icono:</label>
+                                    <div colorpicker="hex" type="text" class="form-control" ng-model="form.data.notificatorIconColor" style="width:20px;height:20px;background-color:{{form.data.notificatorIconColor}};"></div>
+                                </div>
+                              </div>
+                          </fieldset>                          
                         <fieldset class="col-lg-6 no-margin no-padding">
                             <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Splash (1200px X 1200 px)</legend>
                            <uploader-drop
@@ -102,7 +181,8 @@
                         </fieldset>
                       </div>                        
                 </div>
-            </div>    
+            </div> 
+           
           </div>
     	</div>
   	</div>

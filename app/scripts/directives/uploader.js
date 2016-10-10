@@ -38,7 +38,7 @@ angular.module('shoplyApp')
 		    modal.show({templateUrl : 'views/utils/cropper2.html', size :'md', scope: $scope}, function($scope){
 	  			$scope.editImage.loading = true;
 
-		  		api.s3().post({data : $scope.image_final}).then(function(res){
+		  		api.uploadLocal().post({data : $scope.image_final}).then(function(res){
 		  			if(res){
 		  				$scope.editImage.loading = false;
 		  				$scope.udate = new Date();

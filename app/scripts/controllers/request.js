@@ -36,6 +36,10 @@ angular.module('shoplyApp')
                }
            })
     }
+
+    $scope.detail = function(){
+      $state.go('dashboard.detalle_pedido', {pedido: $rootScope.grid.value._id});
+    }
   
   $scope.myConfig = {
     valueField: 'status',

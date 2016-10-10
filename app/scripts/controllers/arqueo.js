@@ -10,7 +10,7 @@
 angular.module('shoplyApp')
   .controller('ArqueoCtrl', function ($scope, $http, $filter,  $rootScope, $stateParams, sweetAlert, constants, $state, modal, api, storage) {
     
-    $scope.Records = false; 
+    $scope.MainRecords = false; 
 
     $scope.form = new Object();
     $scope.form.metadata = {};
@@ -21,12 +21,12 @@ angular.module('shoplyApp')
           api.arqueos($stateParams.arqueo).get().success(function(res){
             $scope.form._request = res._request || [];
             $scope.form.metadata = res.metadata;
-            $scope.Records = true;
+            $scope.MainRecords = true;
           });   
         }else{
           api.arqueos().get().success(function(res){
             $scope.records = res || [];
-            //$scope.Records = true;
+            $scope.MainRecords = true;
           });          
         }
   	}

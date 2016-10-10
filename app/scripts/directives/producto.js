@@ -64,6 +64,12 @@ angular.module('shoplyApp')
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {
+        scope.$root.$on('focusOn', function(evt, data){
+          if(data){
+            element[0].firstChild.selectize.focus();
+          }
+        });
+        
         element[0].firstChild.selectize.focus();
       }
     };
