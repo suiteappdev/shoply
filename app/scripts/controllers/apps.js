@@ -19,8 +19,13 @@ angular.module('shoplyApp')
     }
 
     $scope.edit = function(){
-      $scope.formEdit = $rootScope.grid.value;
+      $scope.formEdit = angular.copy($rootScope.grid.value);
        window.modal = modal.show({templateUrl : 'views/apps/editar_app.html', size :'md', scope: $scope, backdrop: 'static'}, function($scope){
+            if($scope.appFormEdit.$invalid){
+               modal.incompleteForm();
+               return;
+            }
+
             $scope.loading = true;
 
             var fd  = new FormData();
@@ -45,8 +50,12 @@ angular.module('shoplyApp')
 
   	$scope.create = function(){
        window.modal = modal.show({templateUrl : 'views/apps/agregar_app.html', size :'md', scope: $scope, backdrop: 'static'}, function($scope){
-            $scope.loading = true;
+            if($scope.appForm.$invalid){
+               modal.incompleteForm();
+               return;
+            }
 
+            $scope.loading = true;
             var fd  = new FormData();
 
             fd.append("data", JSON.stringify($scope.form.data));

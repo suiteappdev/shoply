@@ -14,7 +14,7 @@
     <div class="row" ng-show="records.length > 0">
     <ul class="sp-list"> 
       <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records |filter:search |itemsPerPage: 5 ">
-        <div class="sp-item-image">
+        <div class="sp-item-image" pagination-id="companyEntity">
           <img preload-image default-image="images/loading.svg" fallback-image="images/missing-company.png" ng-src="{{record.data.gallery[0].URL}}">
         </div>
         <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
@@ -34,7 +34,7 @@
       </li>
     </ul>
     <div class="col-lg-12">
-      <dir-pagination-controls class="pull-right"></dir-pagination-controls>
+      <dir-pagination-controls class="pull-right" pagination-id="companyEntity"></dir-pagination-controls>
     </div>
     </div>
 </div>

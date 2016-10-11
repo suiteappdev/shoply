@@ -20,7 +20,17 @@ angular.module('shoplyApp')
   		});
       
   		$scope.myConfig = {
+        plugins:["no_match"],
         loadingClass: 'selectizeLoading',
+        noResultText :'No existe un producto con esa referencia.',
+        noMatch : function(){
+          
+          toastr.options = {
+            preventDuplicates : true
+          }
+          
+          toastr.warning('no existe un producto con esa referencia');
+        },
         create:false,
   		  valueField: $scope.key,
   		  labelField: $scope.label,
