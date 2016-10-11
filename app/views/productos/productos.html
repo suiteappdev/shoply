@@ -19,6 +19,7 @@
         </div>
         <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
         <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+        <a class="trash" style="right:35px!important;" ng-click="detail()" href=""><i class="glyphicon glyphicon-eye-open"></i></a>
         <h4>{{record.data.producto}}<span ng-show="record._category" style="font-size: 12px;color: #a5a5a5;">&nbsp;- en&nbsp;{{record._category.text}}</span><span ng-show="!record._category" style="font-size: 12px;color: #a5a5a5;">&nbsp;- sin categoria&nbsp;</span></h4>
         <p>{{record.data.descripcion}}</p>
         <p class="sp-text">Base:&nbsp;<span class="label label-primary">{{record.data.precio | currency:"$ "}}</span>&nbsp;&nbsp;</p>

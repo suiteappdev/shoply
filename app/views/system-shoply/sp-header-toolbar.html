@@ -21,7 +21,7 @@
       <div class="btn-group">
         <button type="button" ng-click="callForCreate()" class="btn custom-btn-primary">Crear</button>
         <button type="button" ng-show="$root.grid.selected" ng-click="callForEdit()" class="btn custom-btn-primary"><i class="glyphicon glyphicon-edit"></i>&nbsp;Actualizar</button>
-        <button type="button" ng-show="$root.grid.selected" ng-click="callForDetails()" class="btn custom-btn-primary"><i class="glyphicon glyphicon-edit"></i>&nbsp;Detalle</button>
+        <button type="button" ng-show="$root.grid.selected && !$root.state.current.name == 'dashboard.empresa'" ng-click="callForDetails()" class="btn custom-btn-primary"><i class="glyphicon glyphicon-edit"></i>&nbsp;Detalle</button>
         <button type="button" ng-show="$root.grid.selected" ng-click="callForDelete()" class="btn custom-btn-primary"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>
       </div>
       </div>

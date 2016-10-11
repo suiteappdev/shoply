@@ -19,6 +19,7 @@
         </div>
         <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
         <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
+        <a class="trash" style="right:35px!important;" ng-href="{{record.data.url}}"><i class="glyphicon glyphicon glyphicon-save"></i></a>
         <h4>{{record.data.name}}</h4>
         <p>{{record.data.observacion}}</p>
  		<p class="sp-text">Versión:&nbsp;{{record.data.version}}&nbsp;&nbsp;</p>

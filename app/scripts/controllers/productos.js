@@ -19,7 +19,8 @@ angular.module('shoplyApp')
     }
 
     $scope.detail = function(){
-      $state.go('dashboard.detalle_producto', { producto : $rootScope.grid.value._id})      
+      var url = $state.href('dashboard.detalle_producto', { producto : $rootScope.grid.value._id});
+      window.open(url, '_blank');
     }
 
     $scope.edit = function(){
