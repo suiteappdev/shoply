@@ -28,6 +28,7 @@ angular.module('shoplyApp')
     this.producto = function(producto){if(producto) this.url = constants.base_url + "producto/" + producto; else this.url = constants.base_url + "producto/"; return this;};
     this.pedido = function(pedido){if(pedido) this.url = constants.base_url + "pedido/" + pedido; else this.url = constants.base_url + "pedido/"; return this;};
     this.rutas = function(ruta){if(ruta) this.url = constants.base_url + "rutas/" + ruta; else this.url = constants.base_url + "rutas/"; return this;};
+    this.metadata = function(entity){if(entity) this.url = constants.base_url + "metadata/" + entity; else this.url = constants.base_url + "entity/"; return this;};
     this.ivas = function(iva){if(iva) this.url = constants.base_url + "ivas/" + iva; else this.url = constants.base_url + "ivas/"; return this;};
     this.formas_pagos = function(formaPago){if(formaPago) this.url = constants.base_url + "formasPago/" + formaPago; else this.url = constants.base_url + "formasPago/"; return this;};
     this.facturacion = function(factura){if(factura) this.url = constants.base_url + "facturacion/" + factura; else this.url = constants.base_url + "facturacion/"; return this;};

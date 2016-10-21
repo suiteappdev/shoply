@@ -7,41 +7,41 @@
           <h4>Para comenzar debes conectarte con una empresa.</h4>
           <button type="button" ng-click="cambiarEmpresa()"class="btn custom-btn-primary btn-lg">Elejir Empresa</button>
         </div>
-        <div ng-show="$root.user._company">
+        <div ng-show="$root.user._company" class="row">
           <div class="col-lg-4 animated bounceInLeft" style="background-color: #272727;height:250px;">
               <div class="inner-box">
-                <h1 class="text-white">Ventas</h1>
-                <h2 class="text-white" style="font-size:70px;">150</h2>
+                <h1 class="text-white">Ventas Diarias</h1>
+                <h2 class="text-white" style="font-size:70px;">{{ventas || 0}}</h2>
               </div>
           </div>
           <div class="col-lg-4 animated bounceInLeft" style="background-color: #001c24;height:250px;">
               <div class="inner-box">
                 <h1 class="text-white">Pedidos</h1>
-                <h2 class="text-white" style="font-size:70px;">300</h2>
+                <h2 class="text-white" style="font-size:70px;">{{pedidos || 0}}</h2>
               </div>
           </div>          
           <div class="col-lg-4 animated bounceInLeft" style="background-color: #02020e;height:250px;">
               <div class="inner-box">
                 <h1 class="text-white">Vendedores</h1>
-                <h2 class="text-white" style="font-size:70px;">15</h2>
+                <h2 class="text-white" style="font-size:70px;">{{vendedores || 0}}</h2>
               </div>
           </div>
           <div class="col-lg-4 animated bounceInRight" style="background-color: #ffffff;height:250px;">
               <div class="inner-box">
                 <h1 class="text-dark">Productos</h1>
-                <h2 class="text-dark" style="font-size:70px;">900</h2>
+                <h2 class="text-dark" style="font-size:70px;">{{productos || 0}}</h2>
               </div>
           </div>
           <div class="col-lg-4 animated bounceInRight" style="background-color: #230c00;height:250px;">
               <div class="inner-box">
                 <h1 class="text-white">Apps</h1>
-                <h2 class="text-white" style="font-size:70px;">3</h2>
+                <h2 class="text-white" style="font-size:70px;">{{apps || 0}}</h2>
               </div>
           </div>
           <div class="col-lg-4 animated bounceInRight" style="background-color: #ff5e1b;height:250px;">
               <div class="inner-box">
                 <h1 class="text-white">Empleados</h1>
-                <h2 class="text-white" style="font-size:70px;">8</h2>
+                <h2 class="text-white" style="font-size:70px;">{{empleados || 0}}</h2>
               </div>
           </div>
         </div>

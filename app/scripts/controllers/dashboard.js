@@ -10,10 +10,39 @@
 angular.module('shoplyApp')
   .controller('DashboardCtrl', function ($scope, api, modal, storage, $state, $rootScope, $timeout, permission) {
     $scope.load = function(){
+      api.metadata("empleados").get().success(function(res){
+          $scope.empleados = res;
+      });
+
+      api.metadata("apps").get().success(function(res){
+          $scope.apps = res;
+      });
+
+      api.metadata("pedidos").get().success(function(res){
+          $scope.pedidos = res;
+      });
+
+      api.metadata("clientes").get().success(function(res){
+          $scope.clientes = res;
+      });
+
+      api.metadata("ventas").get().success(function(res){
+          $scope.ventas = res;
+      }); 
+
+      api.metadata("productos").get().success(function(res){
+          $scope.productos = res;
+      });
+
+      api.metadata("vendedores").get().success(function(res){
+          $scope.vendedores = res;
+      });
+
       if(angular.fromJson(localStorage.company)){
           $rootScope.user._company = angular.fromJson(localStorage.company);
       }
   	}
+
     $scope.go = function($event){
       if($event.code == "F2" || $event.key == "F2"){
         $state.go('dashboard.facturacion');
