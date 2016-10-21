@@ -21,7 +21,7 @@ angular.module('shoplyApp')
     $scope.edit = function(){
       $scope.formEdit = angular.copy($rootScope.grid.value);
        window.modal = modal.show({templateUrl : 'views/apps/editar_app.html', size :'md', scope: $scope, backdrop: 'static'}, function($scope){
-            if($scope.appFormEdit.$invalid){
+            if($scope.appEditForm.$invalid){
                modal.incompleteForm();
                return;
             }

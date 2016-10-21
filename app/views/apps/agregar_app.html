@@ -62,14 +62,19 @@
         </div>
        </div>
       <div class="row" ng-hide="loading">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <div class="form-group">
             <button ng-class="selected=='informacion' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='informacion'" class="custom-btn btn-block">Información</button> 
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
         <div class="form-group">
           <button ng-class="selected=='apariencia' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='apariencia';" class="custom-btn btn-block">Apariencia</button>
+        </div>  
+        </div>
+        <div class="col-lg-4">
+        <div class="form-group">
+          <button ng-class="selected=='fondos' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='fondos';" class="custom-btn btn-block">Pantallas</button>
         </div>  
         </div>
       </div>
@@ -129,6 +134,21 @@
                               </div>
                             </div>
                         </fieldset>
+                        <fieldset class="col-lg-6 no-margin">
+                            <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Boton Primario</legend>
+                            <div class="col-lg-6">
+                              <div class="form-group">  
+                                    <label>Fondo:</label>
+                                    <div colorpicker="hex" type="text" class="form-control" ng-model="form.data.primaryButtonBackground" style="width:20px;height:20px;background-color:{{form.data.primaryButtonBackground}};"></div>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">  
+                                  <label>Color de Texto:</label>
+                                  <div colorpicker="hex" type="text" class="form-control" ng-model="form.data.primaryButtonColor" style="width:20px;height:20px;background-color:{{form.data.primaryButtonColor}};"></div>
+                              </div>
+                            </div>
+                        </fieldset>
                           <fieldset class="col-lg-6 no-margin">
                             <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Botones del Producto</legend>
                               <div class="col-lg-6">
@@ -159,6 +179,8 @@
                                 </div>
                               </div>
                           </fieldset>                          
+                      </div>
+                      <div ng-show="selected == 'fondos'" ng-cloak style="margin-top:10px;">
                         <fieldset class="col-lg-6 no-margin no-padding">
                             <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Splash (1200px X 1200 px)</legend>
                            <uploader-drop
@@ -177,6 +199,17 @@
                             ng-model="form.icono" 
                             ext="['psd', 'jpeg', 'png', 'ai', 'jpg']" 
                             selector="icono"
+                            size = "3"
+                            
+                            ></uploader-drop>
+                        </fieldset>
+                        <fieldset class="col-lg-6 no-margin no-padding">
+                            <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Fondo de inicio de session</legend>
+                            <uploader-drop 
+
+                            ng-model="form.loginBackground" 
+                            ext="['jpeg', 'png', 'ai', 'jpg']" 
+                            selector="loginBackground"
                             size = "3"
                             
                             ></uploader-drop>

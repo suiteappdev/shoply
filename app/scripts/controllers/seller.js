@@ -68,6 +68,10 @@ angular.module('shoplyApp')
                                   delete $scope.formEdit;
                               }
                           }).error(function(data, status){
+                            if(status == 409){
+                              sweetAlert.swal("Email en uso.", "este email ya se encuentra en uso.", "warning");
+                            }
+
                             if(status == 400){
                               sweetAlert.swal("Error de validación", "Codigo de verificación incorrecto.", "warning");
                             }
@@ -83,7 +87,11 @@ angular.module('shoplyApp')
                       $scope.$close();
                       delete $scope.formEdit;
                   }
-              });
+              }).error(function(){
+                  if(status == 409){
+                    sweetAlert.swal("Email en uso.", "este email ya se encuentra en uso.", "warning");
+                  }                
+                });
             } 
       });
     }
