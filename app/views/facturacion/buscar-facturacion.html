@@ -23,7 +23,7 @@ padding: 10px;">
     <ul class="sp-list"> 
       <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in devolucionesRecords |filter:search |itemsPerPage: 5 "  pagination-id="SearchfacturacionEntity">
         <div class="sp-item-image">
-          <img preload-image default-image="images/missing-billing.png" fallback-image="images/loading.svg" ng-src="{{record._seller.metadata.gallery[0].URL}}">
+          <img preload-image default-image="images/missing-seller.png" fallback-image="images/loading.svg" ng-src="{{record._seller.data.gallery[0].URL}}">
         </div>
         <span class="sp-meta-right">Creado : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
         <a class="trash" ng-click="printA(record)" href=""><i class="glyphicon glyphicon-print"></i></a>

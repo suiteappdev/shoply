@@ -1016,8 +1016,8 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
     left: 18.5%;
     z-index: 1050;
     width: 80%;
-    height: 80%;
     margin-left: -10%;
+    height:auto;
 }
 
 .selectizeLoading {
@@ -1174,6 +1174,13 @@ screen {
   font-size:14px;
   background-color:gray;
   margin-bottom:5px;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    cursor: pointer;
 }
 
 

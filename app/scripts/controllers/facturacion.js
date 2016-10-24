@@ -229,19 +229,12 @@ angular.module('shoplyApp')
     $scope.agregarCantidad = function(){
      var _record = this.record;
 
-     sweetAlert.swal({
-        title: "Agregar Cantidad",
-        type: "input",
-        inputValue : 1,
-        showCancelButton: false,
-        closeOnConfirm: false,
-        animation: "slide-from-top",
-        inputPlaceholder: "Cantidad" 
-      }, function(inputValue){
-          $scope.records[$scope.records.indexOf(_record)].cantidad = parseInt(inputValue || 1);
-
-          window.swal.close();   
-      });   
+       window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'sm', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
+          if($scope.cantidadModel){
+            $scope.records[$scope.records.indexOf(_record)].cantidad = parseInt($scope.cantidadModel || 1);
+            $scope.$close();
+          }
+       });
     }
 
     $scope.agregarDescuento = function(){

@@ -37,7 +37,8 @@ angular.module('shoplyApp')
 
             api.categoria().post(angular.extend($scope.form, {id : $scope.form.text})).success(function(res){
                 if(res){
-                  $scope.records.push(res);
+                    $scope.records.push(res);
+                    sweetAlert.swal("Registro completado.", "has registrado una nueva categoria.", "success");
                     $scope.$close();
                     delete $scope.form.data;
                 }
