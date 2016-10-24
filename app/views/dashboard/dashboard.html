@@ -7,7 +7,7 @@
           <h4>Para comenzar debes conectarte con una empresa.</h4>
           <button type="button" ng-click="cambiarEmpresa()"class="btn custom-btn-primary btn-lg">Elejir Empresa</button>
         </div>
-        <div ng-show="$root.user._company" class="row">
+        <div ng-show="$root.user._company" class="row" ng-controller="DashboardCtrl", ng-init="load()">
           <div class="col-lg-4 animated bounceInLeft" style="background-color: #272727;height:250px;">
               <div class="inner-box">
                 <h1 class="text-white">Ventas Diarias</h1>

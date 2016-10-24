@@ -46,7 +46,9 @@ angular
                    $httpProvider.defaults.headers.common['x-shoply-user'] =  angular.fromJson(window.localStorage.user) ?  angular.fromJson(window.localStorage.user)._id : null  ; // common
                    
                    if(angular.fromJson(window.localStorage.user)._company){
-                      $httpProvider.defaults.headers.common['x-shoply-company']  = angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company;
+                      $httpProvider.defaults.headers.common['x-shoply-company']  = angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company || angular.fromJson(localStorage.company)._id;
+                   }else if(localStorage.company){
+                      $httpProvider.defaults.headers.common['x-shoply-company']  =  angular.fromJson(localStorage.company)._id;
                    }
                 }
                  
@@ -236,7 +238,6 @@ angular
                 url: '/dashboard',
                 access: { requiredAuthentication: true },
                 templateUrl: 'views/dashboard/dashboard.html',
-                cache:false,
                 data: {
                   pageTitle: 'Administración'
                 }
