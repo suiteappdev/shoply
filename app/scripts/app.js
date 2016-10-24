@@ -236,6 +236,7 @@ angular
                 url: '/dashboard',
                 access: { requiredAuthentication: true },
                 templateUrl: 'views/dashboard/dashboard.html',
+                cache:false,
                 data: {
                   pageTitle: 'Administración'
                 }
