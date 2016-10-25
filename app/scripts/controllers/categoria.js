@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('CategoriaCtrl', function ($scope, $rootScope, modal, api) {
+  .controller('CategoriaCtrl', function ($scope, $rootScope, modal, api, sweetAlert) {
     $scope.Records = false; 
     
     $scope.load = function(){

@@ -15,7 +15,7 @@
         <button style="height: 44px;position:relative;" ng-show="$root.grid.selected && $root.state.current.name == 'dashboard.empresa' "  ng-click="connectCompany()" class="animated fadeInRight custom-btn btn-success"><i class="fa fa-database"></i>&nbsp;Conectar</button>
       </div>
       <div class="col-lg-4">
-        
+
       </div>
       <div class="col-lg-4 text-right" ng-hide="$root.state.current.name == 'dashboard.facturacion'">
       <div class="btn-group">
@@ -44,7 +44,9 @@
         <button style="height: 44px;position:relative;" ng-show="$root.grid.selected && $root.state.current.name == 'dashboard.empresa' "  ng-click="connectCompany()" class="animated fadeInRight custom-btn btn-success"><i class="fa fa-database"></i>&nbsp;Conectar</button>
       </div>
       <div class="col-lg-4">
-        
+        <div class="form-group hidden">
+          <input  type="text" class="form-control" ng-model="search" placeholder="Buscar...">
+        </div>
       </div>
       <div class="col-lg-4 text-right">
       <div class="btn-group">
