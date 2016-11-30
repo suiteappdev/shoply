@@ -149,6 +149,14 @@ ngJSTree.directive('jsTree', ['$http', '$rootScope', function($http, $rootScope)
     },
     init: function(s, e, a, config) {
       treeDir.managePlugins(s, e, a, config);
+      
+      angular.extend(config.core, {
+        themes: {
+            name: 'proton',
+            responsive: true
+        }
+      });
+
       this.tree = $(e).jstree(config);
       
       $(e).on('changed.jstree', function(e, data){

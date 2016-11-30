@@ -15,6 +15,66 @@ html {
   overflow-x: hidden!important;
 }
 
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    background-color: rgba(0,0,0, 0.7);
+}
+
+@media screen and (min-width: 768px) {
+  .modal-lg{
+      width:900px!important;
+  }
+
+  .modal-sm{
+      width:300px!important;
+  }
+}
+
+.table tr.active td {
+  background-color:#123456;
+  color: white;
+  font-weight: bold;
+}
+
+.label-sp-custom {
+    background-color: #f95c07;
+}
+
+.selectize-input {
+    height: 30px!important;
+    padding: 5px 10px!important;
+    font-size: 12px!important;
+    line-height: 1.5!important;
+    border-radius: 3px!important;
+}
+
+.ng-datepicker-input {
+    border: 1px solid #d0d0d0;
+    padding: 8px 8px;
+    width: 100%;
+    overflow: hidden;
+    line-height: 1.5!important;
+    position: relative;
+    z-index: 1;
+    height:30px;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.selectize-control.multi .selectize-input > div {
+    cursor: pointer!important;
+    margin: 0 3px 3px 0!important;
+    padding: 0px 20px !important;
+    color: black !important!important;
+    border: 0 solid #d0d0d0!important;
+}
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
 .ng-cloak, .x-ng-cloak,
 .ng-hide {
@@ -32,6 +92,50 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+table tr td:last-child {
+    text-align: right;
+}
+
+.content {
+    padding: 25px 10px 40px 10px;
+    min-width: 320px;
+}
+
+.titulo{font-size:40px;padding-left:15px}
+
+.hpanel{
+    background-color: none;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 25px;  
+}
+
+.hpanel .panel-body {
+    background: #fff;
+    border: 1px solid #e4e5e7;
+    border-radius: 2px;
+    padding: 20px;
+    position: relative;
+}
+
+.panel-footer {
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.hpanel > .panel-footer, .hpanel > .panel-section {
+    color: inherit;
+    border: 1px solid #e4e5e7;
+    border-top: none;
+    font-size: 90%;
+    background: #f7f9fa;
+    padding: 10px 15px;
+}
+
 
 hr {
   margin: 15px 0;
@@ -624,6 +728,9 @@ pre                             { margin-bottom:20px; }
     box-sizing:border-box;
     padding:10px;
 }
+.sp-list-title{
+  font-size:14px!important;
+}
 
 .sp-toolbar-inner{
     height: 60px;
@@ -712,6 +819,7 @@ pre                             { margin-bottom:20px; }
 .sp-choice.sp-active {
     border-width: 3px;
     border-left: 3px solid #001c24;
+    font-weight: bold;
 }
 .sp-text{
     display: inline;

@@ -8,7 +8,7 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('FacturacionCtrl',["$scope", "hotkeys", "shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http", "$filter", "$stateParams", "storage","$timeout", function ($scope, hotkeys, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter, $stateParams, $storage, $timeout) {
+  .controller('FacturacionCtrl',["$scope", "hotkeys", "shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http", "$filter", "$stateParams", "storage","$timeout","$state", function ($scope, hotkeys, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter, $stateParams, $storage, $timeout, $state) {
     
     $scope.records = [];
 
@@ -23,6 +23,16 @@ angular.module('shoplyApp')
     }, true);
 
     $scope.load = function(){
+       api.arqueos().add("find/").post({
+        _seller : $rootScope.user._id,
+        ini :  moment(new Date()).startOf('day').format()
+       }).success(function(res){
+         if(res.length > 0){
+            sweetAlert.swal("Error", "No puede facturar debido a que ya existe un arqueo para este dia", "error");
+            $state.go('dashboard');
+         }
+       })
+
       $scope.records =[];
       if($stateParams.facturacion){
         api.facturacion($stateParams.facturacion).get().success(function(res){
@@ -120,7 +130,7 @@ angular.module('shoplyApp')
 
       if(this.method.data.card){
         if(event.which === 13) {
-           window.modal = modal.show({templateUrl : 'views/facturacion/baseForm.html', size :'md', scope: $scope, backdrop:'static',  windowClass: 'center-modal'}, function($scope){
+           window.modal = modal.show({templateUrl : 'views/facturacion/baseForm.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
               $scope.method.data.base =  ( $scope.totalCard / 1.16);
               $scope.method.data.Iva = ($scope.totalCard) - ( $scope.totalCard / 1.16);
               $scope.$parent.$parent.form._payments = $scope.paymentMethods;
@@ -229,7 +239,7 @@ angular.module('shoplyApp')
     $scope.agregarCantidad = function(){
      var _record = this.record;
 
-       window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'sm', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
           if($scope.cantidadModel){
             $scope.records[$scope.records.indexOf(_record)].cantidad = parseInt($scope.cantidadModel || 1);
             $scope.$close();
@@ -240,7 +250,7 @@ angular.module('shoplyApp')
     $scope.agregarDescuento = function(){
      $scope.descuentoRecord = this.record;
 
-     window.modal = modal.show({templateUrl : 'views/facturacion/descuento.html', size :'sm', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
+     window.modal = modal.show({templateUrl : 'views/facturacion/descuento.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
         if($scope.pdiscount){
           $scope.descuentoRecord.descuento = parseInt($scope.pdiscount) || 0;
           $scope.descuentoRecord.valor_descuento = ($scope.descuentoRecord.precio_venta * $scope.descuentoRecord.cantidad) * (parseInt($scope.descuentoRecord.descuento || 0) / 100);

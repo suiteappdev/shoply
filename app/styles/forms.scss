@@ -6,13 +6,13 @@
 // --------------------------------------------------
 
 label {
-  display: inline-block;
-  font-size: $font-size-default;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  color : $dark-color;
-  text-overflow: ellipsis;
+    display: inline-block;
+    font-size: 13px;
+    margin-bottom: -6px;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #230C00;
+    text-overflow: ellipsis;
 }
 
 label.white {

@@ -13,6 +13,18 @@ angular.module('shoplyApp')
       });
   	}
 
+    $scope.doTonnage = function(){
+      $state.go('dashboard.crear-arqueo', {employee : $rootScope.grid.selected});
+    }
+
+    $scope.verRutas = function(){
+      $scope.record = angular.copy(this.record._route);
+      
+      window.modal = modal.show({templateUrl : 'views/vendedores/verRutas.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        $scope.$close();
+      });
+    }
+
   	$scope.create = function(){
        window.modal = modal.show({templateUrl : 'views/vendedores/agregar_vendedor.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formVendedor.$invalid){
@@ -38,7 +50,7 @@ angular.module('shoplyApp')
   	}
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy($rootScope.grid.value);
+      $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._route = $scope.formEdit._route.map(function(_o){return _o._id});
       delete $scope.formEdit.password;
       
@@ -97,7 +109,7 @@ angular.module('shoplyApp')
     }
 
     $scope.delete = function(){
-        var _record = $rootScope.grid.value;
+        var _record = this.record;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

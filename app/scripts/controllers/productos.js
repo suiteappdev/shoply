@@ -18,17 +18,24 @@ angular.module('shoplyApp')
       });
     }
 
+    $scope.verImpuestos = function(){
+      $scope.record = this.record._iva;
+      window.modal = modal.show({templateUrl : 'views/productos/verIvas.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+        $scope.$close();
+      });
+    }
+
     $scope.detail = function(){
       var url = $state.href('dashboard.detalle_producto', { producto : $rootScope.grid.value._id});
       window.open(url, '_blank');
     }
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy($rootScope.grid.value);
-      $scope.formEdit._category = $rootScope.grid.value._category ? $rootScope.grid.value._category._id : null;
-      $scope.ivaValue = $rootScope.grid.value._iva ? $rootScope.grid.value._iva.data.valor : 0;
+      $scope.formEdit = angular.copy(this.record);
+      $scope.formEdit._category = this.record._category ? this.record._category._id : null;
+      $scope.ivaValue = this.record._iva ? this.record._iva.data.valor : 0;
 
-      $scope.formEdit._iva = $rootScope.grid.value._iva ? $rootScope.grid.value._iva._id : null;
+      $scope.formEdit._iva = this.record._iva ? this.record._iva._id : null;
       
       if($scope.formEdit.data.tags){
         $scope.tags = $scope.formEdit.data.tags.map(function(o){
@@ -160,28 +167,37 @@ angular.module('shoplyApp')
 
 
     $scope.create = function(){
-       window.modal = modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
-            if($scope.formProducto.$invalid){
-                 modal.incompleteForm();
-                return;
-            }
+      api.bodega().get().success(function(res){
+          if(res.length == 0){
+            sweetAlert("No Existen Bodegas", "Debe existir almenos una bodega", "error");
+            return ;
+          }else{
+             window.modal = modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+                  if($scope.formProducto.$invalid){
+                       modal.incompleteForm();
+                      return;
+                  }
 
-            api.producto().post($scope.form).success(function(res){
-                if(res){
-                    $scope.load();
-                    $scope.$close();
-                    delete $scope.form.data;
-                }
-            }).error(function(data, status){
-              if(status == 409){
-                sweetAlert("Referencia duplicada", "La referencia: "+ data.reference+" ya existe", "warning");
-              }
-            });
-        });
+                  api.producto().post($scope.form).success(function(res){
+                      if(res){
+                          $scope.load();
+                          $scope.$close();
+                          delete $scope.form.data;
+                          sweetAlert.swal("Registro completado.", "has registrado un nuevo producto.", "success");
+                      }
+                  }).error(function(data, status){
+                    if(status == 409){
+                      sweetAlert("Referencia duplicada", "La referencia: "+ data.reference+" ya existe", "warning");
+                    }
+                  });
+              });            
+          }
+      });
+
     }
 
     $scope.delete = function(){
-        var _record = $rootScope.grid.value;
+        var _record = this.record;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

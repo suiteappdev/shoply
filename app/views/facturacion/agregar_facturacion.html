@@ -3,7 +3,7 @@
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Nueva Factura</h4>
     </div>
-  	<div class="modal-body modal-body-pattern">
+  	<div class="modal-body">
       <div class="row">
         <div class="file-wrap" style="height: 150px;" ng-show="loading">
           <div class="item-loading text-center" style="position:relative;top:25%;">
@@ -18,7 +18,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   <label>Descuento:</label>
-                  <input type="number" tabindex="0" placeholder="% Descuento" class="form-control text-center" ng-model="$parent.$parent.gdiscount">
+                  <input type="number" tabindex="0" placeholder="% Descuento" class="form-control text-center input-sm" ng-model="$parent.$parent.gdiscount">
                 </div>
               </div> 
 
@@ -33,14 +33,14 @@
                           tabindex="{{($index + 1)}}" 
                           ng-change="setReceived(method.data)"
                           ng-keypress="openBaseForm($event, method.data.value)" 
-                          class="form-control text-center" 
+                          class="form-control text-center input-sm" 
                           ng-model="method.data.value" 
                           placeholder="Valor"
                           >
 
             <span class="input-group-addon custom-btn-primary">.00</span>
           </div>  
-              <p  class="animated slideInRight" style="background-color: #383737;color: white; padding: 4px;text-align: center;" ng-show="method.data.cardCode"><i style="top: 2px;" class="glyphicon glyphicon-credit-card"></i>&nbsp;Voucher : <span style="color: #ff00c6!important;font-weight: bold;">{{method.data.cardCode}}</span></p>             
+              <p  class="animated slideInRight" style="color: #797676; padding: 4px;text-align: right;" ng-show="method.data.cardCode"><i style="top: 2px;" class="glyphicon glyphicon-credit-card"></i>&nbsp;Voucher : <span style="color: gray!important;font-weight: bold;">{{method.data.cardCode}}</span></p>             
               </div>
 
               </div>
@@ -67,19 +67,19 @@
     width: 100%;background-color:rgb(8, 8, 8);">
           <div class="col-lg-3">
             <label class="text-white" ng-init="$parent.$parent.totalParcial = $parent.$parent.total">Total:</label>
-            <h5 style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{$parent.$parent.totalParcial | currency:"COP $"}}</h5>
+            <h5 style="color:#009ddc;!important;position: relative;" class="no-margin monospace">{{$parent.$parent.totalParcial | currency:"COP $"}}</h5>
           </div>
           <div class="col-lg-3">
             <label class="text-white">Descuento:</label>
-            <h5 ng-init="$parent.$parent.vgdescuento = 0"  style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{$parent.$parent.vgdescuento | currency:"COP $"}}</h5>
+            <h5 ng-init="$parent.$parent.vgdescuento = 0"  style="color:#009ddc;!important;position: relative;" class="no-margin monospace">{{$parent.$parent.vgdescuento | currency:"COP $"}}</h5>
           </div>
           <div class="col-lg-3">
             <label class="text-white">Cambio:</label>
-            <h5 style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{change || 0 | currency:"COP $"}}</h5>
+            <h5 style="color:#009ddc;!important;position: relative;" class="no-margin monospace">{{change || 0 | currency:"COP $"}}</h5>
           </div>
           <div class="col-lg-3">
             <label class="text-white">Valor recibido:</label>
-            <h5 style="color:#009ddc;!important;top: -9px;position: relative;" class="no-margin monospace">{{received || 0 | currency:"COP $"}}</h5>
+            <h5 style="color:#009ddc;!important;position: relative;" class="no-margin monospace">{{received || 0 | currency:"COP $"}}</h5>
           </div>
         </div>
     <div class="modal-footer custom-modal-footer" style="padding:0px;">

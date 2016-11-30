@@ -13,6 +13,10 @@ angular.module('shoplyApp')
       });
   	}
 
+    $scope.doTonnage = function(){
+      $state.go('dashboard.crear-arqueo', {employee : $rootScope.grid.selected});
+    }
+
   	$scope.create = function(){
        window.modal = modal.show({templateUrl : 'views/empleado/agregar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEmploye.$invalid){
@@ -37,7 +41,7 @@ angular.module('shoplyApp')
   	}
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy($rootScope.grid.value);
+      $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._route = $scope.formEdit._route.map(function(_o){return _o._id});
       $scope.formEdit._permission = $scope.formEdit._permission ? $scope.formEdit._permission._id : null;
       delete $scope.formEdit.password;

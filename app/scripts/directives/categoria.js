@@ -33,7 +33,7 @@ angular.module('shoplyApp')
   	}
 
     return {
-      template: '<div class="input-group"><selectize config="myConfig" options="records" ng-model="ngModel"></selectize><span class="input-group-btn"><button ng-click="explorer()" class="btn custom-btn-primary" style="top: -3px;" type="button">Seleccionar</button></span></div>',
+      template: '<div class="input-group"><selectize config="myConfig" options="records" ng-model="ngModel"></selectize><span class="input-group-btn"><button ng-click="explorer()" class="btn custom-btn-primary" style="top: -3px;padding:4px 12px;!important" type="button">Seleccionar</button></span></div>',
       restrict: 'EA',
       scope : {
       	ngModel : "=",

@@ -26,35 +26,29 @@ padding: 10px;">
     </div>
         <div class="col-xs-12">
             <hr>
-            <small>{{record._company.data.empresa}}, LCC</small><br />
+            <small>{{record._company.data.empresa}},</small><br />
             <small>{{record._company.data.descripcion}}</small>
     		<hr>
     		<div class="row">
     			<div class="col-xs-6">
-    				<address>
-    				<strong>Facturado a:</strong><br>
-    					{{record._seller.name +" "+ record._seller.last_name}}<br>
-    					{{record._seller.metadata.departamento}}, {{record._seller.metadata.ciudad}}<br>
-    				</address>
+                    <address>
+                    <strong>CLIENTE:</strong><br>
+                        {{(record._client.full_name)}}<br>
+                        {{record.metadata.direccion}}.<br>
+                        {{record.metadata.ciudad}}, {{record.metadata.barrio}}
+                    </address>
+
     			</div>
     			<div class="col-xs-6 text-right">
-    				<address>
-        			<strong>Enviar a:</strong><br>
-    					{{(record._client.name +" "+ record._client.last_name)}}<br>
-    					{{record.metadata.direccion}}.<br>
-    					{{record.metadata.ciudad}}, {{record.metadata.barrio}}
-    				</address>
+                    <address>
+                    <strong>VENDEDOR:</strong><br>
+                        {{record._seller.full_name}}<br>
+                        {{record._seller.metadata.departamento}}, {{record._seller.metadata.ciudad}}<br>
+                    </address>
     			</div>
     		</div>
     		<div class="row">
-    			<div class="col-xs-6">
-    				<address>
-    					<strong>Tipo de Cliente:</strong><br>
-						<span class="label label-info" ng-show="record._seller">Vendedor</span><span class="label label-warning" ng-show="record._client &&!record._seller">Cliente</span><br>
-    					{{record._seller.email}}
-    				</address>
-    			</div>
-    			<div class="col-xs-6 text-right">
+    			<div class="col-xs-6 text-left">
     				<address>
     					<strong>Fecha de la Orden:</strong><br>
     					{{record.createdAt | date:"yyyy-MM-dd hh:mm:ss a"}}<br><br>
@@ -87,7 +81,7 @@ padding: 10px;">
     								<td>{{record.data.producto}}</td>
     								<td class="text-center">{{record.data.precio_venta | currency :"$ "}}</td>
     								<td class="text-center">{{record.data.unidades}}</td>
-    								<td class="text-right"></td>
+    								<td class="text-right">{{(record.data.unidades * record.data.precio_venta) | currency :"$ "}}</td>
     							</tr>
     							<tr>
     								<td class="thick-line"></td>
@@ -95,18 +89,12 @@ padding: 10px;">
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
     								<td class="thick-line text-right">{{record.metadata.subtotal | currency: "$ "}}</td>
     							</tr>
-    							<tr ng-repeat="iva in ivadetails">
+    							<tr ng-repeat="iva in record.metadata.ivadetails | orderBy:'-tipo'">
     								<td class="no-line"></td>
     								<td class="no-line"></td>
     								<td class="no-line text-center"><strong>Iva del {{iva.tipo || 0}}%</strong></td>
     								<td class="no-line text-right">{{iva.viva | currency: "$ "}}</td>
     							</tr> 
-    							<tr>
-    								<td class="no-line"></td>
-    								<td class="no-line"></td>
-    								<td class="no-line text-center"><strong>Total</strong></td>
-    								<td class="no-line text-right">{{record.metadata.total | currency: "$ "}}</td>
-    							</tr>
     						</tbody>
     					</table>
     				</div>

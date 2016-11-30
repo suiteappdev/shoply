@@ -3,7 +3,7 @@
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Editar Categoria</h4>
     </div>
-  	<div class="modal-body modal-body-pattern"  ng-init="selected ='basic'">
+  	<div class="modal-body"  ng-init="selected ='basic'">
 	  	<div class="row">
 	  		<div class="col-lg-3">
 	  			<div class="form-group">
@@ -21,17 +21,11 @@
 		  	<form name="formEditCategoria" novalidate ng-init="$parent.form = null">
 				  <div class="form-group">
 				    <label>Categoria:</label>
-				    <input type="text" required placeholder="Categoria" class="form-control" ng-model="formEdit.text">
+				    <input type="text" required placeholder="Categoria" class="form-control input-sm" ng-model="formEdit.text">
 				  </div>
 				  <div class="form-group">
 				    <label>Descripcion:</label>
-				    <input type="text" placeholder="Descripción" required class="form-control" ng-model="formEdit.data.descripcion">
-				  </div>
-				  <div class="row">
-				  	<div class="col-lg-12">
-						<label>Categoria padre:</label>
-				      	<categoria key="id" label="text" ng-model="formEdit.parent"></categoria>
-				  	</div>
+				    <input type="text" placeholder="Descripción" required class="form-control input-sm" ng-model="formEdit.data.descripcion">
 				  </div>
 		  	</form>  		
 	  	</div>

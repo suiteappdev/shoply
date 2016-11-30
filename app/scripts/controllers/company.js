@@ -20,12 +20,20 @@ angular.module('shoplyApp')
 
     $scope.connectCompany = function(){
           var _user = $rootScope.user;
-          api.empresa($rootScope.grid.value._id).get().success(function(res){
+          api.empresa(this.record._id).get().success(function(res){
             $timeout(function(){
+                if(res._parent){
+                  $rootScope.user._company = res._parent;
+                  storage.update('user', $rootScope.user);
+                  toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
+                  $state.go('dashboard');
+                  return;
+                }
+                
               $rootScope.user._company = res;
               storage.update('user', $rootScope.user);
-              toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
-            }, 5000);
+              toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 1000});
+            }, 1000);
           });       
     }
 
@@ -47,8 +55,9 @@ angular.module('shoplyApp')
         });
   	}
 
-    $scope.edit = function(record, callback){
-      $scope.formEdit = angular.copy(record);
+    $scope.edit = function(){
+      $scope.formEdit = angular.copy(this.record);
+      $scope.formEdit._parent = $scope.formEdit._parent ? $scope.formEdit._parent._id : null; 
       window.modal = modal.show({templateUrl : 'views/company/editar_empresa.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditarEmpresa.$invalid){
                  modal.incompleteForm();

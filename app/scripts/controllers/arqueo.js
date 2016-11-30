@@ -17,6 +17,10 @@ angular.module('shoplyApp')
     $scope.form.metadata.total_sistema = 0;
 
     $scope.load = function(){
+        if($stateParams.employee){
+            $scope._sellerParam = $stateParams.employee;      
+        }
+
         if($stateParams.arqueo){
           api.arqueos($stateParams.arqueo).get().success(function(res){
             $scope.form._request = res._request || [];
@@ -31,6 +35,13 @@ angular.module('shoplyApp')
         }
   	}
 
+    $scope.verImpuestos = function(ivs){
+      $scope.records = this.record.data.ivadetails;
+      window.modal = modal.show({templateUrl : 'views/iva/verIvas.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        $scope.$close();
+      });
+    }
+
     $scope.create = function(){
       $state.go('dashboard.crear-arqueo');
     }
@@ -39,11 +50,29 @@ angular.module('shoplyApp')
       $scope._schema = $scope.form._billings.map(function(o){
           var _output = new Object();
 
+           _output.vendedor = o._seller ? o._seller.full_name.full_name : 'no definido'; 
+           _output.fecha = new Date(o.createdAt).toISOString().substr(0,10); 
+           _output.Cliente = o._client ? o._client.full_name : 'no definido'; 
+           _output.total = o.data.total.toString();
+
+          return _output; 
+      });
+
+    var data1 = $scope._schema;
+    var data2 = [$scope.form.metadata];
+    var opts = [{sheetid:'Facturacion',header:true},{sheetid:'Arqueo',header:false}];
+    var res = alasql('SELECT INTO XLSX("Arqueo.xlsx",?) FROM ?',[opts,[data1,data2]]);
+  
+    }
+
+    $scope.downloadOnLIst = function(){
+      $scope._schema = $scope.form._billings.map(function(o){
+          var _output = new Object();
+
            _output.vendedor = o._seller.full_name; 
            _output.fecha = new Date(o.createdAt).toISOString().substr(0,10); 
            _output.Cliente = o._client.full_name; 
-           _output.total = o.metadata.total.toString();
-           _output.Estado = o.metadata.estado.toString();
+           _output.total = o.data.total.toString();
 
           return _output; 
       });
@@ -71,12 +100,19 @@ angular.module('shoplyApp')
                     swal.showInputError("You need to write something!");
                     return false   
               } 
+              
+              var _data = {};
+              _data.data = {};
+              _data._seller = $scope.formData._seller;
 
-              var _data = angular.copy($scope.form._billings);
-              _data.metadata = {};
-              _data.metadata.arqueo = inputValue;
+              _data.ini = moment($scope.formData.ini).startOf('day').format();
+              _data.end = moment($scope.formData.end).endOf('day').format();
+              _data.data.arqueo = inputValue;
+              _data.data.total_sistema = $scope.form.metadata.total_sistema
+              _data.data.sobrante = $scope.form.metadata.sobrante;
+              _data.data.faltante = $scope.form.metadata.faltante;
 
-              _data._billings = $scope.form._billings.map(function(o){
+              _data._request = $scope.form._billings.map(function(o){
                 return o._id;
               });
 
@@ -94,15 +130,55 @@ angular.module('shoplyApp')
             });
     }
 
+
     $scope.find = function(){
-      $scope.Records = true;
-       api.facturacion().add("find/").post($scope.formData).success(function(res){
-            if(res){
-              $scope.form._billings = res || [];
-              $scope.totalize();
-              $scope.Records = false;
-            }
-          });
+       $scope.formData = $scope.formData || {};
+       $scope.formData.ini = moment($scope.formData.ini).startOf('day').format();
+       $scope.formData.end = moment($scope.formData.end).endOf('day').format();
+
+       api.arqueos().add("find/").post($scope.formData).success(function(res){
+         if(res.length > 0){
+            sweetAlert.swal("Arqueo Existente", "Ya existe un arqueo para este usuario en esta fecha", "error");
+            delete $scope.formData;
+            delete $scope.formD;
+         }else if(res.length == 0){
+             $scope.Records = true;
+             $scope.formData = $scope.formData || {};
+             $scope.formData.ini = moment($scope.formData.ini).startOf('day').format();
+             $scope.formData.end = moment($scope.formData.end).endOf('day').format();
+
+             api.facturacion().add("find/").post($scope.formData).success(function(res){
+                  if(res.length > 0){
+                    $scope.form._billings = res || [];
+                    $scope.form.metadata.total_sistema = 0;
+                    $scope.form.metadata.sobrante = 0;
+                    $scope.form.metadata.faltante = 0;
+                    $scope.totalize();
+                    $scope.formasDePagos = [];
+                    $scope.ffp = [];
+                    $scope.Records = false;
+
+                    api.formas_pagos().get().success(function(fp){
+                        $scope.payments = fp;
+
+                        angular.forEach(fp, function(payment){
+                            angular.forEach($scope.form._billings, function(bill){
+                                  $scope.formasDePagos.push({id : payment.data.descripcion, values : bill._payments.filter(function(pay){return pay._id == payment._id;})});
+                            });
+                        });
+                    });
+
+                  }else{
+                      sweetAlert.swal("0 Resultados", "No se encontraron registros para este usuario", "error");
+                      delete $scope.formData;
+                      $scope.form._billings  =  $scope.form._billings || [];
+                      $scope.Records = false;
+                  }
+                });          
+         }
+       });
+
+
     }
 
     $scope.print = function(data){

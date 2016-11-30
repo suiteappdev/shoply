@@ -35,7 +35,8 @@
     "angular-recaptcha": "^3.0.4",
     "metisMenu": "^2.5.2",
     "angular-preload-image": "*",
-    "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0"
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0",
+    "jstree-bootstrap-theme": "https://github.com/orangehill/jstree-bootstrap-theme.git#^1.0.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -50,6 +51,11 @@
       "main": [
         "min/moment.min.js",
         "locale/es.js"
+      ]
+    },
+    "jstree-bootstrap-theme": {
+      "main": [
+        "dist/themes/proton/style.css"
       ]
     }
   }

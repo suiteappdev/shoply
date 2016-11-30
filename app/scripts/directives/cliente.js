@@ -14,7 +14,7 @@ angular.module('shoplyApp')
         loadingClass: 'selectizeLoading',
         create : false,
   		  valueField: $scope.key,
-        maxOptions : 1,
+       // maxOptions : 1,
   		  labelField: $scope.label,
   		  placeholder: 'Cliente',
         openOnFocus : false,
@@ -28,7 +28,7 @@ angular.module('shoplyApp')
       template: '<selectize focus-on="true" config="myConfig" options="records" ng-model="ngModel"></selectize>',
       restrict: 'EA',
       scope : {
-      	ngModel : "=",
+      	ngModel : "=ngModel",
         key : "@",
         label : "@",
       },

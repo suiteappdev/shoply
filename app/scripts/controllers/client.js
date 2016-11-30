@@ -67,14 +67,14 @@ angular.module('shoplyApp')
 
     $scope.edit = function(){
 
-      switch($rootScope.grid.value.data.persona) {
+      switch(this.record.data.persona) {
           case "natural":
-            $scope.formEditPersonaNatural = angular.copy($rootScope.grid.value);
-            $scope.selected = $rootScope.grid.value.data.persona;
+            $scope.formEditPersonaNatural = angular.copy(this.record);
+            $scope.selected = this.record.data.persona;
               break;
           case "juridica":
-            $scope.formEditPersonaJuridica = angular.copy($rootScope.grid.value);
-            $scope.selected = $rootScope.grid.value.data.persona;
+            $scope.formEditPersonaJuridica = angular.copy(this.record);
+            $scope.selected = this.record.data.persona;
 
               break;
           default:
@@ -128,7 +128,7 @@ angular.module('shoplyApp')
     }
 
     $scope.delete = function(){
-        var _record = $rootScope.grid.value;
+        var _record = this.record;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

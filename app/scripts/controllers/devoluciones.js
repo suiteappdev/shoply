@@ -9,7 +9,8 @@
  */
 angular.module('shoplyApp')
   .controller('DevolucionesCtrl',["$scope", "storage", "shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http","$filter", function($scope, $storage, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter) {
-    
+    $scope.records = [];
+
     $scope.findByCode = function($event){
       if($event.keyCode == 13 || $event.which  == 13){
        $scope.Records = true;
@@ -35,10 +36,28 @@ angular.module('shoplyApp')
     $scope.find = function(){
        $scope.devolucionesRecords = [];
        $scope.Records = true;
+       
+       $scope.form = $scope.form || {};
+       $scope.form.data = $scope.form.data || {};
+       
+       $scope.form.data.ini = moment($scope.form.data.ini).startOf('day').format();
+       $scope.form.data.end = moment($scope.form.data.end).endOf('day').format();
+
        api.facturacion().add("find").post($scope.form.data).success(function(res){
+          if(res.length == 0){
+            sweetAlert.swal("Oops...", "No se encontraron resultados en esta busqueda!", "error");;
+          }
+
           $scope.devolucionesRecords = res || [];
           $scope.Records = false;
        });
+    }
+
+    $scope.verFormaDePago = function(){
+      $scope.records = this.record._payments;
+      window.modal = modal.show({templateUrl : 'views/facturacion/verFormasDePago.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        $scope.$close();
+      });
     } 
 
 
@@ -53,10 +72,10 @@ angular.module('shoplyApp')
     }, true);
 
     $scope.load = function(){
-      $scope.setDefault = $storage.get('defaultClient') || null;
+     // $scope.setDefault = $storage.get('defaultClient') || null;
     }
 
-    $scope.printA = function(data, iva_detail){
+    $scope.printA = function(data){
       Handlebars.registerHelper('formatCurrency', function(value) {
           return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
       });

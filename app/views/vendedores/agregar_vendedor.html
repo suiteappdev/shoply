@@ -3,7 +3,7 @@
         <!--<i class="fa fa-sliders color-success h-modal-icon"></i>-->
         <h4 class="modal-title">Crear Vendedor</h4>
     </div>
-  	<div class="modal-body modal-body-pattern">
+  	<div class="modal-body">
     	<div>
   	  	<form name="formVendedor" novalidate>
           <div class="row">
@@ -12,13 +12,13 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label>Nombres * :</label>
-                    <input type="text" required name="firstname" ng-model="form.name"  class="form-control" placeholder="Nombres">
+                    <input type="text" required name="firstname" ng-model="form.name"  class="form-control input-sm" placeholder="Nombres">
                   </div>                  
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Apellidos * :</label>
-                      <input type="text" required name="lastname" ng-model="form.last_name"  class="form-control" placeholder="Apellidos">
+                      <input type="text" required name="lastname" ng-model="form.last_name"  class="form-control input-sm" placeholder="Apellidos">
                     </div>                  
                 </div>
               </div>
@@ -32,25 +32,25 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Numero de Documento * :</label>
-                      <input type="text" required name="numero_documento" ng-model="form.metadata.numero_documento"  class="form-control" placeholder="Numero de Documento">
+                      <input type="text" required name="numero_documento" ng-model="form.metadata.numero_documento"  class="form-control input-sm" placeholder="Numero de Documento">
                     </div>                                  
                 </div>
               </div>
               <div class="form-group">
                 <label>Correo * :</label>
-                <input type="email" required name="email" ng-model="form.email"  class="form-control" placeholder="Correo electronico">
+                <input type="email" required name="email" ng-model="form.email"  class="form-control input-sm" placeholder="Correo electronico">
               </div>
               <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Celular:</label>
-                      <input type="text" class="form-control" international-phone-number ng-model="form.metadata.phone">
+                      <input type="text" class="form-control input-sm" international-phone-number ng-model="form.metadata.phone">
                     </div>                  
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Fijo:</label>
-                      <input type="text" class="form-control" placeholder="Fijo" ng-model="form.metadata.fijo">
+                      <input type="text" class="form-control input-sm" placeholder="Fijo" ng-model="form.metadata.fijo">
                     </div>  
                 </div>
               </div>
@@ -78,13 +78,13 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                           <label>Contraseña * :</label>
-                          <input type="password" required name="password" ng-model="form.password"  class="form-control" placeholder="Contraseña">
+                          <input type="password" required name="password" ng-model="form.password"  class="form-control input-sm" placeholder="Contraseña">
                         </div>                      
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label>Confirmar Contraseña * :</label>
-                        <input type="password" required name="confirmPassowrd" ng-model="form.confirm"  class="form-control" placeholder="Confirmar Contraseña">
+                        <input type="password" required name="confirmPassowrd" ng-model="form.confirm"  class="form-control input-sm" placeholder="Confirmar Contraseña">
                       </div>                      
                     </div>
                   </div>

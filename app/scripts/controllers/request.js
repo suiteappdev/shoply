@@ -38,7 +38,7 @@ angular.module('shoplyApp')
     }
 
     $scope.detail = function(){
-      $state.go('dashboard.detalle_pedido', {pedido: $rootScope.grid.value._id});
+      $state.go('dashboard.detalle_pedido', {pedido: this.record._id});
     }
   
   $scope.myConfig = {

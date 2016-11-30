@@ -35,19 +35,26 @@ angular.module('shoplyApp')
                 return;
             }
 
-            api.categoria().post(angular.extend($scope.form, {id : $scope.form.text})).success(function(res){
+            if($rootScope.selectedNode){
+              $scope.form.parent = $rootScope.selectedNode.node.id;
+            }
+
+            api.categoria().post($scope.form).success(function(res){
                 if(res){
                     $scope.records.push(res);
                     sweetAlert.swal("Registro completado.", "has registrado una nueva categoria.", "success");
                     $scope.$close();
                     delete $scope.form.data;
+                    delete $rootScope.selectedNode;
                 }
             });
         });
     }
 
     $scope.delete = function(){
-        var _record = $rootScope.grid.value;
+        var _record = angular.copy($scope.records.filter(function(obj){
+          return obj.id == $rootScope.selectedNode.node.id;
+        })[0]);
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 
@@ -55,6 +62,7 @@ angular.module('shoplyApp')
                     api.categoria(_record._id).delete().success(function(res){
                         if(res){
                             $scope.records.splice($scope.records.indexOf(_record), 1);
+                             delete $rootScope.selectedNode;
                         }
                     });
                }
@@ -62,8 +70,9 @@ angular.module('shoplyApp')
    }
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy($rootScope.grid.value);
-      $scope.formEdit._category = $rootScope.grid.value;
+      $scope.formEdit = angular.copy($scope.records.filter(function(obj){
+        return obj.id == $rootScope.selectedNode.node.id;
+      })[0]);
 
       window.modal = modal.show({templateUrl : 'views/categorias/editar_categoria.html', size :'md', scope: $scope, backdrop:true}, function($scope){
             if($scope.formEditCategoria.$invalid){
@@ -73,10 +82,11 @@ angular.module('shoplyApp')
 
             api.categoria($scope.formEdit._id).put($scope.formEdit).success(function(res){
                 if(res){
-                    sweetAlert("Registro Modificado", "Registro modificado correctamente.", "success");
+                    sweetAlert.swal("Registro Modificado", "Registro modificado correctamente.", "success");
                     $scope.load();
                     $scope.$close();
                     delete $scope.formEdit;
+                    delete $rootScope.selectedNode;
                 }
             });
       });

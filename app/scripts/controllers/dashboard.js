@@ -85,6 +85,7 @@ angular.module('shoplyApp')
               $rootScope.user._company = res;
               storage.update('user', $rootScope.user);
               toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
+              $state.go('dashboard');
             });
           });       
     } 
@@ -105,6 +106,7 @@ angular.module('shoplyApp')
                 toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
                 $scope.loading = false;
                 $scope.$close();
+                $state.go('dashboard');
               }, 5000);
             });     
          });        
@@ -117,13 +119,13 @@ angular.module('shoplyApp')
     }
 
     $scope.agregarFormasDePago = function(){
-        window.modal = modal.show({templateUrl : 'views/formaDePago/agregar_formaDePago.html', size :'md', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
+        window.modal = modal.show({templateUrl : 'views/formaDePago/agregar_formaDePago.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
         $scope.$close();
        });  
     }
 
     $scope.agregarConsecutivo = function(){
-        window.modal = modal.show({templateUrl : 'views/contador/agregar_contadores.html', size :'md', scope: $scope, backdrop:'static', windowClass: 'center-modal'}, function($scope){
+        window.modal = modal.show({templateUrl : 'views/contador/agregar_contadores.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
           $scope.$close();
        });  
     }

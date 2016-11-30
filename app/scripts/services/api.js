@@ -25,6 +25,8 @@ angular.module('shoplyApp')
     this.reset_password = function(){ this.url = constants.base_url + "reset/"; return this;};
     this.verification_code = function(){ this.url = constants.base_url + "user/verification-code/"; return this;};
     this.permiso = function(permiso){if(permiso) this.url = constants.base_url + "permisos/" + permiso; else this.url = constants.base_url + "permisos/"; return this;};
+    this.bodega = function(bodega){if(bodega) this.url = constants.base_url + "bodegas/" + bodega; else this.url = constants.base_url + "bodegas/"; return this;};
+    this.entradas = function(entrada){if(entrada) this.url = constants.base_url + "entradas/" + entrada; else this.url = constants.base_url + "entradas/"; return this;};
     this.producto = function(producto){if(producto) this.url = constants.base_url + "producto/" + producto; else this.url = constants.base_url + "producto/"; return this;};
     this.pedido = function(pedido){if(pedido) this.url = constants.base_url + "pedido/" + pedido; else this.url = constants.base_url + "pedido/"; return this;};
     this.rutas = function(ruta){if(ruta) this.url = constants.base_url + "rutas/" + ruta; else this.url = constants.base_url + "rutas/"; return this;};

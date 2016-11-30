@@ -53,12 +53,16 @@ angular
                 }
                  
                 console.log(config, 'request')
-
-                for (var x in config.data) {
+                
+                if(config.method == 'POST'){
+                    config.data.metadata = config.data.metadata || {}
+                    config.data.metadata._author = window.localStorage.user ? angular.fromJson(window.localStorage.user)._id : null; 
+                  }
+                /*for (var x in config.data) {
                     if (typeof config.data[x] === 'boolean') {
                         config.data[x] += '';
                     }
-                }
+                }*/
 
                 return config || $q.when(config);
             },
@@ -169,6 +173,24 @@ angular
               templateUrl: 'views/permisos/permisos.html',
               data: {
                 pageTitle: 'Permisos'
+              }
+          })
+          .state('dashboard.bodega', {
+              url: '/bodega',
+              access: { requiredAuthentication: true },
+              controller:'GroceryCtrl',
+              templateUrl: 'views/bodega/bodegas.html',
+              data: {
+                pageTitle: 'Bodega'
+              }
+          })
+          .state('dashboard.entradas', {
+              url: '/entradas',
+              access: { requiredAuthentication: true },
+              controller:'EntradaCtrl',
+              templateUrl: 'views/entradas/entradas.html',
+              data: {
+                pageTitle: 'Entradas'
               }
           })
           .state('public', {
@@ -332,7 +354,7 @@ angular
                 }
           })
           .state('dashboard.crear-arqueo', {
-                url: '/crear-arqueo',
+                url: '/crear-arqueo/:employee?',
                 access: { requiredAuthentication: true },
                 controller:'ArqueoCtrl',
                 templateUrl: 'views/arqueos/crear-arqueo.html',
@@ -476,7 +498,7 @@ angular
         });
 
       $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
-            if($rootScope.grid && $rootScope.grid.value)
+            if($rootScope.grid)
               delete $rootScope.grid;
             if(window.modal){
               window.modal.close();

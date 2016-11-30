@@ -38,7 +38,7 @@ angular.module('shoplyApp')
       },
       controller : ctrl,
       link: function postLink(scope, element, attrs) {
-
+        console.log(element)
       }
     };
   });

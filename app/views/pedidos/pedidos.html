@@ -11,34 +11,56 @@
       </div>
     </div>  
   </div>
+<div class="col-lg-12 content" ng-show="records.length > 0">
+        <div class="hpanel">
+            <div class="panel-body">
+            <div class="form-group">
+      <label>Buscar</label>
+      <input type="text" ng-model="search" class="form-control input-sm m-b-md" id="filter" placeholder="Buscar en la tabla">
+              
+            </div>
+                <div class="table-responsive">
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Codigo</th>
+                  <th>Vendedor</th>
+                  <th>Cliente.</th>
+                  <th>Ciudad.</th>
+                  <th>Barrio</th>
+                  <th>Dir.</th>
+                  <th>Total</th>
+                  <th>SubTotal</th>
+                  <th>Fecha</th>
+                  <th></th>
+                  <th style="width: 36px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  dir-paginate="record in records | filter:search | orderBy:'-createdAt' | itemsPerPage: 5 ">
+                  <td>{{record.id}}</td>
+                  <td>{{record._seller.full_name.toLowerCase()}}</td>
+                  <td>{{record._client.full_name.toLowerCase()}}</td>
+                  <td>{{record.metadata.ciudad.toLowerCase()}}</td>
+                  <td>{{record.metadata.barrio.toLowerCase()}}</td>
+                  <td>{{record.metadata.direccion.toLowerCase()}}</td>
+                  <td>{{record.metadata.total | currency:"$ "}}</td>
+                  <td>{{record.metadata.subtotal || 0 | currency:"$ "}}</td>
+                  <td>{{record.createdAt | date:"MM-dd-yyyy ' ' h:mma"}}</td>
+                  <td></td>
+                  <td><button ng-click="detail()" type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Detalle</button></td>
+                </tr>
+              </tbody>
+            </table>
+                </div>
+                <div class="col-lg-12">
+                  <dir-pagination-controls class="pull-right" pagination-id="PedidosEntity"></dir-pagination-controls>
+                </div>
+            </div>
+            <div class="panel-footer">
+                Listado de Pedidos
+            </div>
+        </div>
+    </div>
 	<div class="row" ng-show="records.length > 0">
-	<ul class="sp-list"> 
-      <li  ng-click="$root.grid.value = record;" choice="$root.grid.selected" value="record._id" class="sp-list-item sp-choice" dir-paginate="record in records | filter:search | orderBy:'-createdAt' | itemsPerPage: 5 " pagination-id="requestEntity">
-        <div class="sp-item-image">
-          <img preload-image default-image="images/no-user-image.gif" fallback-image="images/loading.svg" ng-src="{{record.data.gallery[0].URL}}">
-        </div>
-        <span class="sp-meta-right">Fecha de Pedido : {{record.createdAt | date:'yyyy-MM-dd'}}</span>
-        <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
-        <a class="trash" style="right:35px!important;" ng-click="detail()" href=""><i class="glyphicon glyphicon-eye-open"></i></a>
-        <h4>{{record._seller.full_name || (record._client.name +" " + record._client.last_name)}}</h4>
-        <p>{{record.data.descripcion}}</p>
-        <p class="sp-text">Ciudad:&nbsp;{{record.metadata.ciudad}}&nbsp;&nbsp;</p>
-        <p class="sp-text">Barrio:&nbsp;{{record.metadata.barrio}}&nbsp;&nbsp;</p>
-        <p class="sp-text">Direccion:&nbsp;{{record.metadata.direccion}}&nbsp;&nbsp;</p>
-        <p class="sp-text">Telefono:&nbsp;{{record.metadata.telefono}}&nbsp;&nbsp;</p>
-        <p>TOTAL:&nbsp;<span style="font-weight: 900;color:#001c24;">{{record.metadata.total | currency:"$ " }}</span></p>
-        <span style="position: absolute;top: 4px;right: 150px;" class="label label-darkblue" ng-show="record.metadata.estado == 'Facturado'">{{record.metadata.estado}}</span>
-        <span style="position: absolute;top: 4px;right: 150px;" class="label label-default" ng-show="record.metadata.estado == 'Pendiente'">{{record.metadata.estado}}</span>
-        <span style="position: absolute;top: 4px;right: 150px;" class="label label-success" ng-show="record.metadata.estado == 'Despachado'">{{record.metadata.estado}}</span>
-        <div class="row">
-          <div class="sp-footer">
-
-          </div>
-        </div>
-      </li>
-    </ul>
-  <div class="col-lg-12">
-    <dir-pagination-controls class="pull-right" pagination-id="requestEntity"></dir-pagination-controls>
-  </div>
-	</div>
 </div>

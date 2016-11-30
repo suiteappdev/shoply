@@ -31,7 +31,7 @@ angular.module('shoplyApp')
   	}
 
     $scope.edit = function(){
-      $scope.formEdit = angular.copy($rootScope.grid.value);
+      $scope.formEdit = angular.copy(this.record);
       
       if($scope.formEdit.data.barrios){
         $scope.barrios = $scope.formEdit.data.barrios.map(function(o){
@@ -61,7 +61,7 @@ angular.module('shoplyApp')
     }
 
     $scope.delete = function(){
-        var _record = $rootScope.grid.value;
+        var _record = this.record;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 

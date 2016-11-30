@@ -112,8 +112,16 @@ angular.module('shoplyApp')
         });
   	}
 
+    $scope.verFormularios = function(){
+      $scope.record = angular.copy(this.record.data.permission);
+      
+      window.modal = modal.show({templateUrl : 'views/permisos/verFormularios.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        $scope.$close();
+      });
+    }
+
     $scope.edit = function(){
-      $scope.formEdit = angular.copy($rootScope.grid.value);
+      $scope.formEdit = angular.copy(this.record);
       window.modal = modal.show({templateUrl : 'views/permisos/editar_permiso.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formEditarPermiso.$invalid){
                  modal.incompleteForm();
@@ -169,7 +177,7 @@ angular.module('shoplyApp')
     } 
 
     $scope.delete = function(){
-        var _record = $rootScope.grid.value;
+        var _record = this.record;
 
         modal.removeConfirm({closeOnConfirm : true}, 
             function(isConfirm){ 
