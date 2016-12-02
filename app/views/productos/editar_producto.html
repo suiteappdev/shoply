@@ -15,9 +15,9 @@
 		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='prices' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='prices';" class="custom-btn btn-block">Precios</button>
 		  		</div>	
 	  		</div>
-	  		<div class="col-lg-3 hidden">
+	  		<div class="col-lg-3">
 		  		<div class="form-group">
-		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='features' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='features';" class="custom-btn btn-block">Caracteristicas</button>
+		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='stock' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='stock';" class="custom-btn btn-block">Inventario</button>
 		  		</div>	
 	  		</div>
 	  		<div class="col-lg-3">
@@ -29,8 +29,57 @@
   	<div class="row" ng-show="selected == 'album'">
   		<image-uploader area="square" title="Galeria del producto" button-text="Cargar imagenes" ng-model="$parent.formEdit.data.gallery"><image-uploader>
   	</div>
-  	<div class="row" ng-show="selected == 'features'">
-  		<p>Feactures</p>
+  	<div class="row" ng-show="selected == 'stock'">
+	  	<div class="col-lg-12">
+		  	<div class="row">
+		  		<div class="col-lg-5">
+			        <div class="form-group">
+			        	<label for="name" >Bodega:</label>
+			        	<bodega-field placeholder="Bodega" required ng-model="$parent._grocery" key="_id" label="name"><bodega-field>
+			        </div>
+
+		  		</div>
+		  		<div class="col-lg-5">
+		  		<div class="form-group">
+		  			<label></label>
+		  			<button ng-click="getByProduct()" type="button" class="btn custom-btn-primary input-sm"><i class="glyphicon glyphicon-search"></i>&nbsp;Obtener todas las existencias</button>
+		  		</div>	
+		  		</div>
+ 				
+		  	</div>
+			<table class="table table-hover">
+			    <thead>
+			      <tr>
+			        <th>Cantidad</th>
+			        <th>Bodega</th>
+			        <th>Departamento</th>
+			        <th>Ciudad</th>
+			        <th></th>
+			        <th></th>
+			      </tr>
+			    </thead>
+			    <tbody>
+                  <td ng-show="!stocks || stocks.length == 0" colspan="6" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;{{msg || 'Porfavor elija una bodega para iniciar su busqueda.'}}</td>
+			      <tr ng-repeat="stock in stocks" ng-init="count()">
+			        <td>{{stock.amount}}</td>
+			        <td>{{stock._grocery.data.bodega}}</td>
+			        <td>{{stock._grocery.data.departamento}}</td>
+			        <td>{{stock._grocery.data.ciudad.toLowerCase()}}</td>
+			        <td></td>
+			        <td></td>
+			      </tr>
+                    <tr ng-show="total">
+                    	<td colspan="6" class="text-left animated fadeInLeft"><strong>Total productos:</strong> {{total || 0}}</td>
+                	</tr>
+			    </tbody>
+			  </table>	  	
+  		</div>
+		<div class="col-lg-12">
+            <label class="text-dark">
+            <input ng-change="setDefaultClient()" icheck type="checkbox"  ng-model="defaultOption" class="info-bounce">
+                Vender en negativo.
+            </label>
+		</div>
   	</div>
   	<div class="row" ng-show="selected == 'prices'">
 	  	<div class="col-lg-4">

@@ -62,7 +62,7 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td colspan="9" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;sin resultados.</td>
+                      <td ng-show="!recordsNew || recordsNew.length == 0" colspan="9" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;sin resultados.</td>
                     </tr>
                     <tr  dir-paginate="record in recordsNew |filter:search |itemsPerPage: 5 " pagination-id="productoEntradaEntity">
                       <td><span class="label label-primary">{{record.idcomposed}}</span></td>

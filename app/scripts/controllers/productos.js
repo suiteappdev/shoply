@@ -25,6 +25,38 @@ angular.module('shoplyApp')
       });
     }
 
+    $scope.$watch('_grocery', function(n, o){
+      if(n){
+        api.cantidades().add('stock/' + n).add('/' + $scope.formEdit._id).get().success(function(res){
+          $scope.stocks = res;
+          if($scope.stocks.length == 0){
+            $scope.msg = 'No se encontraron movimientos en esta bodega';
+          }else{
+            delete $scope.msg;
+          }
+        });
+      }
+    });
+
+    $scope.getByProduct = function(){
+        $scope.total = 0;
+        api.cantidades().add('stock/' + $scope.formEdit._id).get().success(function(res){
+          $scope.stocks = res;
+          
+          $scope.stocks.map(function(stock){
+            $scope.total = ($scope.total + parseInt(stock.amount));
+
+            return stock;
+          });
+
+          if($scope.stocks.length == 0){
+            $scope.msg = 'No se encontraron movimientos en esta bodega';
+          }else{
+            delete $scope.msg;
+          }
+        });
+    }
+
     $scope.detail = function(){
       var url = $state.href('dashboard.detalle_producto', { producto : $rootScope.grid.value._id});
       window.open(url, '_blank');
@@ -112,7 +144,15 @@ angular.module('shoplyApp')
     });
 
     $scope.editLoad = function(){
-      
+      if($scope.stocks && $scope.stocks.length > 0){
+        delete $scope.stocks;
+      }
+
+      if($scope._grocery){
+        delete $scope._grocery;
+
+      }
+
        $scope.$watch('formEdit.data.precio', function(n, o){
         try{
           var _valor_iva = ((parseInt($scope.EditIva ? $scope.EditIva.valor  : 0  || $scope.ivaValue) / 100) * $scope.formEdit.data.precio  || 0); 

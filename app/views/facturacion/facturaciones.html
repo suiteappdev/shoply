@@ -68,10 +68,14 @@ padding: 10px;">
 <div class="col-lg-12 content" ng-show="records.length > 0">
         <div class="hpanel">
             <div class="panel-body">
-            <div class="form-group">
-			<label>Buscar</label>
-			<input type="text" ng-model="search" class="form-control input-sm m-b-md" id="filter" placeholder="Buscar en la tabla">
-            	
+            <div class="row">
+            	<div class="col-lg-4">
+		            <div class="form-group">
+					<label>Buscar</label>
+					<input type="text" ng-model="search" class="form-control input-sm m-b-md" id="filter" placeholder="Buscar en la tabla">
+		            	
+		            </div>            		
+            	</div>
             </div>
                 <div class="table-responsive">
 					<table class="table table-hover">
@@ -81,8 +85,9 @@ padding: 10px;">
 					        <th>Codigo</th>
 					        <th>Producto</th>
 					        <th>Base</th>
-					        <th>Precio de Venta</th>
 					        <th>V. Iva</th>
+					        <th>Descuento</th>
+					        <th>Precio de Venta</th>
 					        <th style="width: 36px;"></th>
 					        <th style="width: 36px;"></th>
 					        <th style="width: 36px;"></th>
@@ -93,9 +98,10 @@ padding: 10px;">
 					      	<td>{{record.cantidad}}</td>
 					        <td><span class="label label-primary">{{record.idcomposed}}</span></td>
 					        <td>{{record.producto}}</td>
-					        <td>{{record.precio  | currency:"$ "}}</td>
-					        <td>{{record.precio_venta  | currency:"$ "}}</td>
+					        <td>{{(record.precio  +  record.valor_utilidad)  | currency:"$ "}}</td>
 					        <td>{{record.valor_iva  | currency:"$ "}}</td>
+					        <td>{{record.descuento || 0 | currency:"$ "}}</td>
+					        <td>{{record.precio_venta  | currency:"$ "}}</td>
 			                <td><button ng-click="agregarCantidad()" type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus"></i>&nbsp;Cantidad</button></td>
 			                <td><button ng-click="agregarDescuento()" type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-plus"></i>&nbsp;Descuento</button></td>
 					        <td><button ng-click="delete()" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;Quitar</button></td>

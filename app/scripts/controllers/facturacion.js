@@ -160,12 +160,16 @@ angular.module('shoplyApp')
           $scope.form.data.TotalIva = $scope.TotalIva;
           $scope.form.data.total = $scope.totalParcial;
           $scope.form.data.subtotal =  $scope.subTotal;
+
           $scope.form.data.descuentoGlobal = $scope.gdiscount || 0;
           $scope.form.data.valorDescuentoGlobal = $scope.vgdescuento;
           $scope.form._payments = $scope.paymentMethods;
+          $scope.form.data.descuento = 0;
 
           $scope.form._product = $scope.records.map(function(o){
               delete o.$order;
+              $scope.form.data.descuento = ($scope.form.data.descuento + parseInt(o.descuento))
+              console.log($scope.form.data.descuento)
               return o;
           });
 
@@ -192,7 +196,7 @@ angular.module('shoplyApp')
 
                 angular.forEach(o, function(_o){
                     _SUM.tipo = _o.iva.data.valor;
-                    _SUM.total = (_SUM.total + _o.precio_venta);
+                    _SUM.total = (_SUM.total + (_o.precio + _o.valor_utilidad - _o.descuento));
                     _SUM.viva = (_SUM.viva + _o.valor_iva || 0);                     
                 });
 
@@ -210,6 +214,7 @@ angular.module('shoplyApp')
                             delete $scope.rs;
                             $scope.records.length = 0;
                             response.createdAt = moment(new Date(response.createdAt)).format('lll');
+                            console.log(response);
                             $scope.printA(response);
                             
                             $scope.$close();
@@ -225,6 +230,7 @@ angular.module('shoplyApp')
                       delete $scope.form;
                       $scope.records.length = 0;
                       res.createdAt = moment(new Date(res.createdAt)).format('lll');
+                      console.log("response", res);
                       $scope.printA(res);
                       $scope.$close();
                       sweetAlert.swal("Listo.", "Venta realizada correctamente.", "success");
@@ -239,7 +245,7 @@ angular.module('shoplyApp')
     $scope.agregarCantidad = function(){
      var _record = this.record;
 
-       window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
           if($scope.cantidadModel){
             $scope.records[$scope.records.indexOf(_record)].cantidad = parseInt($scope.cantidadModel || 1);
             $scope.$close();
@@ -252,9 +258,14 @@ angular.module('shoplyApp')
 
      window.modal = modal.show({templateUrl : 'views/facturacion/descuento.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
         if($scope.pdiscount){
-          $scope.descuentoRecord.descuento = parseInt($scope.pdiscount) || 0;
-          $scope.descuentoRecord.valor_descuento = ($scope.descuentoRecord.precio_venta * $scope.descuentoRecord.cantidad) * (parseInt($scope.descuentoRecord.descuento || 0) / 100);
-          $scope.descuentoRecord.total  = ($scope.descuentoRecord.total - $scope.descuentoRecord.valor_descuento); 
+          $scope.descuentoRecord.descuento = ($scope.descuentoRecord.precio_venta *  parseInt($scope.pdiscount)) / 100;
+          $scope.descuentoRecord.total  = ($scope.descuentoRecord.total - $scope.descuentoRecord.descuento); 
+          $scope.$close();
+        }
+
+        if($scope.pdiscountPesos){
+          $scope.descuentoRecord.descuento = $scope.pdiscountPesos;
+          $scope.descuentoRecord.total  = ($scope.descuentoRecord.total - $scope.descuentoRecord.descuento); 
           $scope.$close();
         }
      });

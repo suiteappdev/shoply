@@ -15,9 +15,9 @@
 		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='prices' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='prices';" class="custom-btn btn-block">Precios</button>
 		  		</div>	
 	  		</div>
-	  		<div class="col-lg-3 hidden">
+	  		<div class="col-lg-3">
 		  		<div class="form-group">
-		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='features' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='features';" class="custom-btn btn-block">Caracteristicas</button>
+		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='stcok' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='stock';" class="custom-btn btn-block">Inventario</button>
 		  		</div>	
 	  		</div>
 	  		<div class="col-lg-3">
@@ -28,9 +28,6 @@
 	  	</div>
   	<div class="row" ng-show="selected == 'album'">
   		<image-uploader area="square" title="Galeria del producto" button-text="Cargar imagenes" ng-model="form.data.gallery"><image-uploader>
-  	</div>
-  	<div class="row" ng-show="selected == 'features'">
-  		<p>Feactures</p>
   	</div>
   	<div class="row" ng-show="selected == 'prices'">
 	  	<div class="col-lg-4">
@@ -108,7 +105,8 @@
 	  		</form>
 		</div>
 	</div>
-	<div class="row" style="border: none;background-color: #000D11;color: #FFF;margin:0px;">
+	<div class="row" style="border: none;background-color: #000D11;color: #FFF;margin:0px;position: relative;
+    bottom: -15px;">
 		<div class="col-lg-12">
 		  <div class="col-lg-6 text-left">
 		  	<h4 style="color:white !important">Precio de Venta :</h4>	

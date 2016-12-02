@@ -28,7 +28,8 @@ angular.module('shoplyApp')
       scope : {
       	ngModel : "=",
         key : "@",
-        label : "@"
+        label : "@",
+        changed : "&"
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {
