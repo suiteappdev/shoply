@@ -26,6 +26,7 @@ angular.module('shoplyApp')
     }
 
     $scope.$watch('_grocery', function(n, o){
+      delete $scope.total;
       if(n){
         api.cantidades().add('stock/' + n).add('/' + $scope.formEdit._id).get().success(function(res){
           $scope.stocks = res;
