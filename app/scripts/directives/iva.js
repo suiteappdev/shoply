@@ -32,7 +32,8 @@ angular.module('shoplyApp')
   		  valueField: '_id',
   		  labelField: 'descripcion',
   		  placeholder: 'Iva',
-  		  maxItems: 1
+  		  maxItems: 1,
+        allowEmptyOption: $scope.emptyOption
 		  };
   	}
 
@@ -41,7 +42,8 @@ angular.module('shoplyApp')
       restrict: 'E',
       scope : {
       	ngModel : "=",
-        setObject:"="
+        setObject:"=",
+        emptyOption : '@'
       },
       controller : ctrl,
       link: function postLink(scope, element, attrs) {

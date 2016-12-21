@@ -15,7 +15,8 @@ angular.module('shoplyApp')
           { text :"Facturas", value:"_invoice"  },
           { text :"Arqueos", value:"_tonnage"   },
           { text :"Bodega", value:"_grocery"   },
-          { text :"Entradas", value:"_inputs"   }
+          { text :"Entradas", value:"_inputs"   },
+          { text :"Salidas", value:"_outputs"   }
         ]; 
   		
   		$scope.myConfig = {

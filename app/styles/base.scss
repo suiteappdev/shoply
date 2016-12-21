@@ -15,6 +15,10 @@ html {
   overflow-x: hidden!important;
 }
 
+.modal-center{
+    top: 20%;  
+}
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     padding: 8px;
     line-height: 1.428571429;
@@ -827,7 +831,6 @@ pre                             { margin-bottom:20px; }
 .sp-choice.sp-active {
     border-width: 3px;
     border-left: 3px solid #001c24;
-    font-weight: bold;
 }
 .sp-text{
     display: inline;

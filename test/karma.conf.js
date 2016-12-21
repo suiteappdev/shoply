@@ -62,6 +62,8 @@ module.exports = function(config) {
       'bower_components/angular-preload-image/angular-preload-image.js',
       'bower_components/angular-hotkeys/build/hotkeys.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/angular-ui-utils/ui-utils.js',
+      'bower_components/angular-ui-map/ui-map.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

@@ -14,11 +14,29 @@
 <div class="col-lg-12 content" ng-show="records.length > 0">
         <div class="hpanel">
             <div class="panel-body">
-            <div class="form-group">
-			<label>Buscar</label>
-			<input type="text" ng-model="search" class="form-control input-sm m-b-md" id="filter" placeholder="Buscar en la tabla">
-            	
-            </div>
+		        <div class="row">
+		        	<div class="col-lg-4">
+						  <div class="form-group">
+							<label>Categoria:</label>
+					      	<categoria empty-option="true" key="_id" label="text" ng-model="filter._category"></categoria>
+							<span class="form-input-message">Elije una categoria para ver los productos.</span>
+						  </div>
+		        	</div>
+				  	<div class="col-lg-4">
+					  <div class="form-group">
+					    <label>Iva:</label>
+					    <iva empty-option="true" ng-model="filter._iva" set-object="$parent.iva" ></iva>
+					    <span class="form-input-message">Filtra por el tipo de Iva.</span>
+					  </div>
+				  	</div>
+		        	<div class="col-lg-4">
+			            <div class="form-group">
+							<label>Buscar</label>
+							<input type="text" ng-model="search" class="form-control input-sm m-b-md" id="filter" placeholder="Buscar en la tabla">
+							<span class="form-input-message">Escribe cualquier palabra, descripción...</span>
+			            </div>
+		        	</div>
+		        </div>
                 <div class="table-responsive">
 					<table class="table table-hover">
 					    <thead>
@@ -31,13 +49,21 @@
 					        <th>Utilidad</th>
 					        <th>V. Utilidad</th>
 					        <th>V. Iva</th>
+					        <th>S. Min</th>
+					        <th>S. Max</th>
 					        <th style="width: 36px;"></th>
 					        <th style="width: 36px;"></th>
 					        <th style="width: 36px;"></th>
 					      </tr>
 					    </thead>
 					    <tbody>
-					      <tr  dir-paginate="record in records |filter:search |itemsPerPage: 5 " pagination-id="productEntity">
+					      <tr  
+					      dir-paginate="record in records | 
+						      filter:search | 
+						      filter:{_category: {_id : filter._category} } | 
+						      filter:{_iva : { _id : filter._iva} } |
+						      itemsPerPage: 5 " 
+					      pagination-id="productosEntity">
 					        <td><span class="label label-primary">{{record.id}}</span></td>
 					        <td>{{record.data.producto}}</td>
 					        <td>{{record._category.text}}</td>
@@ -46,6 +72,8 @@
 					        <td>{{record.data.utilidad + '%'}}</td>
 					        <td>{{record.data.valor_utilidad  || 0 | currency:"$ "}}</td>
 					        <td>{{record.data.valor_iva || 0 | currency:"$ "}}</td>
+					        <td>{{record.data.stockMin || 0}}</td>
+					        <td>{{record.data.stockMax || 0}}</td>
 					        <td><button ng-click="verImpuestos()" type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Ivas</button></td>
      						<td><button ng-click="edit()" type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i>&nbsp;Editar</button></td>
 					        <td><button ng-click="delete()" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;Borrar</button></td>
@@ -54,7 +82,7 @@
 					  </table>
                 </div>
 				<div class="col-lg-12">
-					<dir-pagination-controls class="pull-right" pagination-id="ArqueosEntity"></dir-pagination-controls>
+					<dir-pagination-controls class="pull-right" pagination-id="productosEntity"></dir-pagination-controls>
 				</div>
             </div>
             <div class="panel-footer">

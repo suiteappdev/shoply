@@ -44,6 +44,7 @@ angular.module('shoplyApp')
       $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._route = $scope.formEdit._route.map(function(_o){return _o._id});
       $scope.formEdit._permission = $scope.formEdit._permission ? $scope.formEdit._permission._id : null;
+      $scope.formEdit._grocery = $scope.formEdit._grocery ? $scope.formEdit._grocery.map(function(g){ return g._id}) : null;
       delete $scope.formEdit.password;
       
       window.modal = modal.show({templateUrl : 'views/empleado/editar_empleado.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){

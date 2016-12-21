@@ -15,6 +15,7 @@ window.permisos = {
 	forms  : [			{"parent":"mnuAjustes","nombre":"Ivas", "id":"frmIvas"},
 						{"parent":"mnuAjustes","nombre":"Formas de Pago", "id":"frmFormaPagos"},
 						{"parent":"mnuAjustes","nombre":"Consecutivos", "id":"frmConsecutivos"},
+						{"parent":"mnuAjustes","nombre":"Casas Comerciales", "id":"frmCasaComercial"},
 						{"parent":"mnuUsuarios","nombre":"Usuarios", "id":"frmUsuarios"},
 						{"parent":"mnuUsuarios","nombre":"Empleados", "id":"frmEmpleados"},
 						{"parent":"mnuUsuarios","nombre":"Vendedores", "id":"frmVendedores"},

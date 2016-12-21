@@ -96,8 +96,32 @@ angular.module('shoplyApp')
 angular.module('shoplyApp')
   .controller('EntradaCreateCtrl', function ($scope, $timeout, $rootScope,  sweetAlert, constants, $state, modal, api, storage, shoppingCart) {
       
+      $scope.tasks = [];
+
       $scope.load = function(){
          $scope.$parent.recordsNew = [];
+      }
+
+      $scope.addToTask = function(){
+        if(this.task){
+          $scope.tasks.push(this.$index);
+          return
+        }
+
+        $scope.tasks.splice($scope.tasks.splice[this.$index], 1);
+      }
+
+      $scope.agregarCantidadMultiple = function(){
+         window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+            if($scope.cantidadModel){
+              for (var i = 0; i < $scope.tasks.length; i++) {
+                  $scope.$parent.recordsNew[i].cantidad = parseInt($scope.cantidadModel || 1);
+                  $scope.$parent.recordsNew[i].total = parseInt(($scope.cantidadModel || 1) * ($scope.$parent.recordsNew[i].precio_venta) );
+              };
+                       
+             $scope.$close();
+            }
+         });
       }
 
       $scope.$watch('recordsNew', function(n, o){

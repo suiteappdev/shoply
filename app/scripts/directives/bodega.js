@@ -17,7 +17,10 @@ angular.module('shoplyApp')
   		  valueField: $scope.key,
   		  labelField: $scope.label,
   		  placeholder: 'Bodega',
-        maxItems: 1
+        selectOnTab : true,
+        allowEmptyOption: $scope.emptyOption,
+        maxItems  : parseInt($scope.itemsMax),
+        plugins : parseInt($scope.itemsMax) >  1 ? ['remove_button'] : undefined
   		};
 
   	}
@@ -29,7 +32,8 @@ angular.module('shoplyApp')
       	ngModel : "=",
         key : "@",
         label : "@",
-        changed : "&"
+        emptyOption : '@',
+        itemsMax : '@' 
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {

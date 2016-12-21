@@ -8,19 +8,57 @@
  * Controller of the shoplyApp
  */
 angular.module('shoplyApp')
-  .controller('FacturacionCtrl',["$scope", "hotkeys", "shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http", "$filter", "$stateParams", "storage","$timeout","$state", function ($scope, hotkeys, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter, $stateParams, $storage, $timeout, $state) {
+  .controller('FacturacionCtrl',["$scope", "hotkeys", "shoppingCart", "modal", "api", "constants","sweetAlert", "$rootScope", "$http", "$filter", "$stateParams", "storage","$timeout","$state",  function ($scope, hotkeys, shoppingCart,  modal, api, constants, sweetAlert, $rootScope, $http, $filter, $stateParams, $storage, $timeout, $state) {
     
     $scope.records = [];
+    $scope.total = 0;
 
     $scope.$watch('records', function(n, o){
-        if(n.length > 0){
-           $scope.total = (shoppingCart.totalize(n) - shoppingCart.totalizeDiscount(n) || 0);
-           $scope.TotalIva = shoppingCart.totalizeIva(n);
-           $scope.subTotal = ($scope.total - $scope.TotalIva);
-           $scope.descuento =  shoppingCart.totalizeDiscount(n);
-          // $scope.descuento = shoppingCart.totalizeDiscount(n);
-        }
+       $scope.totalize(n);       
+       $scope.totalizeBases(n);       
+       $scope.totalizeDiscount(n);       
+       $scope.totalizeIva(n);       
     }, true);
+
+    $scope.totalize = function(n){
+        var total = 0;
+
+        for (var i = 0; i < shoppingCart.totalize(n).length; i++) {
+            total = (total + shoppingCart.totalize(n)[i])
+        };
+
+        $scope.total = total;
+    }
+
+    $scope.totalizeIva = function(n){
+        var total = 0;
+
+        for (var i = 0; i < shoppingCart.totalizeIva(n).length; i++) {
+            total = (total + shoppingCart.totalizeIva(n)[i])
+        };
+
+        $scope.TotalIva = total;
+    }
+
+    $scope.totalizeBases = function(n){
+        var total = 0;
+
+        for (var i = 0; i < shoppingCart.totalizeBases(n).length; i++) {
+            total = (total + shoppingCart.totalizeBases(n)[i])
+        };
+
+        $scope.subTotal = total;
+    }
+
+    $scope.totalizeDiscount = function(n){
+        var total = 0;
+
+        for (var i = 0; i < shoppingCart.totalizeDiscount(n).length; i++) {
+            total = (total + shoppingCart.totalizeDiscount(n)[i])
+        };
+
+        $scope.descuento = total;
+    }
 
     $scope.load = function(){
        api.arqueos().add("find/").post({
@@ -44,28 +82,42 @@ angular.module('shoplyApp')
         api.pedido($stateParams.pedido).get().success(function(res){
           $scope.pedido = res;
 
-          $scope.records = res.shoppingCart.map(function(o){
-            var _obj = new Object();
-                _obj = o.data;
-                _obj.iva = o._iva;
-                _obj._reference = o._reference;
-                _obj._category = o._category;
-                _obj._id = o._id;
-                _obj.idcomposed = o.idcomposed;
-                _obj.refMixed = o._reference.reference.join("");
-                _obj.cantidad = o.data.unidades;
-                _obj.total = (o.data.precio_venta * o.data.unidades);
-
-
-                return _obj; 
-          }) || [];
-
+          $scope.records = res.shoppingCart || [];
           $scope.form._client = res._client._id;
         });
       }else{
         $scope.setDefault = $storage.get('defaultClient') || null;
-        $rootScope.$emit("focusOn", true);                          
+        $rootScope.$emit("focusOn", true);
+
+
+        $scope.myGroceries = $rootScope.user._grocery.map(function(o){
+          var _obj = new Object();
+              _obj.name = o.data.bodega;
+              _obj._id = o._id;
+              return _obj; 
+        }) || [];
+
+        $scope.selectGrocery();                      
       }
+    }
+
+    $scope.selectGrocery = function(){
+        $scope.myConfig = {
+          valueField: "_id",
+          labelField: "name",
+          placeholder: 'Bodega para descargar',
+          selectOnTab : true,
+          allowEmptyOption: $scope.emptyOption,
+          maxItems  : 1,
+        };
+
+         modal.show({templateUrl : 'views/facturacion/selectGrocery.html', size :'sm', scope: $scope, backdrop:'static', windowClass : 'modal-center'}, function($scope){
+            if($scope._grocery){
+                $scope.$parent.grocery = $scope.myGroceries.filter(function(grocery){ return grocery._id == $scope._grocery})[0].name;
+                toastr.success('descargando de : ' + $scope.myGroceries.filter(function(grocery){ return grocery._id == $scope._grocery})[0].name);
+                $scope.$close();
+            }
+         }); 
     }
 
     $scope.setDefaultClient = function(){
@@ -78,7 +130,7 @@ angular.module('shoplyApp')
 
     $scope.printA = function(data, iva_detail){
       Handlebars.registerHelper('formatCurrency', function(value) {
-          return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+          return $filter('currency')(value);
       });
 
       $http.get('views/invoice/invoice_88mm.html').success(function(res){
@@ -109,6 +161,17 @@ angular.module('shoplyApp')
       }else{
         $scope.change = 0;
       }
+
+      if(this.method.data.requiredCode || this.method.data.card || this.method.data.credito){
+        if(this.method.data.value > $scope.totalParcial){
+          sweetAlert.swal("Ups", "Este metodo de pago no factura valores mayores al total.", "warning");
+          delete this.method.data.value;
+        }
+      }
+
+      if(!this.method.data.requiredCode && !this.method.data.card && !this.method.data.credito){
+          this.method.data.totalEfectivo = (this.method.data.value - $scope.change);
+      } 
     }
 
     $scope.getPaymentMethods = function(){
@@ -149,17 +212,30 @@ angular.module('shoplyApp')
       }
     });
 
+    $scope.getExistencias = function(){
+      $scope.record = this.record;
+
+        api.cantidades().add('stock/' + $scope._grocery).add('/' +  $scope.record._id).get().success(function(res){
+            for (var i = 0; i < res.length; i++) {
+                   $scope.record.existencias = ( $scope.record.existencias || 0)  + (res[i].amount);
+            };
+        });
+    }
+
     $scope.facturar = function(){
       if($scope.records == 0){
         return;
       }
-
+      
        window.modal = modal.show({templateUrl : 'views/facturacion/agregar_facturacion.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
           $scope.form.data =  new Object();
           $scope.form._seller = $rootScope.user._id;
           $scope.form.data.TotalIva = $scope.TotalIva;
           $scope.form.data.total = $scope.totalParcial;
           $scope.form.data.subtotal =  $scope.subTotal;
+          $scope.form.data.change = $scope.$$childTail.change;
+          $scope.form.data.received = $scope.$$childTail.received;
+          $scope.form.data._grocery = $scope._grocery;
 
           $scope.form.data.descuentoGlobal = $scope.gdiscount || 0;
           $scope.form.data.valorDescuentoGlobal = $scope.vgdescuento;
@@ -168,8 +244,12 @@ angular.module('shoplyApp')
 
           $scope.form._product = $scope.records.map(function(o){
               delete o.$order;
-              $scope.form.data.descuento = ($scope.form.data.descuento + parseInt(o.descuento))
-              console.log($scope.form.data.descuento)
+
+              if(!o.descuento){
+                o.descuento = 0;
+              }
+
+              $scope.form.data.descuento = ($scope.form.data.descuento + parseInt(o.descuento || 0))
               return o;
           });
 
@@ -189,23 +269,34 @@ angular.module('shoplyApp')
                   }));
               });
 
+              console.log("productos filtrados por iva", _filteredByIvas);
+
               angular.forEach(_filteredByIvas, function(o){
-                var _SUM = new Object();
-                _SUM.total = 0;
-                _SUM.viva = 0;
+                if(o.length > 0){
+                    var _SUM = new Object();
+                    _SUM.total = 0;
+                    _SUM.viva = 0;
 
-                angular.forEach(o, function(_o){
-                    _SUM.tipo = _o.iva.data.valor;
-                    _SUM.total = (_SUM.total + (_o.precio + _o.valor_utilidad - _o.descuento));
-                    _SUM.viva = (_SUM.viva + _o.valor_iva || 0);                     
-                });
+                    angular.forEach(o, function(_o){
+                        _SUM.tipo = _o.iva.data.valor;
+                        _SUM.total =  ((_o.precio_venta  * _o.cantidad) - (_o.descuento || 0 * _o.cantidad)) +  _SUM.total;
+                    });
 
-                _SUM.base = (_SUM.total - _SUM.viva);
-                $scope.form.data.ivadetails.push(_SUM);
+                    console.log("SUM TOTAl", _SUM.total);
+
+                    var ivadec =  (_SUM.tipo  / 100) + 1;
+                    _SUM.base = (_SUM.total  / ivadec);
+                    _SUM.viva = (_SUM.total - _SUM.base);
+                    console.log("calculo por fila", _SUM)
+
+
+                    $scope.form.data.ivadetails.push(_SUM);                  
+                }
               })
 
               if($scope.rs){
                   $scope.form._payments = $scope.rs._payments;
+                  $scope.form.data.estado = 'Facturado';
                   api.facturacion($scope.rs._id).put($scope.form).success(function(res){
                     if(res){
                         api.facturacion($scope.rs._id).get().success(function(response){
@@ -225,6 +316,7 @@ angular.module('shoplyApp')
                     }
                   });
               }else{
+                $scope.form.data.estado = 'Facturado';
                 api.facturacion().post($scope.form).success(function(res){
                   if(res){
                       delete $scope.form;
@@ -243,12 +335,25 @@ angular.module('shoplyApp')
     }
 
     $scope.agregarCantidad = function(){
-     var _record = this.record;
+        $scope._record = this.record;
 
-       window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+       window.modal = modal.show({templateUrl : 'views/facturacion/agregar-cantidad.html', size :'sm', scope: $scope, backdrop:'static', windowClass : 'modal-center'}, function($scope){
           if($scope.cantidadModel){
-            $scope.records[$scope.records.indexOf(_record)].cantidad = parseInt($scope.cantidadModel || 1);
-            $scope.$close();
+              if($scope.cantidadModel  >  $scope._record.existencias){
+                toastr.warning('No existe esta cantidad en bodega para esta venta');
+                return;
+              }
+
+              $scope._record.cantidad = parseInt($scope.cantidadModel);
+              $scope._record.precio_baseFacturado = (($scope._record.precio + $scope._record.valor_utilidad) * $scope.cantidadModel);
+              $scope._record.precio_VentaFacturado = (($scope._record.precio_venta) * $scope.cantidadModel);
+              $scope._record.ivaFacturado =  ($scope._record.precio_VentaFacturado - $scope._record.precio_baseFacturado);
+              $scope._record.descuento = ($scope._record.precio_venta * parseInt($scope._record.porcentajeDTO) * $scope._record.cantidad) / 100;
+              $scope._record.precio_VentaFacturado = ( $scope._record.precio_VentaFacturado || $scope._record.precio_venta -  $scope._record.descuento);
+
+              //$scope.$parent.total = shoppingCart.totalize($scope.records);
+              //$scope.$parent._record.hasAddedQty = true;
+              $scope.$close();              
           }
        });
     }
@@ -258,45 +363,78 @@ angular.module('shoplyApp')
 
      window.modal = modal.show({templateUrl : 'views/facturacion/descuento.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
         if($scope.pdiscount){
-          $scope.descuentoRecord.descuento = ($scope.descuentoRecord.precio_venta *  parseInt($scope.pdiscount)) / 100;
-          $scope.descuentoRecord.total  = ($scope.descuentoRecord.total - $scope.descuentoRecord.descuento); 
+          $scope.descuentoRecord.porcentajeDTO = $scope.pdiscount;
+
+          $scope.descuentoRecord.descuento = ($scope.descuentoRecord.precio_venta * parseInt($scope.pdiscount) * $scope.descuentoRecord.cantidad) / 100;
+          $scope.descuentoRecord.precio_VentaFacturado = ($scope.descuentoRecord.precio_VentaFacturado - $scope.descuentoRecord.descuento)
+          $scope.descuentoRecord.precio_baseVlFacturado = (($scope.descuentoRecord.precio_baseFacturado || ($scope.descuentoRecord.precio + $scope.descuentoRecord.valor_utilidad)   * $scope.pdiscount) / 100);
+          $scope.descuentoRecord.ivaFacturado = $scope.descuentoRecord.ivaFacturado - (($scope.descuentoRecord.ivaFacturado * $scope.pdiscount) / 100);
+          $scope.descuentoRecord.precio_baseFacturado = ( $scope.descuentoRecord.precio_baseFacturado || $scope.descuentoRecord.precio + $scope.descuentoRecord.valor_utilidad) - ( $scope.descuentoRecord.precio_baseFacturado || $scope.descuentoRecord.precio + $scope.descuentoRecord.valor_utilidad) * $scope.pdiscount / 100;
+          $scope.descuentoRecord.vlUnicoD = ($scope.descuentoRecord.total * $scope.pdiscount) / 100;
+          $scope.descuentoRecord.vlUnicoP = ($scope.descuentoRecord.total - $scope.descuentoRecord.vlUnicoD);
+          $scope.$close();
+
+        }
+
+        if($scope.pdiscountPesos){
+          $scope.descuentoRecord.pesosDTO = $scope.pdiscountPesos;
+          $scope.descuentoRecord.descuento = $scope.pdiscountPesos;
+
+          $scope.descuentoRecord.precio_VentaFacturado = ($scope.descuentoRecord.precio_VentaFacturado - $scope.descuentoRecord.descuento)
+          $scope.descuentoRecord.precio_baseFacturado = ($scope.descuentoRecord.precio_VentaFacturado) / (($scope.descuentoRecord.iva.data.valor / 100) + 1) ;
+          
+          $scope.descuentoRecord.ivaFacturado =  $scope.descuentoRecord.precio_VentaFacturado - $scope.descuentoRecord.precio_baseFacturado;
+          $scope.$close();
+        }
+        
+     });
+    }
+
+    $scope.agregarDescuentoGlobal = function(){
+     window.modal = modal.show({templateUrl : 'views/facturacion/descuento.html', size :'sm', scope: $scope, backdrop:'static'}, function($scope){
+        if($scope.pdiscount){
+          $scope.$parent.descuentoGlobal = (($scope.$parent.$parent.total * $scope.pdiscount) / 100);
+          console.log("descuentoGloabl", $scope.$parent.descuentoGloabal);
+          $scope.total = $scope.total - $scope.$parent.$parent.descuentoGlobal;
+          console.log("total", $scope.$parent.$parent.total);
           $scope.$close();
         }
 
         if($scope.pdiscountPesos){
-          $scope.descuentoRecord.descuento = $scope.pdiscountPesos;
-          $scope.descuentoRecord.total  = ($scope.descuentoRecord.total - $scope.descuentoRecord.descuento); 
+         
           $scope.$close();
         }
+        
      });
     }
 
     $scope.$watch('_product', function(n, o){
       if(n){
-         var _found = false;
-          angular.forEach($scope.records, function(_o){
-            if(_o._id == n){
-              _found = true;
+        api.cantidades().add('stock/' + $scope._grocery).add('/' +  n).get().success(function(res){
+            if(res.length == 0){
+                toastr.warning("este producto no esta disponible en bodega");
+            }else{
+              $scope.records.push(angular.copy(angular.extend($scope._productObj,
+               { cantidad : 1,
+                precio_baseFacturado : ($scope._productObj.precio + $scope._productObj.valor_utilidad),
+                precio_VentaFacturado : $scope._productObj.precio_venta,
+                ivaFacturado : ($scope._productObj.precio_venta - ($scope._productObj.precio + $scope._productObj.valor_utilidad)),
+                total : $scope._productObj.precio_venta, 
+                descuento : 0,
+                vlUnicoD : 0,
+                vlUnicoP : $scope._productObj.precio_venta
 
-              if(_o.valor_descuento){
-                _o.valor_descuento = _o.valor_descuento + _o.valor_descuento;
-              }
-
-              _o.cantidad = _o.cantidad + 1;
-              _o.total = (_o.precio_venta * _o.cantidad);
+              })));
+              //$scope.total = shoppingCart.totalize($scope.records);
+              delete $scope._product;              
             }
-          }); 
-          
-          if(!_found){
-            $scope.records.push(angular.copy(angular.extend($scope._productObj, { cantidad : 1, total : $scope._productObj.precio_venta})));
-          }
-
-          delete $scope._product;
+        });
       }
     });
 
     $scope.delete = function(){
         var _record = this.record;
         $scope.records.splice($scope.records.indexOf(_record), 1);
+        //$scope.total = shoppingCart.totalize($scope.records);
     }
   } ] );

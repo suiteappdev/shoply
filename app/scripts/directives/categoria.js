@@ -17,7 +17,8 @@ angular.module('shoplyApp')
 		  valueField: $scope.key,
 		  labelField: $scope.label,
 		  placeholder: 'Categoria',
-		  maxItems: 1
+		  maxItems: 1,
+      allowEmptyOption: $scope.emptyOption
 		};
 
 		$scope.$on('setCategoria', function(event, data){
@@ -26,7 +27,7 @@ angular.module('shoplyApp')
 
 		$scope.explorer = function(){
 	       modal.show({templateUrl : 'views/fields/categoria-popup.html', size :'md', scope: $scope}, function($scope){
-	       		$scope.$emit('setCategoria', $scope.selectedNode.node.id);
+            $scope.$emit('setCategoria', $scope.selectedNode.node.original._id);
 	       		$scope.$close();
 	        });
 		}
@@ -38,7 +39,8 @@ angular.module('shoplyApp')
       scope : {
       	ngModel : "=",
         key : "@",
-        label : "@"
+        label : "@",
+        emptyOption:"@"
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {

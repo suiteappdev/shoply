@@ -52,6 +52,7 @@ angular.module('shoplyApp')
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._route = $scope.formEdit._route.map(function(_o){return _o._id});
+      $scope.formEdit._grocery = $scope.formEdit._grocery ? $scope.formEdit._grocery.map(function(g){ return g._id}) : null;
       delete $scope.formEdit.password;
       
      window.modal =  modal.show({templateUrl : 'views/vendedores/editar_vendedor.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){

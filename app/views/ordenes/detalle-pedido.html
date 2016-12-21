@@ -26,8 +26,9 @@ padding: 10px;">
     </div>
         <div class="col-xs-12">
             <hr>
-            <small>{{record._company.data.empresa}},</small><br />
-            <small>{{record._company.data.descripcion}}</small>
+            <img style="float: left;width: 70px;height: 70px;position: relative;top: -6px;margin-right: 15px;" class="img-circle thumb-photo" ng-src="{{record._company.data.gallery[0].URL}}">
+            <h3>{{record._company.data.empresa}},</h3>
+            <h5 class="no-margin">{{record._company.data.descripcion}}</h5>
     		<hr>
     		<div class="row">
     			<div class="col-xs-6">
@@ -66,29 +67,61 @@ padding: 10px;">
     			</div>
     			<div class="panel-body">
     				<div class="table-responsive">
-    					<table class="table table-condensed">
+    					<table class="table table-hover">
     						<thead>
                                 <tr>
+                                    <td><strong>Codigo</strong></td>
         							<td><strong>Producto</strong></td>
-        							<td class="text-center"><strong>Precio</strong></td>
-        							<td class="text-center"><strong>Cantidad</strong></td>
+                                    <td class=""><strong>Cantidad</strong></td>
+                                    <td class=""><strong>Precio</strong></td>
+                                    <td class=""><strong>% Iva</strong></td>
+                                    <td class=""><strong>% Descuento</strong></td>
+        							<td class=""><strong>V. Descuento</strong></td>
         							<td class="text-right"><strong>Total</strong></td>
                                 </tr>
     						</thead>
     						<tbody>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     							<tr ng-repeat="record in record.shoppingCart">
-    								<td>{{record.data.producto}}</td>
-    								<td class="text-center">{{record.data.precio_venta | currency :"$ "}}</td>
-    								<td class="text-center">{{record.data.unidades}}</td>
-    								<td class="text-right">{{(record.data.unidades * record.data.precio_venta) | currency :"$ "}}</td>
+                                    <td>{{record.idcomposed}}</td>
+    								<td>{{record.producto}}</td>
+                                    <td>{{record.cantidad}}</td>
+    								<td>{{(record.precio + record.valor_utilidad) | currency :"$ "}}</td>
+                                    <td>{{record._iva.data.valor}}</td>
+                                    <td>{{record.porcentajeDTO}}</td>
+                                    <td>{{record.vlUnicoD | currency :"$ "}}</td>
+    								<td class="text-right">{{record.precio_VentaFacturado | currency :"$ "}}</td>
     							</tr>
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line"></td>
-    								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-    								<td class="thick-line text-right">{{record.metadata.subtotal | currency: "$ "}}</td>
+    								<td colspan="4" class="thick-line text-right"><strong>Subtotal</strong></td>
+    								<td colspan="2" class="thick-line text-right">{{record.data.subtotal | currency: "$ "}}</td>
     							</tr>
+                                <tr>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
+                                    <td colspan="4" class="thick-line text-right"><strong>Iva</strong></td>
+                                    <td colspan="2" class="thick-line text-right">{{record.data.TotalIva | currency: "$ "}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
+                                    <td colspan="4" class="thick-line text-right"><strong>Descuento</strong></td>
+                                    <td colspan="2" class="thick-line text-right">{{record.data.descuento | currency: "$ "}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
+                                    <td colspan="4" class="thick-line text-right"><strong>Descuento Global</strong></td>
+                                    <td colspan="2" class="thick-line text-right">{{record.data.descuentoGlobal || 0 | currency: "$ "}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thick-line"></td>
+                                    <td class="thick-line"></td>
+                                    <td colspan="4" class="thick-line text-right"><strong>Total</strong></td>
+                                    <td colspan="2" class="thick-line text-right">{{record.data.total | currency: "$ "}}</td>
+                                </tr>
     							<tr ng-repeat="iva in record.metadata.ivadetails | orderBy:'-tipo'">
     								<td class="no-line"></td>
     								<td class="no-line"></td>

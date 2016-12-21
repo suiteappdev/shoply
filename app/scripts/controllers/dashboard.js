@@ -129,4 +129,10 @@ angular.module('shoplyApp')
           $scope.$close();
        });  
     }
+
+    $scope.agregarCasaComercial = function(){
+        window.modal = modal.show({templateUrl : 'views/casaComercial/agregar-casaComercial.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+          $scope.$close();
+       });  
+    }
   });

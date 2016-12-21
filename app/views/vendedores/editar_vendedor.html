@@ -69,11 +69,21 @@
                   </div>                      
                 </div>
               </div>
-
+              <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Rutas * :</label>
+                        <rutas-field required ng-model="formEdit._route" key="_id" label="ruta"></rutas-field>
+                    </div>                  
+                </div>
+                <div class="col-lg-6">
                   <div class="form-group">
-                      <label>Rutas * :</label>
-                      <rutas-field required ng-model="formEdit._route" key="_id" label="ruta"></rutas-field>
+                      <label>Bodega :</label>
+                      <bodega-field empty-option="true" placeholder="Bodega" ng-model="formEdit._grocery" key="_id" label="name"><bodega-field>
                   </div>
+                </div>
+              </div>
+
                   <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">

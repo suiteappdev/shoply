@@ -18,6 +18,7 @@ angular.module('shoplyApp')
         searchField: ['name'],
         selectOnTab : true,
   		  maxItems: 1, 
+        allowEmptyOption: $scope.emptyOption,
         onChange : function(value){
           angular.forEach($scope.records, function(v){
               if(v.name == value){
@@ -34,7 +35,8 @@ angular.module('shoplyApp')
       template: '<selectize config="myConfig" options="records" ng-model="ngModel"></selectize>',
       restrict: 'E',
       scope : {
-      	ngModel : "="
+      	ngModel : "=",
+        emptyOption : "@"
       },
       controller : ctrl,
       link: function postLink(scope, element, attrs) {
@@ -62,7 +64,9 @@ angular.module('shoplyApp')
         searchField: ['name'],
         placeholder: 'Ciudad',
         selectOnTab : true,
-        maxItems: 1
+        maxItems: 1,
+        allowEmptyOption : $scope.emptyOption
+
       };
     }
 
@@ -70,7 +74,8 @@ angular.module('shoplyApp')
       template: '<selectize config="myConfig" options="records" ng-model="ngModel"></selectize>',
       restrict: 'E',
       scope : {
-        ngModel : "="
+        ngModel : "=",
+        emptyOption : "@"
       },
       controller : ctrl,
       link: function postLink(scope, element, attrs) {

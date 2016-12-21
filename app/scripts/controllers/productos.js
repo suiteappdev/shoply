@@ -66,6 +66,7 @@ angular.module('shoplyApp')
     $scope.edit = function(){
       $scope.formEdit = angular.copy(this.record);
       $scope.formEdit._category = this.record._category ? this.record._category._id : null;
+      $scope.formEdit._commercial_home = this.record._commercial_home ? this.record._commercial_home._id : null;
       $scope.ivaValue = this.record._iva ? this.record._iva.data.valor : 0;
 
       $scope.formEdit._iva = this.record._iva ? this.record._iva._id : null;
@@ -123,7 +124,7 @@ angular.module('shoplyApp')
 
     $scope.$watch('iva.valor', function(n, o){
       try{
-        $scope.form.data.valor_iva = ($scope.form.data.precio * (parseInt(n) / 100));
+        $scope.form.data.valor_iva = ($scope.form.data.precio + $scope.form.data.valor_utilidad ) * (parseInt(n) / 100);
         $scope.form.data.precio_venta = (
                                         $scope.form.data.valor_iva + ($scope.form.data.precio) 
                                         + ($scope.form.data.valor_utilidad )
@@ -175,7 +176,7 @@ angular.module('shoplyApp')
           try{
 
             if(!n && !o){
-              $scope.formEdit.data.valor_iva = (($scope.formEdit.data.precio * (parseInt($scope.ivaValue) / 100)));
+              $scope.formEdit.data.valor_iva = (($scope.formEdit.data.precio + $scope.formEdit.data.valor_utilidad) * (parseInt($scope.ivaValue) / 100));
             }else{
              $scope.formEdit.data.valor_iva = ($scope.formEdit.data.precio * (parseInt(n || 0) / 100));
             }
@@ -224,7 +225,7 @@ angular.module('shoplyApp')
                           $scope.load();
                           $scope.$close();
                           delete $scope.form.data;
-                          sweetAlert.swal("Registro completado.", "has registrado un nuevo producto.", "success");
+                          sweetAlert("Registro completado.", "has registrado un nuevo producto.", "success");
                       }
                   }).error(function(data, status){
                     if(status == 409){

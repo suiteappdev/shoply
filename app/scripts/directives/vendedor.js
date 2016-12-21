@@ -13,7 +13,8 @@ angular.module('shoplyApp')
   		  valueField: $scope.key,
   		  labelField: $scope.label,
   		  placeholder: 'Vendedor',
-        maxItems: 1
+        maxItems: 1,
+        allowEmptyOption: $scope.emptyOption,
   		};
 
   	}
@@ -24,7 +25,8 @@ angular.module('shoplyApp')
       scope : {
       	ngModel : "=",
         key : "@",
-        label : "@"
+        label : "@",
+        emptyOption : '@' 
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {

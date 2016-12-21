@@ -21,6 +21,10 @@ angular.module('shoplyApp')
             $scope._sellerParam = $stateParams.employee;      
         }
 
+        if($stateParams.highlight){
+          $scope.highlight = $stateParams.highlight;
+        }
+
         if($stateParams.arqueo){
           api.arqueos($stateParams.arqueo).get().success(function(res){
             $scope.form._request = res._request || [];
@@ -34,6 +38,94 @@ angular.module('shoplyApp')
           });          
         }
   	}
+
+    $scope.totalizePayments = function(){
+       this.record.total = 0;
+       
+      for (var i = 0; i < $scope.allPayments.length; i++) {
+            if(this.record.data.descripcion == $scope.allPayments[i].data.descripcion){
+              if($scope.allPayments[i].data.totalEfectivo){
+                 this.record.total = this.record.total + ($scope.allPayments[i].data.totalEfectivo);
+              }else{
+                  this.record.total = this.record.total + ($scope.allPayments[i].data.value);
+              }
+            }
+      }
+    }
+
+    $scope.totalizeBill = function(){
+      $scope.allPayments = [];
+      
+      for (var i = 0; i < $scope.$parent.form._billings.length; i++) {
+          console.log($scope.$parent.form._billings)
+         
+         $scope.allPayments = $scope.allPayments.concat($scope.$parent.form._billings[i]._payments.filter(function(obj){
+            return obj.data.value;
+         }));
+      };
+    }
+
+    $scope.verArqueo = function(){
+      $scope.payments = this.record.data.payments;
+      
+      window.modal = modal.show({templateUrl : 'views/arqueos/ver-arqueo.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+          $scope.$close();
+      });
+    }
+
+    $scope.verFacturaciones = function(){
+      $scope._billings = this.record._request;
+      window.modal = modal.show({templateUrl : 'views/arqueos/ver-facturaciones.html', size :'lg', scope: $scope, backdrop:'static'}, function($scope){
+          
+          $scope.$close();
+      });
+    }
+
+    $scope.guardarArqueo = function(){
+      window.modal = modal.show({templateUrl : 'views/arqueos/guardar-arqueo.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+        sweetAlert.swal({
+            title: "Confirmar Movimiento!",
+            text: "Escribe algo referente al movimiento.",
+            type: "input",
+            showCancelButton: false,
+            closeOnConfirm: false,
+            animation: "slide-from-top",
+            inputPlaceholder: "Nombre del Movimiento" 
+          }, function(inputValue){
+              if (inputValue === false) return false; 
+              console.log($scope)
+              if (inputValue === "") {
+                    swal.showInputError("You need to write something!");
+                    return false   
+              } 
+              
+              var _data = {};
+              _data.data = {};
+
+              _data._seller = $scope.$parent.$parent.formData._seller;
+              _data.data.arqueo = inputValue;
+              _data.data.payments = $scope.$parent.payments;
+              _data.ini = moment($scope.$parent.$parent.formData.ini).startOf('day').format();
+              _data.end = moment($scope.$parent.$parent.formData.end).endOf('day').format();
+
+              _data._request = $scope.$parent.form._billings.map(function(o){
+                return o._id;
+              });
+
+              console.log("data para el arqueo", _data);
+
+              api.arqueos().post(_data).success(function(res){
+                if(res){
+                   sweetAlert.swal("Registro Creado", "Registro creado correctamente.", "success");
+                   $scope.form._billings = [];
+                   $scope.$close();
+                   $state.go('dashboard.arqueos', {highlight : res._id});
+                }
+              });
+            
+            });
+      });
+    }
 
     $scope.verImpuestos = function(ivs){
       $scope.records = this.record.data.ivadetails;
@@ -84,51 +176,7 @@ angular.module('shoplyApp')
   
     }
 
-    $scope.guardar = function(){
-        sweetAlert.swal({
-            title: "Confirmar Movimiento!",
-            text: "escribe algo referente al movimiento:",
-            type: "input",
-            showCancelButton: false,
-            closeOnConfirm: false,
-            animation: "slide-from-top",
-            inputPlaceholder: "Nombre del Movimiento" 
-          }, function(inputValue){
-              if (inputValue === false) return false; 
-              
-              if (inputValue === "") {
-                    swal.showInputError("You need to write something!");
-                    return false   
-              } 
-              
-              var _data = {};
-              _data.data = {};
-              _data._seller = $scope.formData._seller;
 
-              _data.ini = moment($scope.formData.ini).startOf('day').format();
-              _data.end = moment($scope.formData.end).endOf('day').format();
-              _data.data.arqueo = inputValue;
-              _data.data.total_sistema = $scope.form.metadata.total_sistema
-              _data.data.sobrante = $scope.form.metadata.sobrante;
-              _data.data.faltante = $scope.form.metadata.faltante;
-
-              _data._request = $scope.form._billings.map(function(o){
-                return o._id;
-              });
-
-              api.arqueos().post(_data).success(function(res){
-                if(res){
-                   sweetAlert.swal("Registro Creado", "Registro creado correctamente.", "success");
-                   $scope.form._billings = [];
-                   $scope.form.metadata = {};
-                   $scope.form.metadata.total_sistema = 0;
-                   $scope.form.metadata.sobrante = 0;
-                   $scope.form.metadata.faltante = 0;
-                }
-              });
-            
-            });
-    }
 
 
     $scope.find = function(){
@@ -157,13 +205,14 @@ angular.module('shoplyApp')
                     $scope.formasDePagos = [];
                     $scope.ffp = [];
                     $scope.Records = false;
+                    delete $scope.formData;
 
                     api.formas_pagos().get().success(function(fp){
                         $scope.payments = fp;
 
                         angular.forEach(fp, function(payment){
                             angular.forEach($scope.form._billings, function(bill){
-                                  $scope.formasDePagos.push({id : payment.data.descripcion, values : bill._payments.filter(function(pay){return pay._id == payment._id;})});
+                                  $scope.formasDePagos.push({id : payment.data.descripcion, values : bill._payments.filter(function(pay){return pay._id == payment._id && pay.data.value;})});
                             });
                         });
                     });

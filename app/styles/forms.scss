@@ -15,6 +15,13 @@ label {
     text-overflow: ellipsis;
 }
 
+.form-input-message{
+  font-family: tahoma, gone, helvetica;
+  font-size: 10px;
+  color: #bababa; 
+}
+
+
 label.white {
   display: inline-block;
   font-size: $font-size-default;

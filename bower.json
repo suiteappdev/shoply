@@ -36,7 +36,8 @@
     "metisMenu": "^2.5.2",
     "angular-preload-image": "*",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0",
-    "jstree-bootstrap-theme": "https://github.com/orangehill/jstree-bootstrap-theme.git#^1.0.1"
+    "jstree-bootstrap-theme": "https://github.com/orangehill/jstree-bootstrap-theme.git#^1.0.1",
+    "angular-ui-map": "^0.5.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

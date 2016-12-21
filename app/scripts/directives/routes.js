@@ -17,7 +17,8 @@ angular.module('shoplyApp')
   		  labelField: $scope.label,
   		  placeholder: 'Elijas las rutas',
         selectOnTab : true,
-        plugins: ['remove_button']
+        maxItems: 1,
+        allowEmptyOption: $scope.emptyOption
   		};
 
   	}
@@ -28,7 +29,8 @@ angular.module('shoplyApp')
       scope : {
       	ngModel : "=",
         key : "@",
-        label : "@"
+        label : "@",
+        emptyOption : "@"
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {

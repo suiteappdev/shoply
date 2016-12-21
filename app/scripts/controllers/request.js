@@ -23,6 +23,18 @@ angular.module('shoplyApp')
       });
     }
 
+    $scope.location = function(){
+        if(!this.record.data.geo){
+              sweetAlert("Ups", "Coordenadas no disponibles", "warning");
+            return;
+        }
+
+        $scope.ubicacion = this.record.data.geo;
+        modal.show({templateUrl : 'views/ordenes/localizacion.html', size :'md', scope : $scope, backdrop:'static'}, function($scope){
+            $scope.$close();
+        });
+    }
+
     $scope.delete = function(){
         var _record = this.record;
 

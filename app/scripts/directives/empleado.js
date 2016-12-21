@@ -12,7 +12,8 @@
         valueField: $scope.key,
         labelField: $scope.label,
         placeholder: $scope.placeholder,
-        maxItems: 1
+        maxItems: 1,
+        allowEmptyOption: $scope.emptyOption,
       };
 
     }
@@ -24,7 +25,8 @@
         ngModel : "=",
         key : "@",
         label : "@",
-        placeholder : "@"
+        placeholder : "@",
+        allowEmptyOption : "@"
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {

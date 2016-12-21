@@ -28,7 +28,8 @@ angular
     'jkuri.datepicker',
     'colorpicker.module',
     'vcRecaptcha',
-    'cfp.hotkeys'
+    'cfp.hotkeys',
+    'ui.map'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'
@@ -193,6 +194,24 @@ angular
                 pageTitle: 'Entradas'
               }
           })
+          .state('dashboard.salidas', {
+              url: '/salidas',
+              access: { requiredAuthentication: true },
+              controller:'SalidaCtrl',
+              templateUrl: 'views/salidas/salidas.html',
+              data: {
+                pageTitle: 'Salidas'
+              }
+          })
+          .state('dashboard.existencias', {
+              url: '/existencias',
+              access: { requiredAuthentication: true },
+              controller:'ExistenciasCtrl',
+              templateUrl: 'views/existencias/existencias.html',
+              data: {
+                pageTitle: 'Existencias'
+              }
+          })
           .state('public', {
               url: '/public/:app',
               templateUrl: 'views/apps/public/app.html',
@@ -345,7 +364,7 @@ angular
                 }
           })
           .state('dashboard.arqueos', {
-                url: '/arqueos',
+                url: '/arqueos/:highlight?',
                 access: { requiredAuthentication: true },
                 controller : 'ArqueoCtrl',
                 templateUrl: 'views/arqueos/arqueos.html',
@@ -421,13 +440,13 @@ angular
                   pageTitle: 'Detalle producto'
                 }
           })
-          .state('dashboard.pedidos', {
-                url: '/pedidos',
+          .state('dashboard.ordenes', {
+                url: '/ordenes',
                 access: { requiredAuthentication: true },
                 controller:'RequestCtrl',
-                templateUrl: 'views/pedidos/pedidos.html',
+                templateUrl: 'views/ordenes/ordenes.html',
                 data: {
-                  pageTitle: 'Pedidos'
+                  pageTitle: 'Ordenes'
                 }
           })
           .state('dashboard.perfil', {
@@ -446,7 +465,7 @@ angular
           .state('dashboard.detalle_pedido', {
                 url: '/detalle-pedido/:pedido',
                 access: { requiredAuthentication: true },
-                templateUrl: 'views/pedidos/detalle-pedido.html',
+                templateUrl: 'views/ordenes/detalle-pedido.html',
                 data: {
                   pageTitle: 'Detalle pedido'
                 }

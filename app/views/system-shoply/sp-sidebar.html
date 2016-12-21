@@ -10,6 +10,7 @@
                             <li><a ng-show="$root.acl.canViewForm('frmIvas')"  ng-click="agregarIva()">Ivas</a></li>
                             <li><a ng-show="$root.acl.canViewForm('frmFormConsecutivos')"  ng-click="agregarConsecutivo()">Consecutivos</a></li>
                             <li><a ng-show="$root.acl.canViewForm('frmFormPagos')"  ng-click="agregarFormasDePago()">Formas de pagos</a></li>
+                            <li><a ng-show="$root.acl.canViewForm('frmCasaComercial')"  ng-click="agregarCasaComercial()">Casas Comerciales</a></li>
                         </ul>
                     </li>
                     <li ng-show="$root.acl.canView('mnuPermisos')" >
@@ -31,7 +32,8 @@
                         <ul class="nav nav-second-level collapse">
                             <li><a ui-sref="dashboard.bodega" href="#!/empleado">Bodegas</a></li>
                             <li><a ui-sref="dashboard.entradas" href="#!/entradas">Entradas</a></li>
-                            <li><a ui-sref="dashboard.clientes" href="#!/clientes">Clientes</a></li>
+                            <li><a ui-sref="dashboard.salidas" href="#!/salidas">Salidas</a></li>
+                            <li><a ui-sref="dashboard.existencias" href="#!/existencias">Existencias</a></li>
                         </ul>
                     </li>
                     <li ng-show="$root.acl.canView('mnuRutas')" >
@@ -41,7 +43,7 @@
                         <a ui-sref="dashboard.categorias" href="#/categorias" ><i class="fa fa-folder-open"></i> <span class="nav-label">Categorias</span></a>
                     </li>
                     <li ng-show="$root.acl.canView('mnuPedidos')" >
-                        <a ui-sref="dashboard.pedidos" href="#!/pedidos"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Pedidos</span> </a>
+                        <a ui-sref="dashboard.ordenes" href="#!/ordenes"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Ordenes</span> </a>
                     </li>
                     <li ng-show="$root.acl.canView('mnuFacturacion')" >
                         <a hotkey="{'f2': go}"><i class="fa fa-credit-card"></i> <span class="nav-label">Facturación </span><span class="label label-warning pull-right">F2</span></a>

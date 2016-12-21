@@ -70,10 +70,20 @@
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Rutas * :</label>
+                        <rutas-field required ng-model="form._route" key="_id" label="ruta"></rutas-field>
+                    </div>                  
+                </div>
+                <div class="col-lg-6">
                   <div class="form-group">
-                      <label>Rutas * :</label>
-                      <rutas-field ng-model="form._route" key="_id" label="ruta"></rutas-field>
+                      <label>Bodega :</label>
+                      <bodega-field empty-option="true" items-max="10" placeholder="Bodega" ng-model="form._grocery" key="_id" label="name"><bodega-field>
                   </div>
+                </div>
+              </div>
                   <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">

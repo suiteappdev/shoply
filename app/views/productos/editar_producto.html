@@ -47,39 +47,61 @@
 		  		</div>
  				
 		  	</div>
-			<table class="table table-hover">
-			    <thead>
-			      <tr>
-			        <th>Cantidad</th>
-			        <th>Bodega</th>
-			        <th>Departamento</th>
-			        <th>Ciudad</th>
-			        <th></th>
-			        <th></th>
-			      </tr>
-			    </thead>
-			    <tbody>
-                  <td ng-show="!stocks || stocks.length == 0" colspan="6" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;{{msg || 'Porfavor elija una bodega para iniciar su busqueda.'}}</td>
-			      <tr ng-repeat="stock in stocks" ng-init="count()">
-			        <td>{{stock.amount}}</td>
-			        <td>{{stock._grocery.data.bodega}}</td>
-			        <td>{{stock._grocery.data.departamento}}</td>
-			        <td>{{stock._grocery.data.ciudad.toLowerCase()}}</td>
-			        <td></td>
-			        <td></td>
-			      </tr>
-                    <tr ng-show="total">
-                    	<td colspan="6" class="text-left"><strong>Total productos:</strong> {{total || 0}}</td>
-                	</tr>
-			    </tbody>
-			  </table>	  	
+		  	<div class="table-responsive">
+				<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Cantidad</th>
+				        <th>Bodega</th>
+				        <th>Departamento</th>
+				        <th>Ciudad</th>
+				        <th></th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+	                  <td ng-show="!stocks || stocks.length == 0" colspan="6" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;{{msg || 'Porfavor elija una bodega para iniciar su busqueda.'}}</td>
+				      <tr pagination-id="stockEntity" dir-paginate="stock in stocks |filter:search |itemsPerPage: 5 ">
+				        <td>{{stock.amount}}</td>
+				        <td>{{stock._grocery.data.bodega}}</td>
+				        <td>{{stock._grocery.data.departamento}}</td>
+				        <td>{{stock._grocery.data.ciudad.toLowerCase()}}</td>
+				        <td></td>
+				        <td></td>
+				      </tr>
+	                    <tr ng-show="total">
+	                    	<td colspan="6" class="text-left"><strong>Total productos:</strong> {{total || 0}}</td>
+	                	</tr>
+				    </tbody>
+				  </table>			  		
+		  	</div>
+			<div class="col-lg-12">
+				<dir-pagination-controls class="pull-right" pagination-id="stockEntity"></dir-pagination-controls>
+			</div>
+			<div class="row">
+			  	<div class="col-lg-6">
+					  <div class="form-group">
+					    <label>Stock minimo:</label>
+					    <input type="number" placeholder="Stock minimo" required class="form-control input-sm" ng-model="$parent.formEdit.data.stockMin">
+						<span class="form-input-message">Define la cantidad minima en inventario.</span>
+					  </div>	
+			  	</div>
+				  	<div class="col-lg-6">
+						  <div class="form-group">
+						    <label>Stock Maximo:</label>
+						    <input type="number" placeholder="Stock maximo" required class="form-control input-sm" ng-model="$parent.formEdit.data.stockMax">
+							<span class="form-input-message">Define la cantidad maxima en inventario.</span>
+
+						  </div>	
+				  	</div>
+					<div class="col-lg-12">
+			            <label class="text-dark">
+			            <input icheck type="checkbox"  ng-model="$parent.formEdit.data.negativo" class="info-bounce">
+			                Vender en negativo.
+			            </label>
+					</div> 					
+			</div>
   		</div>
-		<div class="col-lg-12">
-            <label class="text-dark">
-            <input ng-change="setDefaultClient()" icheck type="checkbox"  ng-model="defaultOption" class="info-bounce">
-                Vender en negativo.
-            </label>
-		</div>
   	</div>
   	<div class="row" ng-show="selected == 'prices'">
 	  	<div class="col-lg-4">
@@ -89,27 +111,27 @@
 		  </div>			  		
 	  	</div>
 	  	<div class="col-lg-4">
-		  <div class="form-group">
-		    <label>Iva:</label>
-		    <iva ng-model="$parent.formEdit._iva" set-object="$parent.EditIva" ></iva>
-		  </div>
-	  	</div>
-	  	<div class="col-lg-4">
-		  <div class="form-group">
-		    <label>Valor Iva:</label>
-			 <input type="number" disabled placeholder="Valor iva" required class="form-control input-sm" ng-model="$parent.formEdit.data.valor_iva">
-		  </div>
-	  	</div>
-	  	<div class="col-lg-6">
 			 <div class="form-group">
 			    <label>% Utilidad:</label>
 			    <input type="number" placeholder="Utilidad" required class="form-control input-sm" ng-model="$parent.formEdit.data.utilidad">
 			</div>			  		
 	  	</div>
+	  	<div class="col-lg-4">
+		  <div class="form-group">
+		    <label>Iva:</label>
+		    <iva ng-model="$parent.formEdit._iva" set-object="$parent.EditIva" ></iva>
+		  </div>
+	  	</div>
 	  	<div class="col-lg-6">
 		  <div class="form-group">
 		    	<label>Valor utilidad:</label>
 			    <input type="number" disabled placeholder="Valor utilidad" required class="form-control input-sm" ng-model="$parent.formEdit.data.valor_utilidad">
+		  </div>
+	  	</div>
+	  	<div class="col-lg-6">
+		  <div class="form-group">
+		    <label>Valor Iva:</label>
+			 <input type="number" disabled placeholder="Valor iva" required class="form-control input-sm" ng-model="$parent.formEdit.data.valor_iva">
 		  </div>
 	  	</div>
 	  	<div class="form-group">
@@ -136,11 +158,18 @@
 				    <input type="text" placeholder="Descripción" required class="form-control input-sm" ng-model="$parent.formEdit.data.descripcion">
 				  </div>		  		
 		  	</div>
-		  	<div class="col-lg-12">
+		  	<div class="col-lg-6">
 			  <div class="form-group">
 				<label>Categoria:</label>
 		      	<categoria key="_id" label="text" ng-model="formEdit._category"></categoria>			  	
 			  </div>
+		  	</div>
+		  	<div class="col-lg-6">
+				<div class="form-group">
+				    <label>Casa Comercial:</label>
+		  			<casa-comercial key="_id" label="name" ng-model="formEdit._commercial_home"></casa-comercial>
+					<span class="form-input-message">Elija la casa comercial.</span>
+			  	</div>		  		
 		  	</div>
 		  	<div class="col-lg-6">
 				<div class="form-group">
@@ -157,7 +186,8 @@
 	  		</form>
 		</div>
 	</div>
-	<div class="row" style="border: none;background-color: #000D11;color: #FFF;margin:0px;">
+	<div class="row" style="border: none;background-color: #000D11;color: #FFF;margin:0px;position: relative;
+    bottom: -15px;">
 		<div class="col-lg-12">
 		  <div class="col-lg-6 text-left">
 		  	<h4 style="color:white !important">Precio de Venta :</h4>	

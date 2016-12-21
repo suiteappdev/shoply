@@ -27,12 +27,14 @@ angular.module('shoplyApp')
     this.permiso = function(permiso){if(permiso) this.url = constants.base_url + "permisos/" + permiso; else this.url = constants.base_url + "permisos/"; return this;};
     this.bodega = function(bodega){if(bodega) this.url = constants.base_url + "bodegas/" + bodega; else this.url = constants.base_url + "bodegas/"; return this;};
     this.entradas = function(entrada){if(entrada) this.url = constants.base_url + "entradas/" + entrada; else this.url = constants.base_url + "entradas/"; return this;};
+    this.salidas = function(salida){if(salida) this.url = constants.base_url + "salidas/" + salida; else this.url = constants.base_url + "salidas/"; return this;};
     this.producto = function(producto){if(producto) this.url = constants.base_url + "producto/" + producto; else this.url = constants.base_url + "producto/"; return this;};
     this.pedido = function(pedido){if(pedido) this.url = constants.base_url + "pedido/" + pedido; else this.url = constants.base_url + "pedido/"; return this;};
     this.rutas = function(ruta){if(ruta) this.url = constants.base_url + "rutas/" + ruta; else this.url = constants.base_url + "rutas/"; return this;};
     this.metadata = function(entity){if(entity) this.url = constants.base_url + "metadata/" + entity; else this.url = constants.base_url + "entity/"; return this;};
     this.ivas = function(iva){if(iva) this.url = constants.base_url + "ivas/" + iva; else this.url = constants.base_url + "ivas/"; return this;};
     this.formas_pagos = function(formaPago){if(formaPago) this.url = constants.base_url + "formasPago/" + formaPago; else this.url = constants.base_url + "formasPago/"; return this;};
+    this.casa_comercial = function(casa_comercial){if(casa_comercial) this.url = constants.base_url + "casa-comercial/" + casa_comercial; else this.url = constants.base_url + "casa-comercial/"; return this;};
     this.facturacion = function(factura){if(factura) this.url = constants.base_url + "facturacion/" + factura; else this.url = constants.base_url + "facturacion/"; return this;};
     this.referencias = function(referencia){if(referencia) this.url = constants.base_url + "referencias/" + referencia; else this.url = constants.base_url + "referencias/"; return this;};
     this.contadores = function(contador){if(contador) this.url = constants.base_url + "contadores/" + contador; else this.url = constants.base_url + "contadores/"; return this;};
