@@ -81,10 +81,42 @@ angular.module('shoplyApp')
       }else if($stateParams.pedido){
         api.pedido($stateParams.pedido).get().success(function(res){
           $scope.pedido = res;
-
-          $scope.records = res.shoppingCart || [];
-          $scope.form._client = res._client._id;
         });
+
+        $scope.myGroceries = $rootScope.user._grocery.map(function(o){
+        
+        var _obj = new Object();
+              _obj.name = o.data.bodega;
+              _obj._id = o._id;
+              return _obj; 
+        }) || [];
+
+        $scope.myConfig = {
+          valueField: "_id",
+          labelField: "name",
+          placeholder: 'Bodega para descargar',
+          selectOnTab : true,
+          allowEmptyOption: $scope.emptyOption,
+          maxItems  : 1,
+        };
+
+        var _curScope = $scope;
+
+         modal.show({templateUrl : 'views/facturacion/selectGrocery.html', size :'sm', scope: $scope, backdrop:'static', windowClass : 'modal-center'}, function($scope){
+            if($scope._grocery){
+                api.pedido($stateParams.pedido).get().success(function(res){
+                  console.log($scope)
+                  _curScope.grocery = $scope.myGroceries.filter(function(grocery){ return grocery._id == $scope._grocery})[0].name;
+                  toastr.success('descargando de : ' + $scope.myGroceries.filter(function(grocery){ return grocery._id == $scope._grocery})[0].name);
+                  _curScope.pedido = res;
+                  _curScope.records = res.shoppingCart || [];
+                  _curScope.form._client = res._client._id;
+                });
+
+                $scope.$close();                  
+            }
+         });
+        
       }else{
         $scope.setDefault = $storage.get('defaultClient') || null;
         $rootScope.$emit("focusOn", true);
@@ -214,15 +246,15 @@ angular.module('shoplyApp')
 
     $scope.getExistencias = function(){
       $scope.record = this.record;
-
         api.cantidades().add('stock/' + $scope._grocery).add('/' +  $scope.record._id).get().success(function(res){
+            console.log("response", res);
             for (var i = 0; i < res.length; i++) {
                    $scope.record.existencias = ( $scope.record.existencias || 0)  + (res[i].amount);
             };
         });
     }
 
-    $scope.facturar = function(){
+    $scope.facturar = function(as){
       if($scope.records == 0){
         return;
       }
@@ -269,8 +301,6 @@ angular.module('shoplyApp')
                   }));
               });
 
-              console.log("productos filtrados por iva", _filteredByIvas);
-
               angular.forEach(_filteredByIvas, function(o){
                 if(o.length > 0){
                     var _SUM = new Object();
@@ -282,41 +312,58 @@ angular.module('shoplyApp')
                         _SUM.total =  ((_o.precio_venta  * _o.cantidad) - (_o.descuento || 0 * _o.cantidad)) +  _SUM.total;
                     });
 
-                    console.log("SUM TOTAl", _SUM.total);
-
                     var ivadec =  (_SUM.tipo  / 100) + 1;
                     _SUM.base = (_SUM.total  / ivadec);
                     _SUM.viva = (_SUM.total - _SUM.base);
-                    console.log("calculo por fila", _SUM)
-
 
                     $scope.form.data.ivadetails.push(_SUM);                  
                 }
               })
 
-              if($scope.rs){
-                  $scope.form._payments = $scope.rs._payments;
-                  $scope.form.data.estado = 'Facturado';
-                  api.facturacion($scope.rs._id).put($scope.form).success(function(res){
+              if($stateParams.pedido){
+                  $scope.form._seller = $rootScope.user._id;
+                  $scope.form.data.TotalIva = $scope.TotalIva;
+                  $scope.form.data.total = $scope.totalParcial;
+                  $scope.form.data.subtotal =  $scope.subTotal;
+                  $scope.form.data.change = $scope.$$childTail.change;
+                  $scope.form.data.received = $scope.$$childTail.received;
+                  $scope.form.data._grocery = $scope._grocery;
+
+                  $scope.form.data.descuentoGlobal = $scope.gdiscount || 0;
+                  $scope.form.data.valorDescuentoGlobal = $scope.vgdescuento;
+                  $scope.form._payments = $scope.paymentMethods;
+                  $scope.form.data.descuento = 0;
+                  $scope.form.data.tipo = $scope.pedido.data.tipo;
+
+                  $scope.form.shoppingCart = $scope.records.map(function(o){
+                      delete o.$order;
+
+                      if(!o.descuento){
+                        o.descuento = 0;
+                      }
+
+                      $scope.form.data.descuento = ($scope.form.data.descuento + parseInt(o.descuento || 0))
+                      return o;
+                  });
+
+                  $scope.form.data.estado = as;
+                  
+                  api.pedido($stateParams.pedido).put($scope.form).success(function(res){
                     if(res){
-                        api.facturacion($scope.rs._id).get().success(function(response){
-                          if(response){
+                        api.pedido($stateParams.pedido).get().success(function(response){
                             delete $scope.form;
                             delete $scope.rs;
                             $scope.records.length = 0;
                             response.createdAt = moment(new Date(response.createdAt)).format('lll');
-                            console.log(response);
                             $scope.printA(response);
-                            
                             $scope.$close();
                             sweetAlert.swal("Listo.", "Actualización realizada correctamente.", "success");
                             $rootScope.$emit("focusOn", true);                          
-                          }
                         });
                     }
                   });
               }else{
-                $scope.form.data.estado = 'Facturado';
+                $scope.form.data.estado = as;
                 api.facturacion().post($scope.form).success(function(res){
                   if(res){
                       delete $scope.form;
@@ -413,6 +460,7 @@ angular.module('shoplyApp')
         api.cantidades().add('stock/' + $scope._grocery).add('/' +  n).get().success(function(res){
             if(res.length == 0){
                 toastr.warning("este producto no esta disponible en bodega");
+                delete $scope._product;              
             }else{
               $scope.records.push(angular.copy(angular.extend($scope._productObj,
                { cantidad : 1,

@@ -28,7 +28,13 @@ padding: 10px;">
             </label>
 		</div>
 		<div class="col-lg-2">
-            <button ng-show="records.length > 0 && !rs"  ng-click="facturar()" style="top:4px;position:relative;border-radius:5px;" class="animated fadeInRight custom-btn btn-success btn-block"><i class="fa fa-credit-card"></i>&nbsp;Facturar</button>
+		<div class="btn-group" ng-class='{open: open}'>
+		    <button ng-click="facturar('Facturado')" class="btn custom-btn-primary ">Facturar</button>
+		    <button class="btn custom-btn-primary dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+		    <ul class="dropdown-menu">
+		        <li><a ng-click="facturar('Remision')" style="color:#fcfcfc!important;">Remisión</a></li>
+		    </ul>
+		</div>
             <button ng-show="records.length > 0 && rs"  ng-click="facturar()" style="top:4px;position:relative;border-radius:5px;" class="animated fadeInRight custom-btn btn-success btn-block"><i class="fa fa-credit-card"></i>&nbsp;Ver Pagos</button>  
 		</div>
 	</div>

@@ -39,9 +39,8 @@ angular.module('shoplyApp')
        
        $scope.form = $scope.form || {};
        $scope.form.data = $scope.form.data || {};
-       
-       $scope.form.data.ini = moment($scope.form.data.ini).startOf('day').format();
-       $scope.form.data.end = moment($scope.form.data.end).endOf('day').format();
+       $scope.form.data.ini = $scope.form.data.ini ? moment($scope.form.data.ini).startOf('day').format() : undefined;
+       $scope.form.data.end = $scope.form.data.end ? moment($scope.form.data.end).endOf('day').format() : undefined;
 
        api.facturacion().add("find").post($scope.form.data).success(function(res){
           if(res.length == 0){
@@ -75,9 +74,9 @@ angular.module('shoplyApp')
      // $scope.setDefault = $storage.get('defaultClient') || null;
     }
 
-    $scope.printA = function(data){
+    $scope.printA = function(data, iva_detail){
       Handlebars.registerHelper('formatCurrency', function(value) {
-          return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+          return $filter('currency')(value);
       });
 
       $http.get('views/invoice/invoice_88mm.html').success(function(res){
@@ -89,6 +88,7 @@ angular.module('shoplyApp')
         w.close();
       });
     }
+
 
     $scope.setReceived = function(){
       var total = 0;

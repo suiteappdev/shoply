@@ -139,7 +139,8 @@ angular.module('shoplyApp')
     }
 
     $scope.download = function(){
-      $scope._schema = $scope.form._billings.map(function(o){
+      alert(1);
+      /*$scope._schema = $scope.form._billings.map(function(o){
           var _output = new Object();
 
            _output.vendedor = o._seller ? o._seller.full_name.full_name : 'no definido'; 
@@ -150,10 +151,10 @@ angular.module('shoplyApp')
           return _output; 
       });
 
-    var data1 = $scope._schema;
-    var data2 = [$scope.form.metadata];
-    var opts = [{sheetid:'Facturacion',header:true},{sheetid:'Arqueo',header:false}];
-    var res = alasql('SELECT INTO XLSX("Arqueo.xlsx",?) FROM ?',[opts,[data1,data2]]);
+      var data1 = $scope._schema;
+      var data2 = [$scope.form.metadata];
+      var opts = [{sheetid:'Facturacion',header:true},{sheetid:'Arqueo',header:false}];
+      var res = alasql('SELECT INTO XLSX("Arqueo.xlsx",?) FROM ?',[opts,[data1,data2]]);*/
   
     }
 
@@ -181,8 +182,8 @@ angular.module('shoplyApp')
 
     $scope.find = function(){
        $scope.formData = $scope.formData || {};
-       $scope.formData.ini = moment($scope.formData.ini).startOf('day').format();
-       $scope.formData.end = moment($scope.formData.end).endOf('day').format();
+       $scope.formData.ini = $scope.formData.ini ? moment($scope.formData.ini).startOf('day').format() : undefined;
+       $scope.formData.end = $scope.formData.end ? moment($scope.formData.end).endOf('day').format() : undefined;
 
        api.arqueos().add("find/").post($scope.formData).success(function(res){
          if(res.length > 0){
