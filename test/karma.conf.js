@@ -64,6 +64,7 @@ module.exports = function(config) {
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/angular-ui-utils/ui-utils.js',
       'bower_components/angular-ui-map/ui-map.js',
+      'bower_components/colorpicker/dist/colorPicker.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

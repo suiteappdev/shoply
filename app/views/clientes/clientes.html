@@ -25,8 +25,8 @@
 					      <tr>
 					        <th>Documento</th>
 					        <th>Numero</th>
-					        <th>Nombres</th>
-					        <th>Apellidos</th>
+					        <th>Nombres / RS</th>
+					        <th>Apellidos / RL</th>
 					        <th>Email</th>
 					        <th>Telefono</th>
 					        <th>Departamento</th>
@@ -38,15 +38,15 @@
 					    </thead>
 					    <tbody>
 					      <tr  dir-paginate="record in records |filter:search |itemsPerPage: 5 " pagination-id="ClienteEntity">
-					        <td>{{record.data.documento || 'no definido'}}</td>
-					        <td>{{record.data.numero_documento || 'no definido'}}</td>
-					        <td>{{record.name || 'no definido'}}</td>
+					        <td>{{record.data.documento || 'Nit' || 'no definido'}}</td>
+					        <td>{{record.data.numero_documento || record.data.nit || 'no definido'}}</td>
+					        <td>{{record.name || record.username || record.data.representante_legal || 'no definido'}}</td>
 					        <td>{{record.last_name || 'no definido'}}</td>
 					        <td>{{record.email || 'no definido'}}</td>
 					        <td>{{record.data.phone || 'no definido' }}</td>
 					        <td>{{record.data.departamento.toLowerCase() || 'no definido'}}</td>
 					        <td>{{record.data.ciudad.toLowerCase() || 'no definido'}}</td>
-     						<td><button ng-click="edit()" type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Editar</button></td>
+     						<td><button ng-click="editForm()" type="button" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Editar</button></td>
 					        <td><button ng-click="delete()" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;Borrar</button></td>
 					      </tr>
 					    </tbody>

@@ -29,7 +29,8 @@ angular
     'colorpicker.module',
     'vcRecaptcha',
     'cfp.hotkeys',
-    'ui.map'
+    'ui.map',
+    'tb-color-picker'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'

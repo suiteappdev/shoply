@@ -21,8 +21,8 @@
         <a class="trash" ng-click="delete()" href=""><i class="glyphicon glyphicon-trash"></i></a>
         <a class="trash" style="right:35px!important;" ng-href="{{record.data.url}}"><i class="glyphicon glyphicon glyphicon-save"></i></a>
         <h4>{{record.data.name}}</h4>
-        <p>{{record.data.observacion}}</p>
- 		<p class="sp-text">Versión:&nbsp;{{record.data.version}}&nbsp;&nbsp;</p>
+        <a href="{{record.data.url}}">{{record.data.url}}</a>
+ 		    <p>Versión:&nbsp;{{record.data.version}}&nbsp;&nbsp;</p>
         <span style="position: absolute;top: 4px;right: 117px;" class="label label-success" ng-show="record.data.isPublic">Aplicación Publica</span>
         <div class="row">
           <div class="sp-footer">

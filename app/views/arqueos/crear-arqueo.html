@@ -22,18 +22,10 @@
     height: 50px;">
 			    <div class="col-lg-12">
 						<div class="col-lg-3">
-							<label class="text-white">Faltante</label>
-							<h4 class="no-margin" style="color:gray;!important;position: relative;">{{form.metadata.faltante | currency:"$ "}}</h4>
-						</div>
-						<div class="col-lg-3">
-							<label class="text-white">Sobrante</label>
-							<h4 class="text-white no-margin" style="color: gray!important;position: relative;">{{form.metadata.sobrante | currency:"$ "}}</h4>
-						</div>
-						<div class="col-lg-3">
 							<label class="text-white">Total Sistema</label>
 							<h4 class="text-white no-margin" style="color: gray!important;position: relative;">{{form.metadata.total_sistema || 0 | currency:"$ "}}</h4>
 						</div>
-						<div class="col-lg-3">
+						<div class="col-lg-9">
 						<div class="row text-right">
 							<div class="btn-group" style="position: relative;top: 8px;">
 							  <button type="button" class="text-right btn custom-btn-primary" ng-click="guardarArqueo()">Generar</button>

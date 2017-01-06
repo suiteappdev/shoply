@@ -13,29 +13,51 @@
         </div>
        </div>
 	  	<div class="row">
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 	  			<div class="form-group">
-	  				<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='basic' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='basic'" class="custom-btn btn-block">Información Basica</button>	
+	  				<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='basic' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='basic'" class="custom-btn btn-block">Información</button>	
 	  			</div>
 	  		</div>
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 		  		<div class="form-group">
 		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='prices' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='prices';" class="custom-btn btn-block">Precios</button>
 		  		</div>	
 	  		</div>
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 		  		<div class="form-group">
-		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='stcok' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='stock';" class="custom-btn btn-block">Inventario</button>
+		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='stock' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='stock';" class="custom-btn btn-block">Inventario</button>
 		  		</div>	
 	  		</div>
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 		  		<div class="form-group">
-		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='album' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='album';" class="custom-btn btn-block">Album</button>
+		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='album' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='album';" class="custom-btn btn-block">Apariencia</button>
+		  		</div>	
+	  		</div>
+	  		<div class="col-lg-2">
+		  		<div class="form-group">
+		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='Component' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='Component';" class="custom-btn btn-block">Componentes</button>
 		  		</div>	
 	  		</div>
 	  	</div>
   	<div class="row" ng-show="selected == 'album'">
-  		<image-uploader area="square" title="Galeria del producto" button-text="Cargar imagenes" ng-model="form.data.gallery"><image-uploader>
+    <fieldset class="col-lg-12 no-margin">
+        <legend class="text-center" style="font-size:14px!important;margin-bottom:5px;">Caracteristicas</legend>
+        <div class="col-lg-6">
+          <div class="form-group">
+          		<label>Color:
+
+
+          		</label>
+				<color-picker color="color" options="options" on-color-changed="colorChanged(newColor, oldColor)"></color-picker>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">  
+             
+          </div>
+        </div>
+    </fieldset>  		
+  	<image-uploader area="square" title="Galeria del producto" button-text="Cargar imagenes" ng-model="form.data.gallery"><image-uploader>
   	</div>
   	<div class="row" ng-show="selected == 'stock'">
 	  	<div class="col-lg-6">
@@ -161,9 +183,92 @@
 					<span class="form-input-message">Escribe las Etiquetas y presiona [ENTER].</span>
 			  	</div>				
 			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label>Embalaje</label>
+					<input type="number" placeholder="Embalaje" required class="form-control input-sm" ng-model="$parent.form.data.embalaje">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label>Cantidad</label>
+					<input type="number" placeholder="Cantidad" required class="form-control input-sm" ng-model="$parent.form.data.cantidad">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group">
+					<label>Unidade de Medida</label>
+					<selectize 
+						config="{maxItems:1, placeholder:'Unidad de Medida', labelField:'label', valueField :'value' }" 
+						options='[{"label":"K", "value":"K"}, {"label":"L", "value":"L"}, {"label":"M", "value":"M"}]' 
+						ng-model="$parent.form.data.unidadDeMedida">
+					</selectize>
+				</div>
+			</div>
 	  		</form>
 		</div>
+	<div class="row" ng-show="selected == 'Component'">
+		<div class="col-lg-4">
+			<div class="form-group">
+				 <producto-field 
+				  	key="_id"
+				  	id="product_field" 
+				  	label="producto"
+				  	on-enter="isEmpty()"
+				  	set-focus="focuset"
+				  	search-by="['idcomposed', 'refMixed', 'producto']"
+				  	set-object="$parent._productAddObj"
+				  	ng-model="$parent._productAdd">
+			  	<producto-field>
+	    	</div>
+		</div>
+		<div class="col-lg-12">
+		  	<div class="table-responsive">
+				<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Codigo</th>
+				        <th>Producto</th>
+				        <th>Cantidad</th>
+				        <th>Medida/Cantidad</th>
+				        <th>Base</th>
+				        <th>Base + Iva</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+	                  <td ng-show="!recordsProductos || recordsProductos.length == 0" colspan="6" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;{{'No se han agregado componentes aún;'}}</td>
+				      <tr pagination-id="ProductComponentEntity" dir-paginate="record in recordsProductos |filter:search |itemsPerPage: 5 ">
+				        <td>{{record.idcomposed}}</td>
+				        <td>{{record.producto}}</td>
+				        <td>
+			        	<input ng-change="onTypeQty()" type="number" ng-init="record.data.cantidad = 1;"  ng-model="record.data.cantidad" class="form-control input-sm" >				        	
+			        	</td>
+			        	<td>{{record.unidadDeMedida || 'no definida'}}</td>
+			        	<td>{{record.data.baseComponent || record.precio || 0  | currency:"$ "}}</td>
+			        	<td>{{record.data.baseIva || (record.precio + record.valor_iva) || 0  | currency:"$ "}}</td>
+				       	<td><button ng-click="removefromComponentList()" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;Quitar</button></td>
+				        <td></td>
+				      </tr>
+				      <tr ng-show="totalBase">
+				      	<td colspan="5" class="text-right"><strong>Total Base</strong></td>
+				      	<td colspan="6" class="text-left">{{totalBase || 0 | currency:"$ "}}</td>
+			      	  </tr>
+			      	  <tr ng-show="totalBaseIva">
+				      	<td colspan="5" class="text-right"><strong>Total Base + Iva</strong></td>
+				      	<td colspan="6" class="text-left">{{totalBaseIva || 0 | currency:"$ "}}</td>
+			      	  </tr>
+				    </tbody>
+				  </table>			  		
+		  	</div>				
+		</div>
+		<div class="col-lg-12">
+			<dir-pagination-controls class="pull-right" pagination-id="ProductComponentEntity"></dir-pagination-controls>
+		</div>
 	</div>
+	</div>
+
+
 	<div class="row" style="border: none;background-color: #000D11;color: #FFF;margin:0px;position: relative;
     bottom: -15px;">
 		<div class="col-lg-12">
@@ -175,6 +280,7 @@
 		  </div>			
 		</div>
 	</div>
+
     <div class="modal-footer custom-modal-footer" style="padding:0px;">
         <button type="button" style="height:40px;" class="custom-btn btn-block custom-btn-primary" ng-click="ok()">Agregar</button>
     </div>

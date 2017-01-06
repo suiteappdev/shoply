@@ -37,7 +37,8 @@
     "angular-preload-image": "*",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#^1.7.0",
     "jstree-bootstrap-theme": "https://github.com/orangehill/jstree-bootstrap-theme.git#^1.0.1",
-    "angular-ui-map": "^0.5.0"
+    "angular-ui-map": "^0.5.0",
+    "colorpicker": "https://github.com/bladepop/colorpicker.git"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -57,6 +58,12 @@
     "jstree-bootstrap-theme": {
       "main": [
         "dist/themes/proton/style.css"
+      ]
+    },
+    "colorpicker" : {
+      "main" : [
+        "dist/colorPicker.js",
+        "dist/colorPickerStyle.css"
       ]
     }
   }

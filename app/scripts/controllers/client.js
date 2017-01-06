@@ -65,7 +65,7 @@ angular.module('shoplyApp')
         });
   	}
 
-    $scope.edit = function(){
+    $scope.editForm = function(){
 
       switch(this.record.data.persona) {
           case "natural":

@@ -10,7 +10,7 @@
 angular.module('shoplyApp')
   .controller('ProductosCtrl',["$scope", "$rootScope", "modal", "api", "constants", "$state", function ($scope, $rootScope, modal, api, constants, $state) {
     $scope.Records = false; 
-
+    $scope.recordsProductos = [];
     $scope.load = function(){
       api.producto().get().success(function(res){
         $scope.records = res || [];
@@ -36,6 +36,69 @@ angular.module('shoplyApp')
             delete $scope.msg;
           }
         });
+      }
+    });
+
+    $scope.onTypeQty = function(){
+      this.record.data.baseComponent = (this.record.precio * this.record.data.cantidad); 
+      this.record.data.baseIva = (this.record.precio + this.record.valor_iva) * this.record.data.cantidad; 
+    }
+
+    $scope.totalizeBase = function(){
+        var _total = [];
+        var total = 0;
+
+        for (var i = 0; i < $scope.recordsProductos.length; i++) {
+            _total.push($scope.recordsProductos[i].data.baseComponent || $scope.recordsProductos[i].precio);
+        };
+
+
+        for (var y = 0; y < _total.length; y++) {
+            console.log("y", _total[y])
+            total = (total + _total[y])
+        };
+
+        $scope.totalBase = total;
+    }
+
+    $scope.totalizeBaseIva = function(){
+        var _total = [];
+        var total = 0;
+
+        for (var i = 0; i < $scope.recordsProductos.length; i++) {
+            _total.push($scope.recordsProductos[i].data.baseIva || ($scope.recordsProductos[i].precio + $scope.recordsProductos[i].valor_iva) * $scope.recordsProductos[i].data.cantidad || 0);
+        };
+
+
+        for (var y = 0; y < _total.length; y++) {
+            console.log("y", _total[y])
+            total = (total + _total[y])
+        };
+
+        $scope.totalBaseIva = total;
+    }
+
+    $scope.options = ['transparent','#FF8A80', '#FFD180', '#FFFF8D', '#CFD8DC', '#80D8FF', '#A7FFEB', '#CCFF90'];
+    $scope.color = '#FF8A80';
+
+    $scope.colorChanged = function(newColor, oldColor) {
+        console.log('from ', oldColor, ' to ', newColor);
+    }
+
+    $scope.$watch('recordsProductos', function(n, o){
+      if(n){
+          $scope.totalizeBase();
+          $scope.totalizeBaseIva();
+      }
+    }, true);
+
+    $scope.removefromComponentList = function(){
+      $scope.recordsProductos.splice($scope.recordsProductos.indexOf(this.record), 1);
+    }
+
+    $scope.$watch('_productAdd', function(n, o){
+      if(n){
+            $scope.recordsProductos.push($scope._productAddObj);
       }
     });
 
@@ -214,7 +277,7 @@ angular.module('shoplyApp')
             sweetAlert("No Existen Bodegas", "Debe existir almenos una bodega", "error");
             return ;
           }else{
-             window.modal = modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+             window.modal = modal.show({templateUrl : 'views/productos/agregar-producto.html', size :'lg', scope: $scope, backdrop:'static'}, function($scope){
                   if($scope.formProducto.$invalid){
                        modal.incompleteForm();
                       return;
