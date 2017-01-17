@@ -60,8 +60,7 @@
 					      <tr  
 					      dir-paginate="record in records | 
 						      filter:search | 
-						      filter:{_category: {_id : filter._category} } | 
-						      filter:{_iva : { _id : filter._iva} } |
+						      filter:{_category: {_id : filter._category}} | 
 						      itemsPerPage: 5 " 
 					      pagination-id="productosEntity">
 					        <td><span class="label label-primary">{{record.id}}</span></td>

@@ -11,6 +11,8 @@ angular.module('shoplyApp')
   .controller('ProductosCtrl',["$scope", "$rootScope", "modal", "api", "constants", "$state", function ($scope, $rootScope, modal, api, constants, $state) {
     $scope.Records = false; 
     $scope.recordsProductos = [];
+    $scope.recordsServices = [];
+
     $scope.load = function(){
       api.producto().get().success(function(res){
         $scope.records = res || [];
@@ -61,6 +63,23 @@ angular.module('shoplyApp')
         $scope.totalBase = total;
     }
 
+    $scope.totalizeBaseServices = function(){
+        var _total = [];
+        var total = 0;
+
+        for (var i = 0; i < $scope.recordsServices.length; i++) {
+            _total.push($scope.recordsServices[i].data.baseComponent || $scope.recordsServices[i].precio);
+        };
+
+
+        for (var y = 0; y < _total.length; y++) {
+            console.log("y", _total[y])
+            total = (total + _total[y])
+        };
+
+        $scope.totalBaseService = total;
+    }
+
     $scope.totalizeBaseIva = function(){
         var _total = [];
         var total = 0;
@@ -99,6 +118,24 @@ angular.module('shoplyApp')
     $scope.$watch('_productAdd', function(n, o){
       if(n){
             $scope.recordsProductos.push($scope._productAddObj);
+      }
+    });
+
+    //service watcher
+    $scope.$watch('recordsServices', function(n, o){
+      if(n){
+          $scope.totalizeBaseServices();
+          $scope.form.data.precio  =  $scope.totalBaseService;
+      }
+    }, true);
+
+    $scope.removeServicefromComponentList = function(){
+      $scope.recordsServices.splice($scope.recordsServices.indexOf(this.record), 1);
+    }
+
+    $scope.$watch('_serviceAdd', function(n, o){
+      if(n){
+            $scope.recordsServices.push($scope._serviceAddObj);
       }
     });
 

@@ -328,38 +328,27 @@ angular.module('shoplyApp')
                   $scope.form.data.change = $scope.$$childTail.change;
                   $scope.form.data.received = $scope.$$childTail.received;
                   $scope.form.data._grocery = $scope._grocery;
-
                   $scope.form.data.descuentoGlobal = $scope.gdiscount || 0;
                   $scope.form.data.valorDescuentoGlobal = $scope.vgdescuento;
                   $scope.form._payments = $scope.paymentMethods;
                   $scope.form.data.descuento = 0;
                   $scope.form.data.tipo = $scope.pedido.data.tipo;
-
-                  $scope.form.shoppingCart = $scope.records.map(function(o){
-                      delete o.$order;
-
-                      if(!o.descuento){
-                        o.descuento = 0;
-                      }
-
-                      $scope.form.data.descuento = ($scope.form.data.descuento + parseInt(o.descuento || 0))
-                      return o;
-                  });
-
                   $scope.form.data.estado = as;
                   
-                  api.pedido($stateParams.pedido).put($scope.form).success(function(res){
+                  api.facturacion().post($scope.form).success(function(res){
                     if(res){
-                        api.pedido($stateParams.pedido).get().success(function(response){
-                            delete $scope.form;
-                            delete $scope.rs;
-                            $scope.records.length = 0;
-                            response.createdAt = moment(new Date(response.createdAt)).format('lll');
-                            $scope.printA(response);
-                            $scope.$close();
-                            sweetAlert.swal("Listo.", "Actualización realizada correctamente.", "success");
-                            $rootScope.$emit("focusOn", true);                          
-                        });
+                        delete $scope.form;
+                        delete $scope.rs;
+                        $scope.records.length = 0;
+                        res.createdAt = moment(new Date(res.createdAt)).format('lll');
+                        $scope.printA(res);
+                        $scope.$close();
+                        sweetAlert.swal("Listo.", "Venta realizada correctamente.", "success");
+                        $rootScope.$emit("focusOn", true);
+                        api.pedido($stateParams.pedido).add("/facturado").put().success(function(res){
+                          console.log(res)
+                          toastr.success('Pedido Actualizado');
+                        });                         
                     }
                   });
               }else{
@@ -457,6 +446,24 @@ angular.module('shoplyApp')
 
     $scope.$watch('_product', function(n, o){
       if(n){
+        if($scope._productObj.negativo){
+              $scope.records.push(angular.copy(angular.extend($scope._productObj,
+               { cantidad : 1,
+                precio_baseFacturado : ($scope._productObj.precio + $scope._productObj.valor_utilidad),
+                precio_VentaFacturado : $scope._productObj.precio_venta,
+                ivaFacturado : ($scope._productObj.precio_venta - ($scope._productObj.precio + $scope._productObj.valor_utilidad)),
+                total : $scope._productObj.precio_venta, 
+                descuento : 0,
+                vlUnicoD : 0,
+                vlUnicoP : $scope._productObj.precio_venta
+
+              })));
+              //$scope.total = shoppingCart.totalize($scope.records);
+              delete $scope._product;
+
+              return;  
+        }
+
         api.cantidades().add('stock/' + $scope._grocery).add('/' +  n).get().success(function(res){
             if(res.length == 0){
                 toastr.warning("este producto no esta disponible en bodega");

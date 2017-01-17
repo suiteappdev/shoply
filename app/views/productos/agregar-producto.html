@@ -120,11 +120,58 @@
 		      <span class="form-input-message">Valor en $ del impuesto.</span>
 		  </div>
 	  	</div>
+		<div class="col-lg-4">
+			<div class="form-group">
+				 <service-field 
+				  	key="_id"
+				  	id="product_field" 
+				  	label="producto"
+				  	on-enter="isEmpty()"
+				  	set-focus="focuset"
+				  	search-by="['idcomposed', 'refMixed', 'producto']"
+				  	set-object="$parent._serviceAddObj"
+				  	ng-model="$parent._serviceAdd">
+			  	<service-field>
+	    	</div>
+		</div>
 		<div class="col-lg-12">
-            <label class="text-dark">
-            <input icheck type="checkbox"  ng-model="$parent.form.data.esNegativo" class="info-bounce">
-                Vender en negativo.
-            </label>
+		  	<div class="table-responsive">
+				<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Codigo</th>
+				        <th>Servicio</th>
+				        <th>Cantidad</th>
+				        <th>Medida/Cantidad</th>
+				        <th>Base</th>
+				        <th>Base + Iva</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+	                  <td ng-show="!recordsServices || recordsServices.length == 0" colspan="6" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;{{'No se han agregado servicios aún;'}}</td>
+				      <tr pagination-id="ProductComponentEntity" dir-paginate="record in recordsServices |filter:search |itemsPerPage: 5 ">
+				        <td>{{record.idcomposed}}</td>
+				        <td>{{record.producto}}</td>
+				        <td>
+			        	<input ng-change="onTypeQty()" type="number" ng-init="record.data.cantidad = 1;"  ng-model="record.data.cantidad" class="form-control input-sm" >				        	
+			        	</td>
+			        	<td>{{record.unidadDeMedida || 'no definida'}}</td>
+			        	<td>{{record.data.baseComponent || record.precio || 0  | currency:"$ "}}</td>
+			        	<td>{{record.data.baseIva || (record.precio + record.valor_iva) || 0  | currency:"$ "}}</td>
+				       	<td><button ng-click="removeServicefromComponentList()" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;Quitar</button></td>
+				        <td></td>
+				      </tr>
+				      <tr ng-show="totalBaseService">
+				      	<td colspan="5" class="text-right"><strong>Total Base</strong></td>
+				      	<td colspan="6" class="text-left">{{totalBaseService || 0 | currency:"$ "}}</td>
+			      	  </tr>
+				    </tbody>
+				  </table>			  		
+		  	</div>				
+		</div>
+		<div class="col-lg-12">
+			<dir-pagination-controls class="pull-right" pagination-id="ProductComponentEntity"></dir-pagination-controls>
 		</div>
 	  	<div class="form-group">
 	  		
@@ -200,11 +247,17 @@
 					<label>Unidade de Medida</label>
 					<selectize 
 						config="{maxItems:1, placeholder:'Unidad de Medida', labelField:'label', valueField :'value' }" 
-						options='[{"label":"K", "value":"K"}, {"label":"L", "value":"L"}, {"label":"M", "value":"M"}]' 
+						options='[{"label":"K", "value":"K"}, {"label":"UND", "value":"UND"}, {"label":"L", "value":"L"}, {"label":"M", "value":"M"}]' 
 						ng-model="$parent.form.data.unidadDeMedida">
 					</selectize>
 				</div>
 			</div>
+			<div class="col-lg-12">
+	            <label class="text-dark">
+	            <input icheck type="checkbox"  ng-model="$parent.form.data.servicio" class="info-bounce">
+	                Producto Servicio.
+	            </label>
+			</div> 
 	  		</form>
 		</div>
 	<div class="row" ng-show="selected == 'Component'">
