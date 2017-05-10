@@ -37,6 +37,18 @@ html {
     background-color: rgba(0,0,0, 0.7);
 }
 
+.uib-datepicker-popup.dropdown-menu{
+    display: block;
+    float: none;
+    margin: 0;
+    padding: 5px;
+    background-color: white!important;
+}
+
+table.uib-daypicker:focus {
+    outline: none!important;
+}
+
 @media screen and (min-width: 768px) {
   .modal-lg{
       width:900px!important;

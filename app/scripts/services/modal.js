@@ -23,6 +23,7 @@ angular.module('shoplyApp')
 		            backdrop : params.backdrop,
 		            size: params.size || 'md',
 		            windowClass : params.windowClass,
+		            animation: false,
 		            scope : params.scope,
 		            controller :["$scope", function($scope){
 		                $scope.ok = function(){
@@ -38,6 +39,12 @@ angular.module('shoplyApp')
 		                }
 		            } ] 
 		        });
+
+				window.modal.result.then(function(){
+			          console.log("Modal Closed!!!");
+		      	}, function(){
+
+		     	 });
 
         	},
 

@@ -46,6 +46,11 @@ angular.module('shoplyApp')
       this.record.data.baseIva = (this.record.precio + this.record.valor_iva) * this.record.data.cantidad; 
     }
 
+    $scope.onTypeQtyEdit = function(){
+      this.record.data.baseComponent = (this.record.precio * this.record.data.cantidad); 
+      this.record.data.baseIva = (this.record.precio + this.record.valor_iva) * this.record.data.cantidad; 
+    }
+
     $scope.totalizeBase = function(){
         var _total = [];
         var total = 0;
@@ -97,6 +102,62 @@ angular.module('shoplyApp')
         $scope.totalBaseIva = total;
     }
 
+  $scope.onTypeQtyEdit = function(){
+      this.record.data.baseComponent = (this.record.precio * this.record.data.cantidad); 
+      this.record.data.baseIva = (this.record.precio + this.record.valor_iva) * this.record.data.cantidad; 
+    }
+
+    $scope.totalizeBaseEdit = function(){
+        var _total = [];
+        var total = 0;
+
+        for (var i = 0; i < $scope.recordsProductos.length; i++) {
+            _total.push($scope.recordsProductos[i].data.baseComponent || $scope.recordsProductos[i].precio);
+        };
+
+
+        for (var y = 0; y < _total.length; y++) {
+            console.log("y", _total[y])
+            total = (total + _total[y])
+        };
+
+        $scope.totalBase = total;
+    }
+
+    $scope.totalizeBaseServicesEdit = function(){
+        var _total = [];
+        var total = 0;
+
+        for (var i = 0; i < $scope.recordsServices.length; i++) {
+            _total.push($scope.recordsServices[i].data.baseComponent || $scope.recordsServices[i].precio);
+        };
+
+
+        for (var y = 0; y < _total.length; y++) {
+            console.log("y", _total[y])
+            total = (total + _total[y])
+        };
+
+        $scope.totalBaseService = total;
+    }
+
+    $scope.totalizeBaseIvaEdit = function(){
+        var _total = [];
+        var total = 0;
+
+        for (var i = 0; i < $scope.recordsProductos.length; i++) {
+            _total.push($scope.recordsProductos[i].data.baseIva || ($scope.recordsProductos[i].precio + $scope.recordsProductos[i].valor_iva) * $scope.recordsProductos[i].data.cantidad || 0);
+        };
+
+
+        for (var y = 0; y < _total.length; y++) {
+            console.log("y", _total[y])
+            total = (total + _total[y])
+        };
+
+        $scope.totalBaseIva = total;
+    } 
+
     $scope.options = ['transparent','#FF8A80', '#FFD180', '#FFFF8D', '#CFD8DC', '#80D8FF', '#A7FFEB', '#CCFF90'];
     $scope.color = '#FF8A80';
 
@@ -109,17 +170,54 @@ angular.module('shoplyApp')
           $scope.totalizeBase();
           $scope.totalizeBaseIva();
       }
-    }, true);
+    });
+
+    $scope.$watch('recordsProductosEdit', function(n, o){
+      if(n){
+          $scope.totalizeBaseEdit();
+          $scope.totalizeBaseIvaEdit();
+      }
+    });
 
     $scope.removefromComponentList = function(){
       $scope.recordsProductos.splice($scope.recordsProductos.indexOf(this.record), 1);
+    }    
+
+    $scope.removefromComponentListEdit = function(){
+      $scope.recordsProductosEdit.splice($scope.recordsProductosEdit.indexOf(this.record), 1);
     }
 
     $scope.$watch('_productAdd', function(n, o){
       if(n){
             $scope.recordsProductos.push($scope._productAddObj);
+            $scope.form.data.component = $scope.recordsProductos.map(function(component){
+              return {
+                _id : component._id,
+                cantidad : component.cantidad
+              }
+            });
       }
-    });
+    }, true);
+
+    $scope.$watch('_productAddEdit', function(n, o){
+      if(n){
+            $scope.recordsProductosEdit.push($scope._productAddObjEdit);
+            $scope.formEdit.data.component = $scope.recordsProductosEdit.map(function(component){
+              return {
+                _id : component._id,
+                cantidad : component.cantidad
+              }
+            });
+      }
+    }, true);
+
+    //service watcher
+    $scope.$watch('recordsServicesEdit', function(n, o){
+      if(n){
+          $scope.totalizeBaseServicesEdit();
+          $scope.formEdit.data.precio  =  $scope.totalBaseServiceEdit;
+      }
+    }, true);
 
     //service watcher
     $scope.$watch('recordsServices', function(n, o){
@@ -136,8 +234,25 @@ angular.module('shoplyApp')
     $scope.$watch('_serviceAdd', function(n, o){
       if(n){
             $scope.recordsServices.push($scope._serviceAddObj);
+            $scope.form.data.services = $scope.recordsServices.map(function(services){
+              return {
+                _id : services._id
+              }
+            });
       }
     });
+
+    $scope.$watch('_serviceAddEdit', function(n, o){
+      if(n){
+            $scope.recordsServicesEdit.push($scope._serviceAddObjEdit);
+            $scope.formEdit.data.services = $scope.recordsServicesEdit.map(function(services){
+              return {
+                _id : services._id
+              }
+            });
+      }
+    });
+
 
     $scope.getByProduct = function(){
         $scope.total = 0;
@@ -189,9 +304,23 @@ angular.module('shoplyApp')
 
               return _obj;
           });
-      } 
+      }
 
-      window.modal = modal.show({templateUrl : 'views/productos/editar_producto.html', size :'md', scope: $scope, backdrop:'static'}, function($scope){
+      if($scope.formEdit.data.component){
+        $scope.recordsProductosEdit = $scope.formEdit.data.component.map(function(o){
+              var _obj = new Object();
+              _obj = o._id.data;
+              _obj.iva = o._id._iva;
+              _obj._reference = o._id._reference;
+              _obj._category = o._id._category;
+              _obj._id = o._id._id;
+              _obj.idcomposed = o._id.idcomposed;
+
+              return _obj
+        });        
+      }
+
+      window.modal = modal.show({templateUrl : 'views/productos/editar_producto.html', size :'lg', scope: $scope, backdrop:'static'}, function($scope){
             if($scope.formProducto.$invalid){
                  modal.incompleteForm();
                 return;
@@ -305,8 +434,6 @@ angular.module('shoplyApp')
 
       });          
     }
-
-
 
     $scope.create = function(){
       api.bodega().get().success(function(res){

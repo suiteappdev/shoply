@@ -85,7 +85,7 @@ angular.module('shoplyApp')
               $rootScope.user._company = res;
               storage.update('user', $rootScope.user);
               toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
-              $state.go('dashboard');
+              $state.go('dashboard', {}, {reload: true});
             });
           });       
     } 
@@ -106,7 +106,7 @@ angular.module('shoplyApp')
                 toastr.success('Conectado con: ' + res.data.empresa , {timeOut: 10000});
                 $scope.loading = false;
                 $scope.$close();
-                $state.go('dashboard');
+               $state.go('dashboard', {}, {reload: true});
               }, 5000);
             });     
          });        

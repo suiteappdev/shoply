@@ -60,15 +60,15 @@
 					      <tr  
 					      dir-paginate="record in records | 
 						      filter:search | 
-						      filter:{_category: {_id : filter._category}} | 
+						      filter:{_category: filter._category ? {_id : filter._category} : '!'} |
 						      itemsPerPage: 5 " 
 					      pagination-id="productosEntity">
 					        <td><span class="label label-primary">{{record.id}}</span></td>
 					        <td>{{record.data.producto}}</td>
-					        <td>{{record._category.text}}</td>
+					        <td>{{record._category.text || 'Sin Categoria'}}</td>
 					        <td>{{record.data.precio  | currency:"$ "}}</td>
 					        <td>{{record.data.precio_venta  | currency:"$ "}}</td>
-					        <td>{{record.data.utilidad + '%'}}</td>
+					        <td>{{record.data.utilidad ? record.data.utilidad   + '%' : '0%'}}</td>
 					        <td>{{record.data.valor_utilidad  || 0 | currency:"$ "}}</td>
 					        <td>{{record.data.valor_iva || 0 | currency:"$ "}}</td>
 					        <td>{{record.data.stockMin || 0}}</td>

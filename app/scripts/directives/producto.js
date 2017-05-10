@@ -34,7 +34,7 @@ angular.module('shoplyApp')
         create:false,
   		  valueField: $scope.key,
   		  labelField: $scope.label,
-  		  placeholder: 'Producto',
+  		  placeholder: $scope.placeholder || 'Producto',
         maxItems: 1,
         searchField : $scope.searchBy,
         maxOptions : 1,
@@ -43,9 +43,14 @@ angular.module('shoplyApp')
         setFocus : $scope.setFocus,
         render: {
               option: function(item, escape) {
-                  return '<div><img style="border:2px solid #efefef;width:50px;height:50px;margin-right:5px;" src="'+item.gallery[0].URL+'" />' +
+                  if(item.gallery && item.gallery.length > 0){
+                    return '<div><img style="border:2px solid #efefef;width:50px;height:50px;margin-right:5px;" src="'+item.gallery[0].URL+'" />' +
                          '<span>'+escape(item.producto)+'</span></div>'
-              }
+                  }else{
+                    return '<div><img style="border:2px solid #efefef;width:50px;height:50px;margin-right:5px;" src="images/missing-product.png" />' +
+                         '<span>'+escape(item.producto)+'</span></div>' 
+                  }
+            }
         },
 
         onItemAdd : function(value, $item){
@@ -70,7 +75,8 @@ angular.module('shoplyApp')
         setFocus : "=",
         key : "@",
         label : "@",
-        searchBy:"="
+        searchBy:"=",
+        placeholder:"@"
       },
       controller :ctrl,
       link: function postLink(scope, element, attrs) {

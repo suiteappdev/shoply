@@ -30,7 +30,8 @@ angular
     'vcRecaptcha',
     'cfp.hotkeys',
     'ui.map',
-    'tb-color-picker'
+    'tb-color-picker',
+    'ngJsonExportExcel'
   ])
   .config(function ($stateProvider, ipnConfig,  $httpProvider, constants, $urlRouterProvider) {
         ipnConfig.defaultCountry = 'co'
@@ -48,9 +49,9 @@ angular
                    $httpProvider.defaults.headers.common['x-shoply-user'] =  angular.fromJson(window.localStorage.user) ?  angular.fromJson(window.localStorage.user)._id : null  ; // common
                    
                    if(angular.fromJson(window.localStorage.user)._company){
-                      $httpProvider.defaults.headers.common['x-shoply-company']  = angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company || angular.fromJson(localStorage.company)._id;
+                      $httpProvider.defaults.headers.common['x-shoply-company']  = angular.fromJson(window.localStorage.user)._company._id ||  angular.fromJson(window.localStorage.user)._company || angular.fromJson(localStorage.company)._id ||  $rootScope.user._company;
                    }else if(localStorage.company){
-                      $httpProvider.defaults.headers.common['x-shoply-company']  =  angular.fromJson(localStorage.company)._id;
+                      $httpProvider.defaults.headers.common['x-shoply-company']  =  angular.fromJson(localStorage.company)._id ||  $rootScope.user._company;
                    }
                 }
                  

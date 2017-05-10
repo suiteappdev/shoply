@@ -5,24 +5,29 @@
     </div>
   	<div class="modal-body" ng-init="selected ='basic'">
 	  	<div class="row">
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 	  			<div class="form-group">
 	  				<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='basic' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='basic'" class="custom-btn btn-block">Información Basica</button>	
 	  			</div>
 	  		</div>
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 		  		<div class="form-group">
 		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='prices' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='prices';" class="custom-btn btn-block">Precios</button>
 		  		</div>	
 	  		</div>
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 		  		<div class="form-group">
 		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='stock' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='stock';" class="custom-btn btn-block">Inventario</button>
 		  		</div>	
 	  		</div>
-	  		<div class="col-lg-3">
+	  		<div class="col-lg-2">
 		  		<div class="form-group">
 		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;"  ng-class="selected=='album' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='album';" class="custom-btn btn-block">Apariencia</button>
+		  		</div>	
+	  		</div>
+	  		<div class="col-lg-2">
+		  		<div class="form-group">
+		  			<button style="border-top-right-radius: 10px;border-top-left-radius: 10px;" ng-class="selected=='Component' ? 'custom-btn-primary' : 'custom-btn-default'" ng-click="selected='Component';" class="custom-btn btn-block">Componentes</button>
 		  		</div>	
 	  		</div>
 	  	</div>
@@ -103,6 +108,66 @@
 			</div>
   		</div>
   	</div>
+	<div class="row" ng-show="selected == 'Component'">
+		<div class="col-lg-4">
+			<div class="form-group">
+				 <producto-field 
+				  	key="_id"
+				  	id="product_field" 
+				  	label="producto"
+				  	placeholder="Componente"
+				  	on-enter="isEmpty()"
+				  	set-focus="focuset"
+				  	search-by="['idcomposed', 'refMixed', 'producto']"
+				  	set-object="$parent._productAddObjEdit"
+				  	ng-model="$parent._productAddEdit">
+			  	<producto-field>
+	    	</div>
+		</div>
+		<div class="col-lg-12">
+		  	<div class="table-responsive">
+				<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Codigo</th>
+				        <th>Componente</th>
+				        <th>Cantidad</th>
+				        <th>Medida/Cantidad</th>
+				        <th>Base</th>
+				        <th>Base + Iva</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+	                  <td ng-show="!recordsProductosEdit || recordsProductosEdit.length == 0" colspan="6" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;{{'No se han agregado componentes aún;'}}</td>
+				      <tr pagination-id="ProductComponentEntity" dir-paginate="record in recordsProductosEdit |filter:search |itemsPerPage: 5 ">
+				        <td>{{record.idcomposed}}</td>
+				        <td>{{record.producto}}</td>
+				        <td>
+			        	<input ng-change="onTypeQtyEdit()" type="number" ng-init="record.data.cantidad = 1;"  ng-model="record.cantidad" class="form-control input-sm" >				        	
+			        	</td>
+			        	<td>{{record.unidadDeMedida || 'no definida'}}</td>
+			        	<td>{{record.data.baseComponent || record.precio || 0  | currency:"$ "}}</td>
+			        	<td>{{record.data.baseIva || (record.precio + record.valor_iva) || 0  | currency:"$ "}}</td>
+				       	<td><button ng-click="removefromComponentListEdit()" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;Quitar</button></td>
+				        <td></td>
+				      </tr>
+				      <tr ng-show="totalBase">
+				      	<td colspan="5" class="text-right"><strong>Total Base</strong></td>
+				      	<td colspan="6" class="text-left">{{totalBaseEdit || 0 | currency:"$ "}}</td>
+			      	  </tr>
+			      	  <tr ng-show="totalBaseIva">
+				      	<td colspan="5" class="text-right"><strong>Total Base + Iva</strong></td>
+				      	<td colspan="6" class="text-left">{{totalBaseIvaEdit || 0 | currency:"$ "}}</td>
+			      	  </tr>
+				    </tbody>
+				  </table>			  		
+		  	</div>				
+		</div>
+		<div class="col-lg-12">
+			<dir-pagination-controls class="pull-right" pagination-id="ProductComponentEntity"></dir-pagination-controls>
+		</div>
+	</div>
   	<div class="row" ng-show="selected == 'prices'">
 	  	<div class="col-lg-4">
 		  <div class="form-group">
@@ -134,9 +199,63 @@
 			 <input type="number" disabled placeholder="Valor iva" required class="form-control input-sm" ng-model="$parent.formEdit.data.valor_iva">
 		  </div>
 	  	</div>
+	  	<div class="form-group"></div>
+		<div class="col-lg-4">
+			<div class="form-group">
+				 <service-field 
+				  	key="_id"
+				  	id="product_field" 
+				  	label="producto"
+				  	on-enter="isEmpty()"
+				  	set-focus="focuset"
+				  	search-by="['idcomposed', 'refMixed', 'producto']"
+				  	set-object="$parent._serviceAddObj"
+				  	ng-model="$parent._serviceAdd">
+			  	<service-field>
+	    	</div>
+		</div>
+		<div class="col-lg-12">
+		  	<div class="table-responsive">
+				<table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>Codigo</th>
+				        <th>Servicio</th>
+				        <th>Cantidad</th>
+				        <th>Medida/Cantidad</th>
+				        <th>Base</th>
+				        <th>Base + Iva</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+	                  <td ng-show="!recordsServices || recordsServices.length == 0" colspan="6" style="text-align:center!important;"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;{{'No se han agregado servicios aún;'}}</td>
+				      <tr pagination-id="ProductComponentEntity" dir-paginate="record in recordsServices |filter:search |itemsPerPage: 5 ">
+				        <td>{{record.idcomposed}}</td>
+				        <td>{{record.producto}}</td>
+				        <td>
+			        	<input ng-change="onTypeQty()" type="number" ng-init="record.data.cantidad = 1;"  ng-model="record.data.cantidad" class="form-control input-sm" >				        	
+			        	</td>
+			        	<td>{{record.unidadDeMedida || 'no definida'}}</td>
+			        	<td>{{record.data.baseComponent || record.precio || 0  | currency:"$ "}}</td>
+			        	<td>{{record.data.baseIva || (record.precio + record.valor_iva) || 0  | currency:"$ "}}</td>
+				       	<td><button ng-click="removeServicefromComponentList()" type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;Quitar</button></td>
+				        <td></td>
+				      </tr>
+				      <tr ng-show="totalBaseService">
+				      	<td colspan="5" class="text-right"><strong>Total Base</strong></td>
+				      	<td colspan="6" class="text-left">{{totalBaseService || 0 | currency:"$ "}}</td>
+			      	  </tr>
+				    </tbody>
+				  </table>			  		
+		  	</div>				
+		</div>
+		<div class="col-lg-12">
+			<dir-pagination-controls class="pull-right" pagination-id="ProductComponentEntity"></dir-pagination-controls>
+		</div>
 	  	<div class="form-group">
 	  		
-	  	</div>	  		
+	  	</div>  		
   	</div>
   	<div ng-show="selected=='basic'" class="row">
 	  	<form name="formProducto" novalidate ng-init="$parent.form = null">
