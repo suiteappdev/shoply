@@ -215,7 +215,9 @@ angular.module('shoplyApp')
     $scope.$watch('recordsServicesEdit', function(n, o){
       if(n){
           $scope.totalizeBaseServicesEdit();
-          $scope.formEdit.data.precio  =  $scope.totalBaseServiceEdit;
+          if($scope.formEdit && $scope.formEdit.data){
+            $scope.formEdit.data.precio  =  $scope.totalBaseServiceEdit;
+          }
       }
     }, true);
 
@@ -223,7 +225,9 @@ angular.module('shoplyApp')
     $scope.$watch('recordsServices', function(n, o){
       if(n){
           $scope.totalizeBaseServices();
-          $scope.form.data.precio  =  $scope.totalBaseService;
+          if($scope.form && $scope.form.data){
+              $scope.form.data.precio  =  $scope.totalBaseService;
+          }
       }
     }, true);
 
@@ -461,6 +465,8 @@ angular.module('shoplyApp')
                   });
               });            
           }
+
+          $scope.$apply();
       });
 
     }
